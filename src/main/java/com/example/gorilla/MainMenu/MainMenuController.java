@@ -37,10 +37,15 @@ public class MainMenuController {
         return Double.parseDouble(gravityField.getText());
     }
 
-    public void startGame(ActionEvent e) {
+    public void startGame(ActionEvent event) throws IOException {
         System.out.println(getWidth()+"x"+getHeight());
         System.out.println(getGravity());
-
+        Parent root = FXMLLoader.load(getClass().getResource("/baseLevel.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root,getWidth(),getHeight());
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 
     public void switchToPlayGameScreen(ActionEvent event) throws IOException {
