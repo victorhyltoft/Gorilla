@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Projectile {
     // Constants
     private static final double GRAVITY = 9.81;
-    private static final double RADIANS = Math.PI/180;
     private static final int MAX_ITERATIONS = 2000;
     private static final Double TIME_INTERVAL = 0.1;
 
@@ -19,14 +18,25 @@ public class Projectile {
     public int angle;
     public int speed;
     public ArrayList<Point2D> trajectory;
+    public double sceneHeight;
 
 
-    // Constructor 1 (Handles possible textures)
+    // Constructor 1
     public Projectile(Point2D startposition, int angle, int speed) {
         this.startposition = startposition;
         this.angle = angle % 90;
         this.speed = Math.max(speed, 0);
         this.trajectory = new ArrayList<>();
+        calculateTrajectory();
+    }
+
+    // Constructor 2
+    public Projectile(Point2D startposition, int angle, int speed, double sceneHeight) {
+        this.startposition = startposition;
+        this.angle = angle % 90;
+        this.speed = Math.max(speed, 0);
+        this.trajectory = new ArrayList<>();
+        this.sceneHeight = sceneHeight;
         calculateTrajectory();
     }
 
@@ -41,24 +51,33 @@ public class Projectile {
      */
     public void calculateTrajectory() {
 
-        double y;
+        final double GRAVITY = 9.81;
+
+        double x = this.startposition.getX();
+        double y = this.startposition.getY();
+        double initialX = x;
+        double initialY = y;
+        double velocity = this.speed; // TODO : Add direction
+        double xVelocity = velocity * Math.cos(Math.toRadians(angle));
+        double yVelocity = velocity * Math.sin(Math.toRadians(angle));
         double time = 0;
-        // Minimize computational costs
-        final double result1 = Math.tan(angle * RADIANS);
-        final double result2 = (2*this.speed*this.speed*Math.pow(Math.cos(angle * RADIANS),2));
 
         for(int i = 0; i < MAX_ITERATIONS; i++){
             time += TIME_INTERVAL;
-            y = this.startposition.getY() + time*result1 - (GRAVITY*time*time)/result2;
-            // Stop the calculation if the trajectory is reaches the ground (x,0)
-            if (y <= 0) {
+            x = initialX + xVelocity * time;
+            y = initialY - (yVelocity * time - (GRAVITY / 2) * time * time);
+
+            // Don't render if projectile is out of bounds
+            System.out.println(y);
+            if (y >= (sceneHeight)) {
                 break;
             }
-            trajectory.add(new Point2D(time, y));
+
+            trajectory.add(new Point2D(x, y));
+
         }
 
     }
-
 
 
 

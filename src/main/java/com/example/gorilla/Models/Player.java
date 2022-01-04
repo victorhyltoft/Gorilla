@@ -17,7 +17,18 @@ public class Player {
     }
 
     // Constructor 2
-    public Player(String name) {
+    public Player(String name, Point2D location) {
         this.name = name;
+        this.location = location;
+        this.wins = 0;
+        this.texture = "default";
+    }
+
+
+
+    // Winning animation
+    public void playWinAnimation() {
+        System.out.println(name + " has won the round");
+        // TODO
     }
 }
