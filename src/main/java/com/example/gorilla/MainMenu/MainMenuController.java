@@ -1,4 +1,4 @@
-package com.example.gorilla;
+package com.example.gorilla.MainMenu;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Controller {
+public class MainMenuController {
     @FXML
     private TextField heightField;
     @FXML
