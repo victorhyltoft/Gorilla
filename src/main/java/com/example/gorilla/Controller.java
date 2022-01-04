@@ -16,6 +16,8 @@ public class Controller {
     private TextField heightField;
     @FXML
     private TextField widthField;
+    @FXML
+    private TextField gravityField;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -25,16 +27,19 @@ public class Controller {
 
     public int getWidth() {
         return Integer.parseInt(widthField.getText());
-
     }
 
     public int getHeight() {
         return Integer.parseInt(heightField.getText());
+    }
 
+    public double getGravity() {
+        return Double.parseDouble(gravityField.getText());
     }
 
     public void startGame(ActionEvent e) {
         System.out.println(getWidth()+"x"+getHeight());
+        System.out.println(getGravity());
 
     }
 

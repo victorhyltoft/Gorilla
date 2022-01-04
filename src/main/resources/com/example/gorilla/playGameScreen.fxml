@@ -39,7 +39,7 @@
          <children>
             <TextField fx:id="heightField" GridPane.columnIndex="1" />
             <TextField fx:id="widthField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="gravityField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Insert width:" GridPane.rowIndex="1">
                <font>
                   <Font size="24.0" />
