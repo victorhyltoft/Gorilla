@@ -18,7 +18,7 @@ public class StartscreenInterface extends Application {
 
 
         stage.setScene(scene);
-        stage.setTitle("Gorillas");
+        stage.setTitle("SIMPGorillas");
         stage.show();
     }
 }
