@@ -1,4 +1,4 @@
-package com.example.gorilla.MainMenu;
+package com.example.gorilla;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
