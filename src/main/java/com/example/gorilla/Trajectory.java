@@ -3,9 +3,12 @@ package com.example.gorilla;
 import com.example.gorilla.Models.Player;
 import com.example.gorilla.Models.Projectile;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
@@ -18,33 +21,46 @@ public class Trajectory extends Application {
         stage.setWidth(500);
 
         // Initialize objects
-        Player Player = new Player("Some name", new Point2D(100, 300));
-        Projectile projectile = new Projectile(Player.location,45,40, stage.getHeight());
-
-        // Trajectory Group object
-        Group trajectory = trajectoryToGroup(projectile);
-
-        //Creating a Group object for the root
-        Group root = new Group(trajectory);
-
-        //Creating a scene object with the root object
-        Scene scene = new Scene(root, 500, 500);
+        Player Player = new Player("Some name", new Point2D(200, 300));
+        Projectile projectile = new Projectile(Player.location,60,30, stage.getHeight());
 
         //Setting title to the Stage
-        stage.setTitle("Drawing a trajectory");
+        Button button = new Button("Throw");
 
-        //Adding scene to the stage
+        Group root = new Group(button);
+        Scene scene = new Scene(root, 500, 500);
         stage.setScene(scene);
-
-        //Displaying the contents of the stage
+        stage.setTitle("Drawing a trajectory");
         stage.show();
+
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                clearTrajectory();
+                updateGame(stage, root, projectile);
+            }
+        });
+    }
+
+    public void updateGame(Stage stage, Group root, Projectile projectile) {
+        System.out.println("Updating view");
+        Group trajectory = trajectoryToGroup(projectile);
+        root.getChildren().add(trajectory);
+        Scene scene = root.getScene();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void clearTrajectory() {
+        System.out.println("Clearing trajectory");
+
+
     }
 
     /**
      * Groups the trajectory points from the projectile class, so it is possible to display
      * @return Group containing the trajectory in terms of QuadCurves
      */
-    public Group trajectoryToGroup(Projectile projectile) {
+    public static Group trajectoryToGroup(Projectile projectile) {
         Group trajectoryGroup = new Group();
         // Iterate over each point
         for (int i = 0; i < projectile.trajectory.size() - 2; i++) {

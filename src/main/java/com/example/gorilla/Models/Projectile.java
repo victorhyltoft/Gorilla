@@ -68,7 +68,6 @@ public class Projectile {
             y = initialY - (yVelocity * time - (GRAVITY / 2) * time * time);
 
             // Don't render if projectile is out of bounds
-            System.out.println(y);
             if (y >= (sceneHeight)) {
                 break;
             }

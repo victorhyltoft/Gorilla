@@ -1,5 +1,6 @@
 package com.example.gorilla;
 
+import com.example.gorilla.Models.Player;
 import com.example.gorilla.Models.Projectile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 
 public class GameController {
@@ -31,7 +33,6 @@ public class GameController {
     private int angle;
     private Stage stage;
     private Scene scene;
-    private Parent root;
 
     public int coinFlip() {
         Random random = new Random();
@@ -39,7 +40,6 @@ public class GameController {
     }
 
     public void bananaThrow() {
-        Trajectory trajectory = new Trajectory();
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
         int turn = coinFlip();
@@ -55,9 +55,17 @@ public class GameController {
         else {
             throwPosition = new Point2D(400,300);
         }
-        Projectile banana = new Projectile(throwPosition, angle, velocity);
-        trajectory.trajectoryToGroup(banana);
+
+        // Initialize objects
+
+        Projectile projectile = new Projectile(throwPosition,angle,velocity, stage.getHeight());
+
+        // Trajectory Group object
+        Group trajectory = Trajectory.trajectoryToGroup(projectile);
     }
+
+
+
     public void exit(ActionEvent e) {
         System.exit(0);
     }
@@ -77,7 +85,7 @@ public class GameController {
     public void startGame(ActionEvent event) throws IOException {
         System.out.println(getWidth()+"x"+getHeight());
         System.out.println(getGravity());
-        Parent root = FXMLLoader.load(getClass().getResource("baseLevel.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("baseLevel.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root,getWidth(),getHeight());
         stage.setScene(scene);
@@ -85,11 +93,23 @@ public class GameController {
         stage.show();
     }
 
+
     public void switchToPlayGameScreen(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("playGameScreen.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("playGameScreen.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
+    public void updateGame(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("playGameScreen.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+
 }
