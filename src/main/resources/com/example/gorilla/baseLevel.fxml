@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="background" fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -16,5 +19,29 @@
             <Image url="@textures/Gorilla.png" />
          </image>
       </ImageView>
+      <Text fill="WHITE" layoutX="3.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="3.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text id="Player1AngleText" fill="WHITE" layoutX="3.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Angle:" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="25.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
+      <TextField id="Player1AngleType" layoutX="50.0" layoutY="21.0" promptText="Type here" styleClass="text-field" stylesheets="@application.css" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font></TextField>
+      <Text id="Player1VelocityText" fx:id="Player1VelocityText" fill="WHITE" layoutX="13.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velocity:" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
+      <TextField id="Player1AngleType" layoutX="60.0" layoutY="31.0" promptText="Type here" styleClass="text-field" stylesheets="@application.css" AnchorPane.topAnchor="45.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

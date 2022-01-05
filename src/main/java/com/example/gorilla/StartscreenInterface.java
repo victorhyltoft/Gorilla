@@ -15,6 +15,7 @@ public class StartscreenInterface extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("startscreen.fxml"));
         Scene scene = new Scene(root);
+        stage.setResizable(false);
 
 
         stage.setScene(scene);
