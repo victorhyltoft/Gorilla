@@ -28,6 +28,7 @@ public class Projectile {
         this.speed = Math.max(speed, 0);
         this.trajectory = new ArrayList<>();
         calculateTrajectory();
+        System.out.println(trajectory);
     }
 
     // Constructor 2

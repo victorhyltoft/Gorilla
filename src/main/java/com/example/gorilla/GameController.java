@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,6 +32,8 @@ public class GameController {
     private Point2D throwPosition;
     private int velocity;
     private int angle;
+    private int width;
+    private int height;
     private Stage stage;
     private Scene scene;
 
@@ -39,10 +42,10 @@ public class GameController {
         return random.nextInt(2);
     }
 
-    public void bananaThrow() {
+    public Projectile bananaThrow() {
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
-        int turn = coinFlip();
+        int turn = 0;
         if (angle > 90) {
             angle = 90;
         }
@@ -58,24 +61,26 @@ public class GameController {
 
         // Initialize objects
 
-        Projectile projectile = new Projectile(throwPosition,angle,velocity, stage.getHeight());
-
+        Projectile projectile = new Projectile(throwPosition,angle,velocity);
+        System.out.println(throwPosition+","+angle+","+velocity);
         // Trajectory Group object
-        Group trajectory = Trajectory.trajectoryToGroup(projectile);
+        return projectile;
     }
 
 
 
-    public void exit(ActionEvent e) {
+    public void exit() {
         System.exit(0);
     }
 
     public int getWidth() {
-        return Integer.parseInt(widthField.getText());
+        width = Integer.parseInt(widthField.getText());
+        return width;
     }
 
     public int getHeight() {
-        return Integer.parseInt(heightField.getText());
+        height = Integer.parseInt(heightField.getText());
+        return height;
     }
 
     public double getGravity() {
@@ -93,7 +98,6 @@ public class GameController {
         stage.show();
     }
 
-
     public void switchToPlayGameScreen(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("playGameScreen.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -103,12 +107,23 @@ public class GameController {
     }
 
     public void updateGame(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("playGameScreen.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("baseLevel.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Group trajectory = Trajectory.trajectoryToGroup(bananaThrow());
+        ((AnchorPane) root).getChildren().add(trajectory);
+        scene = new Scene(root,width,height);
         stage.setScene(scene);
         stage.show();
     }
+
+   /* public void updateGame(Stage stage, Group root, Projectile projectile) {
+        System.out.println("Updating view");
+        Group trajectory = Trajectory.trajectoryToGroup(projectile);
+        root.getChildren().add(trajectory);
+        Scene scene = root.getScene();
+        stage.setScene(scene);
+        stage.show();
+    }*/
 
 
 
