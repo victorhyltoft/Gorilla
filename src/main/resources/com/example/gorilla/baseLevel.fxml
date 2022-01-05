@@ -44,6 +44,52 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </TextField>
-      <Button layoutX="19.0" layoutY="74.0" mnemonicParsing="false" onAction="#bananaThrow" prefHeight="24.0" prefWidth="64.0" text="Throw!" />
+      <Button id="Player1ThrowButton" layoutX="19.0" layoutY="74.0" mnemonicParsing="false" onAction="#bananaThrow" prefHeight="24.0" prefWidth="64.0" stylesheets="@application.css" text="Throw!" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="100.0" />
+      <Text id="Player1ScoreText" fx:id="Player1VelocityText1" fill="WHITE" layoutX="-1.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="75.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text id="Player1ScorePoints" fx:id="Player1VelocityText11" fill="WHITE" layoutX="9.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="75.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="435.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text id="Player2AngleText" fill="WHITE" layoutX="417.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Angle:" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
+      <TextField id="Player2AngleType" layoutX="324.0" layoutY="35.0" prefWidth="30.0" styleClass="text-field" stylesheets="@application.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </TextField>
+      <Text id="Player2VelocityText" fx:id="FXPlayer2VelocityText" fill="WHITE" layoutX="287.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velocity:" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
+      <TextField id="Player2AngleType" layoutX="334.0" layoutY="45.0" prefWidth="30.0" styleClass="text-field" stylesheets="@application.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </TextField>
+      <Button id="Player2ThrowButton" layoutX="293.0" layoutY="88.0" mnemonicParsing="false" onAction="#bananaThrow" prefHeight="24.0" prefWidth="64.0" stylesheets="@application.css" text="Throw!" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="100.0" />
+      <Text id="Player2ScoreText" fx:id="FXPlayer2ScoreText" fill="WHITE" layoutX="273.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="75.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
+      <Text id="Player2ScorePoints" fx:id="FXPlayer2ScorePoints" fill="WHITE" layoutX="19.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="75.0">
+         <font>
+            <Font name="Courier New Bold" size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
