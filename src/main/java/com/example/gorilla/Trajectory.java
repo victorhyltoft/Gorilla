@@ -2,6 +2,7 @@ package com.example.gorilla;
 
 import com.example.gorilla.Models.Player;
 import com.example.gorilla.Models.Projectile;
+import javafx.animation.PathTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Trajectory extends Application {
     static final int RADIUS = 3;
@@ -21,8 +23,8 @@ public class Trajectory extends Application {
         stage.setWidth(500);
 
         // Initialize objects
-        Player Player = new Player("Some name", new Point2D(200, 300));
-        Projectile projectile = new Projectile(Player.location,60,30, stage.getHeight());
+        Player Player = new Player("Some name", new Point2D(100, 300));
+        Projectile projectile = new Projectile(Player.location,45,40, stage.getHeight() - 10);
 
         //Setting title to the Stage
         Button button = new Button("Throw");
@@ -35,8 +37,7 @@ public class Trajectory extends Application {
 
         button.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                clearTrajectory();
-                updateGame(stage, root, projectile);
+                updateGameAlternative(stage, projectile);
             }
         });
     }
@@ -50,13 +51,66 @@ public class Trajectory extends Application {
         stage.show();
     }
 
-    public void clearTrajectory() {
-        System.out.println("Clearing trajectory");
+    public void updateGameAlternative(Stage stage, Projectile projectile) {
+        System.out.println("Getting path");
 
+        pathTest(stage, projectile);
 
+//        root.getChildren().add(trajectoryPath);
+//        Scene scene = root.getScene();
+//        stage.setScene(scene);
+//        stage.show();
     }
 
+    public void pathTest(Stage stage, Projectile projectile) {
+        //Drawing a Circle
+        Circle circle = new Circle();
+
+        //Setting the position of the circle
+        circle.setCenterX(300.0f);
+        circle.setCenterY(135.0f);
+
+        //Setting the radius of the circle
+        circle.setRadius(10.0);
+
+        //Setting the color of the circle
+        circle.setFill(Color.RED);
+
+        //Setting the stroke width of the circle
+        circle.setStrokeWidth(20);
+
+        PathTransition pathTransition = projectile.trajectoryAnimation(circle);
+
+//        pathTransition.setOnFinished(event -> {
+//            System.out.println("Animation finished (2)");
+//            // TODO : Reset the view and switch player
+//        });
+
+        //Playing the animation
+        pathTransition.play();
+        System.out.println("Animation beginning");
+
+        //Creating a Group object
+        Group root = new Group(circle);
+
+        //Creating a scene object
+        Scene scene = new Scene(root, 600, 300);
+
+        //Setting title to the Stage
+        stage.setTitle("Path transition example");
+
+        //Adding scene to the stage
+        stage.setScene(scene);
+
+        //Displaying the contents of the stage
+        stage.show();
+    }
+
+
+
+
     /**
+     * @deprecated
      * Groups the trajectory points from the projectile class, so it is possible to display
      * @return Group containing the trajectory in terms of QuadCurves
      */
@@ -81,18 +135,8 @@ public class Trajectory extends Application {
         return trajectoryGroup;
     }
 
-    // Alternative rendering
-//    public Group displayTrajectory2(Projectile projectile) {
-//        Group trajectory = new Group();
-//        for (Point2D point : projectile.trajectory) {
-//            // Add new circle-point to trajectory group
-//            trajectory.getChildren().add(new Circle(point.getX(), point.getY(), RADIUS));
-//        }
-//        return trajectory;
-//    }
 
-
-    public static void main(String args[]){
+    public static void main(String[] args){
         launch(args);
     }
 }  
