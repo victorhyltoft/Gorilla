@@ -24,17 +24,16 @@ public class Projectile {
     // Constructor 1
     public Projectile(Point2D startposition, int angle, int speed) {
         this.startposition = startposition;
-        this.angle = angle % 90;
+        this.angle = angle;
         this.speed = Math.max(speed, 0);
         this.trajectory = new ArrayList<>();
         calculateTrajectory();
-        System.out.println(trajectory);
     }
 
     // Constructor 2
     public Projectile(Point2D startposition, int angle, int speed, double sceneHeight) {
         this.startposition = startposition;
-        this.angle = angle % 90;
+        this.angle = angle;
         this.speed = Math.max(speed, 0);
         this.trajectory = new ArrayList<>();
         this.sceneHeight = sceneHeight;

@@ -35,6 +35,7 @@ public class Controller extends Application {
     private int angle;
     private int width;
     private int height;
+    private double gravity;
     private Stage stage;
     private Scene scene;
 
@@ -59,11 +60,13 @@ public class Controller extends Application {
      *
      */
     public void startGame2(ActionEvent event) throws IOException {
-        System.out.println(getWidth()+"x"+getHeight());
-        System.out.println(getGravity());
+        setGravity();
+        setHeight();
+        setWidth();
+        System.out.println(gravity + " " + height + " " + width);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("baseLevel.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root,getWidth(),getHeight());
+        scene = new Scene(root,width,height);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -86,7 +89,8 @@ public class Controller extends Application {
     public void updateGame(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("baseLevel.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Group trajectory = Trajectory.trajectoryToGroup(bananaThrow());
+        int stageHeight = (int)stage.getHeight();
+        Group trajectory = Trajectory.trajectoryToGroup(bananaThrow(stageHeight));
         ((AnchorPane) root).getChildren().add(trajectory);
         scene = new Scene(root,width,height);
         stage.setScene(scene);
@@ -98,7 +102,7 @@ public class Controller extends Application {
         return random.nextInt(2);
     }
 
-    public Projectile bananaThrow() {
+    public Projectile bananaThrow(int height) {
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
         int turn = 0;
@@ -109,7 +113,7 @@ public class Controller extends Application {
             angle = 0;
         }
         if (turn == 0) {
-            throwPosition = new Point2D(200,300); //placeholder numbers for now, set to center of gorilla
+            throwPosition = new Point2D(50,height-100 ); //placeholder numbers for now, set to center of gorilla
         }
         else {
             throwPosition = new Point2D(400,300);
@@ -129,18 +133,18 @@ public class Controller extends Application {
         System.exit(0);
     }
 
-    public int getWidth() {
+
+
+    public void setWidth() {
         width = Integer.parseInt(widthField.getText());
-        return width;
     }
 
-    public int getHeight() {
+    public void setHeight() {
         height = Integer.parseInt(heightField.getText());
-        return height;
     }
 
-    public double getGravity() {
-        return Double.parseDouble(gravityField.getText());
+    public void setGravity() {
+        gravity = Double.parseDouble(gravityField.getText());
     }
 
    /* public void updateGame(Stage stage, Group root, Projectile projectile) {
