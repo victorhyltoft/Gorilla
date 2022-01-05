@@ -80,7 +80,7 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </TextField>
-      <Button id="Player2ThrowButton" layoutX="293.0" layoutY="88.0" mnemonicParsing="false" onAction="#bananaThrow" prefHeight="24.0" prefWidth="64.0" stylesheets="@application.css" text="Throw!" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="100.0" />
+      <Button id="Player2ThrowButton" layoutX="293.0" layoutY="88.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" stylesheets="@application.css" text="Throw!" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="100.0" />
       <Text id="Player2ScoreText" fx:id="FXPlayer2ScoreText" fill="WHITE" layoutX="273.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="75.0">
          <font>
             <Font name="Courier New Bold" size="12.0" />

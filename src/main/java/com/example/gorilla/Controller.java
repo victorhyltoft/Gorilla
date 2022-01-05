@@ -109,7 +109,7 @@ public class Controller extends Application {
             angle = 0;
         }
         if (turn == 0) {
-            throwPosition = new Point2D(0,300); //placeholder numbers for now, set to center of gorilla
+            throwPosition = new Point2D(200,300); //placeholder numbers for now, set to center of gorilla
         }
         else {
             throwPosition = new Point2D(400,300);
@@ -117,7 +117,7 @@ public class Controller extends Application {
 
         // Initialize objects
 
-        Projectile projectile = new Projectile(throwPosition,angle,velocity);
+        Projectile projectile = new Projectile(throwPosition,angle,velocity,height);
         System.out.println(throwPosition+","+angle+","+velocity);
         // Trajectory Group object
         return projectile;
