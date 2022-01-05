@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gorilla.Controller">
+    <children>
+        <Label layoutX="570.0" layoutY="103.0" text="Player Name:">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <TextField id="MenuTextField" fx:id="PlayerName" layoutX="590.0" layoutY="150.0" maxWidth="100.0" prefWidth="100.0" promptText="Type here" styleClass="MenuTextField" stylesheets="@application.css" />
+        <Label layoutX="601.0" layoutY="217.0" text="Texture">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Button layoutX="535.0" layoutY="624.0" mnemonicParsing="false" onAction="#startGame2" stylesheets="@application.css" text="confirm">
+            <font>
+                <Font name="Courier New Bold" size="42.0" />
+            </font>
+        </Button>
+      <ImageView fx:id="TextureImageView" fitHeight="150.0" fitWidth="200.0" layoutX="568.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@textures/Gorilla.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="TextureButtonRight" layoutX="653.0" layoutY="449.0" mnemonicParsing="false" onAction="#displayImage" stylesheets="@application.css" text="&gt;" />
+      <Button fx:id="TextureButtonLeft" layoutX="601.0" layoutY="449.0" mnemonicParsing="false" stylesheets="@application.css" text="&lt;" />
+      <Text layoutX="560.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player : No.">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
+    </children>
+</AnchorPane>

@@ -11,7 +11,10 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -29,15 +32,22 @@ public class Controller extends Application {
     @FXML
     private TextField widthField;
     @FXML
+    ImageView TextureImageView;
+    @FXML
+    Button TextureButtonRight;
+    @FXML
     private TextField gravityField;
+
     private Point2D throwPosition;
     private int velocity;
     private int angle;
-    private int width;
-    private int height;
-    private double gravity;
+    static private int width;
+    static private int height;
+    static private double gravity;
     private Stage stage;
     private Scene scene;
+
+    Image myImage = new Image(getClass().getResourceAsStream("Cat.png"));
 
     public static void main(String[] args) {
         launch(args);
@@ -60,9 +70,6 @@ public class Controller extends Application {
      *
      */
     public void startGame2(ActionEvent event) throws IOException {
-        setGravity();
-        setHeight();
-        setWidth();
         System.out.println(gravity + " " + height + " " + width);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("baseLevel.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -77,6 +84,17 @@ public class Controller extends Application {
      */
     public void switchToPlayGameScreen(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("playGameScreen.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToPlayerCreator(ActionEvent event) throws IOException {
+        setGravity();
+        setHeight();
+        setWidth();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -145,6 +163,10 @@ public class Controller extends Application {
 
     public void setGravity() {
         gravity = Double.parseDouble(gravityField.getText());
+    }
+
+    public void displayImage() {
+        TextureImageView.setImage(myImage);
     }
 
    /* public void updateGame(Stage stage, Group root, Projectile projectile) {
