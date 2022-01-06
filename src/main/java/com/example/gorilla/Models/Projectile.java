@@ -25,26 +25,26 @@ public class Projectile {
     // Fields
     public Point2D startposition;
     public int angle;
-    public int speed;
+    public int velocity;
     public ArrayList<Point2D> trajectory;
     public double sceneHeight; // This will limit the projectile calculation to only the scene's height.
 
 
     // Constructor 1
-    public Projectile(Point2D startposition, int angle, int speed) {
+    public Projectile(Point2D startposition, int angle, int velocity) {
         this.startposition = startposition;
         this.angle = angle;
-        this.speed = Math.max(speed, 0);
+        this.velocity = velocity;
         this.trajectory = new ArrayList<>();
         this.sceneHeight = 0;
         calculateTrajectory();
     }
 
     // Constructor 2
-    public Projectile(Point2D startposition, int angle, int speed, double sceneHeight) {
+    public Projectile(Point2D startposition, int angle, int velocity, double sceneHeight) {
         this.startposition = startposition;
         this.angle = angle;
-        this.speed = Math.max(speed, 0);
+        this.velocity = velocity;
         this.trajectory = new ArrayList<>();
         this.sceneHeight = sceneHeight;
         calculateTrajectory();
@@ -60,13 +60,11 @@ public class Projectile {
      */
     public void calculateTrajectory() {
 
-        final double GRAVITY = 9.81;
-
         double x = this.startposition.getX();
         double y = this.startposition.getY();
         double initialX = x;
         double initialY = y;
-        double velocity = this.speed; // TODO : Add direction
+        double velocity = this.velocity; // TODO : Add direction
         double xVelocity = velocity * Math.cos(Math.toRadians(angle));
         double yVelocity = velocity * Math.sin(Math.toRadians(angle));
         double time = 0;

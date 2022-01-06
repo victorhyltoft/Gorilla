@@ -15,16 +15,22 @@ import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.Arrays;
+
 public class Trajectory extends Application {
     static final int RADIUS = 3;
+
+    private double interval;
+
     @Override
     public void start(Stage stage) {
         stage.setHeight(500);
         stage.setWidth(500);
 
         // Initialize objects
-        Player Player = new Player("Some name", new Point2D(100, 300));
-        Projectile projectile = new Projectile(Player.location,45,40, stage.getHeight() - 10);
+        Player player1 = new Player("player1", new Point2D(0,stage.getHeight() - 50));
+        Player player2 = new Player("player2", new Point2D(stage.getWidth() - 51,stage.getHeight() - 50));
+        Projectile projectile = new Projectile(player1.location,45,66, stage.getHeight() - 10);
 
         //Setting title to the Stage
         Button button = new Button("Throw");
@@ -35,11 +41,8 @@ public class Trajectory extends Application {
         stage.setTitle("Drawing a trajectory");
         stage.show();
 
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                updateGameAlternative(stage, projectile);
-            }
-        });
+//        button.setOnAction(event -> updateGameAlternative(stage, projectile));
+        button.setOnAction(event -> trajectoryHitOpponent(stage, projectile, new Player[]{player1, player2}));
     }
 
     public void updateGame(Stage stage, Group root, Projectile projectile) {
@@ -107,10 +110,64 @@ public class Trajectory extends Application {
     }
 
 
+    public void trajectoryHitOpponent(Stage stage, Projectile projectile, Player[] players) {
+        // Iterate over the trajectory points
+        Circle p1 = new Circle(players[0].location.getX(),players[0].location.getY(),10);
+        Circle p2 = new Circle(players[1].location.getX(),players[1].location.getY(),10);
+        Group playersGroup = new Group(p1, p2);
+
+
+        interval = stage.getWidth() / 50;
+        System.out.println(interval);
+        System.out.println(players[0].location);
+        System.out.println(players[1].location);
+
+        Path projectilePath = projectile.trajectoryPath();
+
+        //Creating a Group object
+        Group root = new Group(playersGroup, projectilePath);
+
+        //Creating a scene object
+        Scene scene = new Scene(root, 600, 300);
+
+        for (Point2D point : projectile.trajectory) {
+//            System.out.println(Math.abs((point.getY() - players[1].location.getY())));
+            if (Math.abs((point.getX() - players[1].location.getX())) < interval) {
+                if (Math.abs((point.getY() - players[1].location.getY())) < interval) {
+                    System.out.println("Boom");
+                }
+            }
+
+        }
+        //Setting title to the Stage
+        stage.setTitle("TrajectoryHit");
+
+        //Adding scene to the stage
+        stage.setScene(scene);
+
+        //Displaying the contents of the stage
+        stage.show();
+        // If point is within n/50 (n=width) of opponent player, increment score
+    }
+
+    public boolean doesTrajectoryHit(Projectile projectile, Player player) {
+        for (Point2D point : projectile.trajectory) {
+//            System.out.println(Math.abs((point.getY() - players[1].location.getY())));
+            if (Math.abs((point.getX() - player.location.getX())) < interval) {
+                if (Math.abs((point.getY() - player.location.getY())) < interval) {
+                    // System.out.println("Boom");
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+
 
 
     /**
-     * @deprecated
      * Groups the trajectory points from the projectile class, so it is possible to display
      * @return Group containing the trajectory in terms of QuadCurves
      */
