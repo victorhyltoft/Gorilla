@@ -108,7 +108,8 @@ public class Controller extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("baseLevel.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         int stageHeight = (int)stage.getHeight();
-        Group trajectory = Trajectory.trajectoryToGroup(bananaThrow(stageHeight));
+        int stageWidth = (int)stage.getWidth();
+        Group trajectory = Trajectory.trajectoryToGroup(bananaThrow(stageHeight,stageWidth));
         ((AnchorPane) root).getChildren().add(trajectory);
         scene = new Scene(root,width,height);
         stage.setScene(scene);
@@ -120,7 +121,7 @@ public class Controller extends Application {
         return random.nextInt(2);
     }
 
-    public Projectile bananaThrow(int height) {
+    public Projectile bananaThrow(int height,int width) {
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
         int turn = 0;
@@ -134,7 +135,7 @@ public class Controller extends Application {
             throwPosition = new Point2D(50,height-100 ); //placeholder numbers for now, set to center of gorilla
         }
         else {
-            throwPosition = new Point2D(400,300);
+            throwPosition = new Point2D(width-50,height-100);
         }
 
         // Initialize objects
