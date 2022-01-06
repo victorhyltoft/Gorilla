@@ -4,11 +4,13 @@ import com.example.gorilla.Game;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.shape.QuadCurve;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -161,6 +163,31 @@ public class Projectile {
             node.setVisible(false);
         });
         return pathTransition;
+    }
+
+    /**
+     * Groups the trajectory points from the projectile class, so it is possible to display
+     * @return Group containing the trajectory in terms of QuadCurves
+     */
+    public Group trajectoryToGroup() {
+        Group trajectoryGroup = new Group();
+        // Iterate over each point
+        for (int i = 0; i < trajectory.size() - 2; i++) {
+            QuadCurve quadCurve = new QuadCurve();
+            quadCurve.setStartX(trajectory.get(i).getX());
+            quadCurve.setStartY(trajectory.get(i).getY());
+            quadCurve.setControlX(trajectory.get(i + 1).getX());
+            quadCurve.setControlY(trajectory.get(i + 1).getY());
+            quadCurve.setEndX(trajectory.get(i + 2).getX());
+            quadCurve.setEndY(trajectory.get(i + 2).getY());
+            quadCurve.setStroke(Color.rgb(0,0,0));
+            quadCurve.setStrokeWidth(3);
+            quadCurve.setFill(null);
+            // Add current curve to the group
+            trajectoryGroup.getChildren().add(quadCurve);
+        }
+        // Return the full trajectory group
+        return trajectoryGroup;
     }
 
     /**

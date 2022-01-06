@@ -41,7 +41,7 @@ public class Trajectory extends Application {
 
     public void updateGame(Stage stage, Group root, Projectile projectile) {
         System.out.println("Updating view");
-        Group trajectory = trajectoryToGroup(projectile);
+        Group trajectory = projectile.trajectoryToGroup();
         root.getChildren().add(trajectory);
         Scene scene = root.getScene();
         stage.setScene(scene);
@@ -144,34 +144,6 @@ public class Trajectory extends Application {
         // If point is within n/50 (n=width) of opponent player, increment score
     }
 
-
-
-
-
-    /**
-     * Groups the trajectory points from the projectile class, so it is possible to display
-     * @return Group containing the trajectory in terms of QuadCurves
-     */
-    public static Group trajectoryToGroup(Projectile projectile) {
-        Group trajectoryGroup = new Group();
-        // Iterate over each point
-        for (int i = 0; i < projectile.trajectory.size() - 2; i++) {
-            QuadCurve quadCurve = new QuadCurve();
-            quadCurve.setStartX(projectile.trajectory.get(i).getX());
-            quadCurve.setStartY(projectile.trajectory.get(i).getY());
-            quadCurve.setControlX(projectile.trajectory.get(i + 1).getX());
-            quadCurve.setControlY(projectile.trajectory.get(i + 1).getY());
-            quadCurve.setEndX(projectile.trajectory.get(i + 2).getX());
-            quadCurve.setEndY(projectile.trajectory.get(i + 2).getY());
-            quadCurve.setStroke(Color.rgb(0,0,0));
-            quadCurve.setStrokeWidth(RADIUS);
-            quadCurve.setFill(null);
-            // Add current curve to the group
-            trajectoryGroup.getChildren().add(quadCurve);
-        }
-        // Return the full trajectory group
-        return trajectoryGroup;
-    }
 
 
     public static void main(String[] args){

@@ -64,7 +64,7 @@ public class Controller extends Application implements Initializable {
     private static Player player1;
     private static Player player2;
 
-    Image myImage = new Image(getClass().getResourceAsStream("Cat.png"));
+    Image myImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cat.png")));
 
     public static void main(String[] args) {
         launch(args);
@@ -123,7 +123,7 @@ public class Controller extends Application implements Initializable {
         Projectile projectile = bananaThrow(game);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Group trajectory = Trajectory.trajectoryToGroup(projectile);
+        Group trajectory = projectile.trajectoryToGroup();
         if (game.getCurrentPlayer() == 1) {
             System.out.println(projectile.doesTrajectoryHit(player2));
             if (projectile.doesTrajectoryHit(player2)) {
