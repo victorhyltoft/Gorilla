@@ -56,6 +56,8 @@ public class Controller extends Application {
     private static String Player1NameT = "player1";
     private static String Player2NameT = "player1";
     private static Game game = new Game();
+    private static Player player1;
+    private static Player player2;
 
     Image myImage = new Image(getClass().getResourceAsStream("Cat.png"));
 
@@ -80,20 +82,13 @@ public class Controller extends Application {
      *
      */
     public void startGame2(ActionEvent event) throws IOException {
-        SetPlayerNames();
-        System.out.println(Player1NameT);
-        Point2D Player1Pos = new Point2D(height, 0);
-        Point2D Player2Pos = new Point2D(height, width);
-        Player Player1 = new Player(Player1NameT, Player1Pos);
-        Player Player2 = new Player(Player2NameT, Player2Pos);
-        System.out.println(Player1.name + " " + Player2.name);
+        createPlayers();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root,game.getWidth(),game.getHeight());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        myLabel.setText(Player1NameT);
     }
 
     /**
@@ -139,10 +134,10 @@ public class Controller extends Application {
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
         if (game.getCurrentPlayer() == 1) {
-            throwPosition = new Point2D(50,gameSettings.getHeight()-100);
+            throwPosition = player1.location;
         }
         else {
-            throwPosition = new Point2D(gameSettings.getWidth()-50,gameSettings.getHeight()-100);
+            throwPosition = player2.location;
         }
 
         // Initialize objects
@@ -151,7 +146,14 @@ public class Controller extends Application {
     }
 
 
-
+    public void createPlayers() {
+        SetPlayerNames();
+        Point2D player1Pos = new Point2D(50, game.getHeight()-100);
+        Point2D player2Pos = new Point2D(game.getWidth()-50, game.getHeight()-100);
+        player1 = new Player(Player1NameT, player1Pos);
+        player2 = new Player(Player2NameT, player2Pos);
+        System.out.println(player1.name + " " + player2.name);
+    }
     public void exit() {
         System.exit(0);
     }
