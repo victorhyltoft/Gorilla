@@ -109,7 +109,6 @@ public class Controller extends Application {
 
     public void switchToPlayerCreator(ActionEvent event) throws IOException {
         gameSettings();
-        System.out.println(game.getHeight()+" "+game.getWidth());
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -136,18 +135,17 @@ public class Controller extends Application {
     }
 
     public Projectile bananaThrow(Game gameSettings) {
+        gameSettings.setCurrentPlayer();
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
-        if (game.currentPlayer() == 1) {
-            throwPosition = new Point2D(50,gameSettings.getHeight()-100 );
+        if (game.getCurrentPlayer() == 1) {
+            throwPosition = new Point2D(50,gameSettings.getHeight()-100);
         }
         else {
-            System.out.println(gameSettings.getWidth()+" "+ gameSettings.getHeight());
             throwPosition = new Point2D(gameSettings.getWidth()-50,gameSettings.getHeight()-100);
         }
 
         // Initialize objects
-        System.out.println(throwPosition+","+angle+","+velocity);
         // Trajectory Group object
         return new Projectile(throwPosition,angle,velocity,gameSettings);
     }

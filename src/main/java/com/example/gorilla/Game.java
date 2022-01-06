@@ -20,9 +20,11 @@ public class Game {
         this.acceptedRange = width/50;
     }
 
-    public int currentPlayer() {
+    public void setCurrentPlayer() {
         turnCounter += 1;
-        System.out.println(turnCounter % noOfPlayers);
+    }
+
+    public int getCurrentPlayer() {
         return turnCounter % noOfPlayers;
     }
 

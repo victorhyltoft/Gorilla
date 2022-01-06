@@ -70,6 +70,9 @@ public class Projectile {
      * Saves it to the trajectory field in the form of an ArrayList of 2D Points.
      */
     private void calculateTrajectory() {
+        if (gameSettings.getCurrentPlayer() == 0) {
+            angle += 90;
+        }
         double x = this.startposition.getX();
         double y = this.startposition.getY();
         double initialX = x;
@@ -78,7 +81,6 @@ public class Projectile {
         double xVelocity = velocity * Math.cos(Math.toRadians(angle));
         double yVelocity = velocity * Math.sin(Math.toRadians(angle));
         double time = 0;
-
         for(int i = 0; i < MAX_ITERATIONS; i++){
             time += TIME_INTERVAL;
             x = initialX + xVelocity * time;
