@@ -71,7 +71,8 @@ public class Projectile {
      */
     private void calculateTrajectory() {
         if (gameSettings.getCurrentPlayer() == 0) {
-            angle += 90;
+            angle *= -1;
+            angle += 180;
         }
         double x = this.startposition.getX();
         double y = this.startposition.getY();
