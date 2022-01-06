@@ -16,28 +16,39 @@
                 <Font size="24.0" />
             </font>
         </Label>
-        <TextField id="MenuTextField" fx:id="PlayerName" layoutX="590.0" layoutY="150.0" maxWidth="100.0" prefWidth="100.0" promptText="Type here" styleClass="MenuTextField" stylesheets="@application.css" />
-        <Label layoutX="601.0" layoutY="217.0" text="Texture">
+        <TextField fx:id="PlayerName1" layoutX="590.0" layoutY="150.0" maxWidth="100.0" prefWidth="100.0" promptText="Type here" styleClass="MenuTextField" stylesheets="@application.css" text="Joe" />
+        <Label disable="true" layoutX="601.0" layoutY="217.0" text="Texture">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Button layoutX="535.0" layoutY="624.0" mnemonicParsing="false" onAction="#startGame2" stylesheets="@application.css" text="confirm">
+        <Button layoutX="522.0" layoutY="624.0" mnemonicParsing="false" onAction="#startGame2" stylesheets="@application.css" text="confirm">
             <font>
                 <Font name="Courier New Bold" size="42.0" />
             </font>
         </Button>
-      <ImageView fx:id="TextureImageView" fitHeight="150.0" fitWidth="200.0" layoutX="568.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="TextureImageView" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="568.0" layoutY="269.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@textures/Gorilla.png" />
          </image>
       </ImageView>
-      <Button fx:id="TextureButtonRight" layoutX="653.0" layoutY="449.0" mnemonicParsing="false" onAction="#displayImage" stylesheets="@application.css" text="&gt;" />
-      <Button fx:id="TextureButtonLeft" layoutX="601.0" layoutY="449.0" mnemonicParsing="false" stylesheets="@application.css" text="&lt;" />
-      <Text layoutX="560.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player : No.">
+      <Button fx:id="TextureButtonRight" disable="true" layoutX="653.0" layoutY="449.0" mnemonicParsing="false" onAction="#displayImage" stylesheets="@application.css" text="&gt;" />
+      <Button fx:id="TextureButtonLeft" disable="true" layoutX="601.0" layoutY="449.0" mnemonicParsing="false" stylesheets="@application.css" text="&lt;" />
+      <Text layoutX="577.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player : 1">
          <font>
             <Font size="32.0" />
          </font>
       </Text>
+      <Text layoutX="576.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player : 2">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Text>
+      <Label layoutX="571.0" layoutY="403.0" text="Player Name:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="PlayerName2" layoutX="591.0" layoutY="450.0" maxWidth="100.0" prefWidth="100.0" promptText="Type here" styleClass="MenuTextField" stylesheets="@application.css" text="Mama" />
     </children>
 </AnchorPane>

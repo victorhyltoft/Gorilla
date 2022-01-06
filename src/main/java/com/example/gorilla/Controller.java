@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +38,12 @@ public class Controller extends Application {
     Button TextureButtonRight;
     @FXML
     private TextField gravityField;
+    @FXML
+    private Label myLabel;
+    @FXML
+    private TextField PlayerName1;
+    @FXML
+    private TextField PlayerName2;
 
     private Point2D throwPosition;
     private int velocity;
@@ -46,6 +53,8 @@ public class Controller extends Application {
     private double gravity;
     private Stage stage;
     private Scene scene;
+    private static String Player1NameT = "player1";
+    private static String Player2NameT = "player1";
     private static Game game = new Game();
 
     Image myImage = new Image(getClass().getResourceAsStream("Cat.png"));
@@ -71,12 +80,20 @@ public class Controller extends Application {
      *
      */
     public void startGame2(ActionEvent event) throws IOException {
+        SetPlayerNames();
+        System.out.println(Player1NameT);
+        Point2D Player1Pos = new Point2D(height, 0);
+        Point2D Player2Pos = new Point2D(height, width);
+        Player Player1 = new Player(Player1NameT, Player1Pos);
+        Player Player2 = new Player(Player2NameT, Player2Pos);
+        System.out.println(Player1.name + " " + Player2.name);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root,game.getWidth(),game.getHeight());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        myLabel.setText(Player1NameT);
     }
 
     /**
@@ -151,6 +168,11 @@ public class Controller extends Application {
 
     public void displayImage() {
         TextureImageView.setImage(myImage);
+    }
+
+    public void SetPlayerNames() {
+        Player1NameT = PlayerName1.getText();
+        Player2NameT = PlayerName2.getText();
     }
 
    /* public void updateGame(Stage stage, Group root, Projectile projectile) {
