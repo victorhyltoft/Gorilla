@@ -41,11 +41,12 @@ public class Controller extends Application {
     private Point2D throwPosition;
     private int velocity;
     private int angle;
-    static private int width;
-    static private int height;
-    static private double gravity;
+    private int width;
+    private int height;
+    private double gravity;
     private Stage stage;
     private Scene scene;
+    private static Game game = new Game();
 
     Image myImage = new Image(getClass().getResourceAsStream("Cat.png"));
 
@@ -70,10 +71,9 @@ public class Controller extends Application {
      *
      */
     public void startGame2(ActionEvent event) throws IOException {
-        System.out.println(gravity + " " + height + " " + width);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root,width,height);
+        scene = new Scene(root,game.getWidth(),game.getHeight());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -91,9 +91,8 @@ public class Controller extends Application {
     }
 
     public void switchToPlayerCreator(ActionEvent event) throws IOException {
-        setGravity();
-        setHeight();
-        setWidth();
+        gameSettings();
+        System.out.println(game.getHeight()+" "+game.getWidth());
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -107,11 +106,9 @@ public class Controller extends Application {
     public void updateGame(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        int stageHeight = (int)stage.getHeight();
-        int stageWidth = (int)stage.getWidth();
-        Group trajectory = Trajectory.trajectoryToGroup(bananaThrow(stageHeight,stageWidth));
+        Group trajectory = Trajectory.trajectoryToGroup(bananaThrow(game));
         ((AnchorPane) root).getChildren().add(trajectory);
-        scene = new Scene(root,width,height);
+        scene = new Scene(root,game.getWidth(),game.getHeight());
         stage.setScene(scene);
         stage.show();
     }
@@ -121,7 +118,7 @@ public class Controller extends Application {
         return random.nextInt(2);
     }
 
-    public Projectile bananaThrow(int height,int width) {
+    public Projectile bananaThrow(Game gameSettings) {
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
         int turn = 0;
@@ -132,15 +129,15 @@ public class Controller extends Application {
             angle = 0;
         }
         if (turn == 0) {
-            throwPosition = new Point2D(50,height-100 ); //placeholder numbers for now, set to center of gorilla
+            throwPosition = new Point2D(50,gameSettings.getHeight()-100 ); //placeholder numbers for now, set to center of gorilla
         }
         else {
-            throwPosition = new Point2D(width-50,height-100);
+            throwPosition = new Point2D(gameSettings.getWidth()-50,gameSettings.getHeight()-100);
         }
 
         // Initialize objects
 
-        Projectile projectile = new Projectile(throwPosition,angle,velocity,height);
+        Projectile projectile = new Projectile(throwPosition,angle,velocity,gameSettings.getHeight());
         System.out.println(throwPosition+","+angle+","+velocity);
         // Trajectory Group object
         return projectile;
@@ -153,17 +150,10 @@ public class Controller extends Application {
     }
 
 
-
-    public void setWidth() {
-        width = Integer.parseInt(widthField.getText());
-    }
-
-    public void setHeight() {
-        height = Integer.parseInt(heightField.getText());
-    }
-
-    public void setGravity() {
-        gravity = Double.parseDouble(gravityField.getText());
+    public void gameSettings() {
+        game.setWidth(Integer.parseInt(widthField.getText()));
+        game.setHeight(Integer.parseInt(heightField.getText()));
+        game.setGravity(Double.parseDouble(gravityField.getText()));
     }
 
     public void displayImage() {
