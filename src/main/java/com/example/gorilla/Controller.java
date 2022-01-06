@@ -58,7 +58,7 @@ public class Controller extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("startscreen.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-menu.fxml")));
         Scene scene = new Scene(root);
         stage.setResizable(false);
         stage.setScene(scene);
@@ -71,7 +71,7 @@ public class Controller extends Application {
      */
     public void startGame2(ActionEvent event) throws IOException {
         System.out.println(gravity + " " + height + " " + width);
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("baseLevel.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root,width,height);
         stage.setScene(scene);
@@ -83,7 +83,7 @@ public class Controller extends Application {
      *
      */
     public void switchToPlayGameScreen(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("playGameScreen.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("settings.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -105,7 +105,7 @@ public class Controller extends Application {
      *
      */
     public void updateGame(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("baseLevel.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         int stageHeight = (int)stage.getHeight();
         int stageWidth = (int)stage.getWidth();
