@@ -105,10 +105,10 @@ public class Controller extends Application {
      */
     public void updateGame(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Group trajectory = Trajectory.trajectoryToGroup(bananaThrow(game));
         ((AnchorPane) root).getChildren().add(trajectory);
-        scene = new Scene(root,game.getWidth(),game.getHeight());
+        scene = new Scene(root, game.getWidth(), game.getHeight());
         stage.setScene(scene);
         stage.show();
     }
@@ -121,24 +121,17 @@ public class Controller extends Application {
     public Projectile bananaThrow(Game gameSettings) {
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
-        int turn = 0;
-        if (angle > 90) {
-            angle = 90;
-        }
-        else if (angle < 0) {
-            angle = 0;
-        }
-        if (turn == 0) {
-            throwPosition = new Point2D(50,gameSettings.getHeight()-100 ); //placeholder numbers for now, set to center of gorilla
+        if (game.currentPlayer() == 1) {
+            throwPosition = new Point2D(50,gameSettings.getHeight()-100 );
         }
         else {
+            System.out.println(gameSettings.getWidth()+" "+ gameSettings.getHeight());
             throwPosition = new Point2D(gameSettings.getWidth()-50,gameSettings.getHeight()-100);
         }
 
         // Initialize objects
-
-        Projectile projectile = new Projectile(throwPosition,angle,velocity,gameSettings.getHeight());
         System.out.println(throwPosition+","+angle+","+velocity);
+        Projectile projectile = new Projectile(throwPosition,angle,velocity,gameSettings.getHeight());
         // Trajectory Group object
         return projectile;
     }

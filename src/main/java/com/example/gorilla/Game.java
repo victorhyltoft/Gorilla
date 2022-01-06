@@ -4,7 +4,9 @@ public class Game {
     private double gravity;
     private int height;
     private int width;
-
+    private int turnCounter;
+    private double acceptedRange;
+    private static int noOfPlayers = 2;
     public Game() {
         gravity = 0;
         height = 0;
@@ -15,6 +17,13 @@ public class Game {
         this.gravity = gravity;
         this.height = height;
         this.width = width;
+        this.acceptedRange = width/50;
+    }
+
+    public int currentPlayer() {
+        turnCounter += 1;
+        System.out.println(turnCounter % noOfPlayers);
+        return turnCounter % noOfPlayers;
     }
 
     public void setHeight(int newHeight) {
