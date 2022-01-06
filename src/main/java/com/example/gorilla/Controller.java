@@ -120,9 +120,23 @@ public class Controller extends Application implements Initializable {
      *
      */
     public void updateGame(ActionEvent event) throws IOException {
+        Projectile projectile = bananaThrow(game);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Group trajectory = Trajectory.trajectoryToGroup(bananaThrow(game));
+        Group trajectory = Trajectory.trajectoryToGroup(projectile);
+        if (game.getCurrentPlayer() == 1) {
+            System.out.println(projectile.doesTrajectoryHit(player2));
+            if (projectile.doesTrajectoryHit(player2)) {
+                player1.incrementScore();
+                System.out.println(player1.score);
+            }
+        }
+        else if (game.getCurrentPlayer() == 0) {
+            if (projectile.doesTrajectoryHit(player1)) {
+                player2.incrementScore();
+                System.out.println(player2.score);
+            }
+        }
         ((AnchorPane) root).getChildren().add(trajectory);
         scene = new Scene(root, game.getWidth(), game.getHeight());
         stage.setScene(scene);
@@ -149,6 +163,7 @@ public class Controller extends Application implements Initializable {
         // Trajectory Group object
         return new Projectile(throwPosition,angle,velocity,gameSettings);
     }
+
 
 
     public void createPlayers() {
@@ -195,7 +210,6 @@ public class Controller extends Application implements Initializable {
         stage.setScene(scene);
         stage.show();
     }*/
-
 
 
 }
