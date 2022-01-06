@@ -76,7 +76,7 @@ public class Controller extends Application {
         stage.show();
     }
 
-    /**ww
+    /**
      *
      */
     public void startGame2(ActionEvent event) throws IOException {
