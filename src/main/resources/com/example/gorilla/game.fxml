@@ -51,11 +51,6 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Text>
-      <Text fx:id="gamePlayer2Name" fill="WHITE" layoutX="435.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
-         <font>
-            <Font name="Courier New Bold" size="12.0" />
-         </font>
-      </Text>
       <Text id="Player2AngleText" fill="WHITE" layoutX="417.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Angle:" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
          <font>
             <Font name="Courier New Bold" size="12.0" />
@@ -87,6 +82,7 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Text>
-      <Label id="myLabel" fx:id="myLabel" layoutX="11.0" layoutY="1.0" text="Player 1" textFill="WHITE" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="3.0" />
+      <Label id="myLabel" fx:id="PlayerName1Text" layoutX="11.0" layoutY="1.0" text="Player 1" textFill="WHITE" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="3.0" />
+      <Label id="myLabel" fx:id="PlayerName2Text" layoutX="270.0" layoutY="12.0" text="Player 2" textFill="WHITE" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0" />
    </children>
 </AnchorPane>

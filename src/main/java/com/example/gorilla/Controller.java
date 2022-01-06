@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -20,10 +21,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 import java.util.Random;
+import java.util.ResourceBundle;
 
-public class Controller extends Application {
+public class Controller extends Application implements Initializable {
     @FXML
     private TextField angleField;
     @FXML
@@ -39,7 +42,9 @@ public class Controller extends Application {
     @FXML
     private TextField gravityField;
     @FXML
-    private Label myLabel;
+    private Label PlayerName1Text;
+    @FXML
+    private Label PlayerName2Text;
     @FXML
     private TextField PlayerName1;
     @FXML
@@ -172,6 +177,14 @@ public class Controller extends Application {
     public void SetPlayerNames() {
         Player1NameT = PlayerName1.getText();
         Player2NameT = PlayerName2.getText();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (url.toString().endsWith("game.fxml")) {
+            PlayerName1Text.setText(Player1NameT);
+            PlayerName2Text.setText(Player2NameT);
+        }
     }
 
    /* public void updateGame(Stage stage, Group root, Projectile projectile) {
