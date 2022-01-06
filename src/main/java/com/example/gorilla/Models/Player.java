@@ -5,30 +5,16 @@ import javafx.geometry.Point2D;
 public class Player {
     public String name;
     public Point2D location;
-    public int wins;
-    public String texture;
+    public int score = 0;
 
-    // Constructor 1 (Multiple parameters)
-    public Player(String name, Point2D location, String texture) {
-        this.name = name;
-        this.location = location;
-        this.texture = texture;
-        this.wins = 0;
-    }
-
-    // Constructor 2
+    // Constructor 1
     public Player(String name, Point2D location) {
         this.name = name;
         this.location = location;
-        this.wins = 0;
-        this.texture = "default";
+        this.score = 0;
     }
 
-
-
-    // Winning animation
-    public void playWinAnimation() {
-        System.out.println(name + " has won the round");
-        // TODO
+    public void incrementScore() {
+        this.score += 1;
     }
 }
