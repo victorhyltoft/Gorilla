@@ -4,8 +4,6 @@ import com.example.gorilla.Models.Player;
 import com.example.gorilla.Models.Projectile;
 import javafx.animation.PathTransition;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -13,14 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
-import java.util.Arrays;
 
 public class Trajectory extends Application {
     static final int RADIUS = 3;
-
-    private double interval;
 
     @Override
     public void start(Stage stage) {
@@ -117,12 +110,12 @@ public class Trajectory extends Application {
         Group playersGroup = new Group(p1, p2);
 
 
-        interval = stage.getWidth() / 50;
-        System.out.println(interval);
+        double acceptedRange = stage.getWidth() / 50;
+        System.out.println(acceptedRange);
         System.out.println(players[0].location);
         System.out.println(players[1].location);
 
-        Path projectilePath = projectile.trajectoryPath();
+        Path projectilePath = projectile.trajectoryPath;
 
         //Creating a Group object
         Group root = new Group(playersGroup, projectilePath);
@@ -132,8 +125,8 @@ public class Trajectory extends Application {
 
         for (Point2D point : projectile.trajectory) {
 //            System.out.println(Math.abs((point.getY() - players[1].location.getY())));
-            if (Math.abs((point.getX() - players[1].location.getX())) < interval) {
-                if (Math.abs((point.getY() - players[1].location.getY())) < interval) {
+            if (Math.abs((point.getX() - players[1].location.getX())) < acceptedRange) {
+                if (Math.abs((point.getY() - players[1].location.getY())) < acceptedRange) {
                     System.out.println("Boom");
                 }
             }
@@ -150,19 +143,6 @@ public class Trajectory extends Application {
         // If point is within n/50 (n=width) of opponent player, increment score
     }
 
-    public boolean doesTrajectoryHit(Projectile projectile, Player player) {
-        for (Point2D point : projectile.trajectory) {
-//            System.out.println(Math.abs((point.getY() - players[1].location.getY())));
-            if (Math.abs((point.getX() - player.location.getX())) < interval) {
-                if (Math.abs((point.getY() - player.location.getY())) < interval) {
-                    // System.out.println("Boom");
-                    return true;
-                }
-            }
-
-        }
-        return false;
-    }
 
 
 

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Projectile {
     // Constants
     private static final double GRAVITY = 9.81;
-    private static final int MAX_ITERATIONS = 2000;
+    private static final int MAX_ITERATIONS = 2000; // Limits the trajectory calculation
     private static final Double TIME_INTERVAL = 0.1;
 
     // Fields
@@ -28,29 +28,40 @@ public class Projectile {
     public int velocity;
     public ArrayList<Point2D> trajectory;
     public double sceneHeight; // This will limit the projectile calculation to only the scene's height.
+    public Path trajectoryPath;
 
 
     // Constructor 1
     public Projectile(Point2D startposition, int angle, int velocity) {
         this.startposition = startposition;
-        this.angle = angle;
-        this.velocity = velocity;
+        validator(angle, velocity);
         this.trajectory = new ArrayList<>();
         this.sceneHeight = 0;
         calculateTrajectory();
+        trajectoryToPath();
     }
 
     // Constructor 2
     public Projectile(Point2D startposition, int angle, int velocity, double sceneHeight) {
         this.startposition = startposition;
-        this.angle = angle;
-        this.velocity = velocity;
+        validator(angle, velocity);
         this.trajectory = new ArrayList<>();
         this.sceneHeight = sceneHeight;
         calculateTrajectory();
+        trajectoryToPath();
     }
 
     // TODO : Validate angle, speed and startpositions
+    public void validator(int angle, int velocity) {
+        // Validate angle (0-90 allowed)
+        if (angle > 90) angle = 90;
+        else if (angle < 0) angle = 0;
+        this.angle = angle;
+
+        // Validate velocity is greater than 0
+        if (velocity < 0) velocity = 0;
+        this.velocity = velocity;
+    }
 
 
     /**
@@ -58,7 +69,7 @@ public class Projectile {
      * angle, velocity and the gravitational acceleration.
      * Saves it to the trajectory field in the form of an ArrayList of 2D Points.
      */
-    public void calculateTrajectory() {
+    private void calculateTrajectory() {
 
         double x = this.startposition.getX();
         double y = this.startposition.getY();
@@ -74,25 +85,19 @@ public class Projectile {
             x = initialX + xVelocity * time;
             y = initialY - (yVelocity * time - (GRAVITY / 2) * time * time);
 
-//            // Don't render if projectile is out of bounds
+            // Don't calculate if projectile is out of bounds
             if (sceneHeight != 0 && y >= (sceneHeight)) {
                 break;
             }
-
-//            if (y >= (sceneHeight)) {
-//                break;
-//            }
-
             trajectory.add(new Point2D(x, y));
         }
     }
 
 
     /**
-     * Converts the 2D points in the projectile trajectory to a full path
+     * Converts the 2D points in the projectile trajectory to a Path object
      */
-    // TODO : Maybe add a private field to store the calculcated path?!
-    public Path trajectoryPath() {
+    private void trajectoryToPath() {
         Path trajectoryPath = new Path();
 
         // Move path to starting positions of projectile
@@ -113,38 +118,39 @@ public class Projectile {
         trajectoryPath.setStroke(Color.RED);
         trajectoryPath.setStrokeWidth(5);
 
-        return trajectoryPath;
+        this.trajectoryPath = trajectoryPath;
     }
 
-
+    /**
+     * Projectile animation
+     * @param node is the object which follows the trajectory, fx the bullet.
+     * @return a PathTransition object which can be used to play the trajectory animation
+     */
     public PathTransition trajectoryAnimation(Node node) {
-        //Creating a Path
-        Path trajectoryPath = trajectoryPath();
-
-        //Creating the path transition
+        // Creating the path transition
         PathTransition pathTransition = new PathTransition();
 
-        //Setting the duration of the transition
-        //The duration depends on the TIME_INTERVAL used in the trajectory calculation;
-        pathTransition.setDuration(Duration.millis(trajectory.size()*(1000*TIME_INTERVAL)));
+        // Setting the duration of the transition
+        // The duration depends on the TIME_INTERVAL used in the trajectory calculation;
+        pathTransition.setDuration(Duration.millis(this.trajectory.size()*(1000*TIME_INTERVAL)));
 
         // Linear interpolation
         pathTransition.setInterpolator(Interpolator.LINEAR);
 
-        //Setting the node for the transition
+        // Setting the node for the transition
         pathTransition.setNode(node);
 
-        //Setting the path for the transition
-        pathTransition.setPath(trajectoryPath);
+        // Setting the path for the transition
+        pathTransition.setPath(this.trajectoryPath);
 
-        //Setting the orientation of the path
+        // Setting the orientation of the path
         pathTransition.setOrientation(
                 PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
 
-        //Setting the cycle count for the transition
+        // Setting the cycle count for the transition
         pathTransition.setCycleCount(1);
 
-        //Setting auto reverse value to true
+        // Setting auto reverse value to true
         pathTransition.setAutoReverse(false);
 
         // Make projectile invisible when animation is finished
@@ -153,6 +159,28 @@ public class Projectile {
             node.setVisible(false);
         });
         return pathTransition;
+    }
+
+    /**
+     * Checks to see if the projectile hits a player
+     * @param player the player we want to see if the trajectory hits
+     * @param hitRange the range from the player's position where a hit is registered
+     * @return true if trajectory hits the targeted player
+     */
+    public boolean doesTrajectoryHit(Player player, double hitRange) {
+        // Iterate over each point
+        for (Point2D point : trajectory) {
+            // Check to see if X-coordinate is within range of player
+            if (Math.abs((point.getX() - player.location.getX())) < hitRange) {
+                // Check to see if Y-coordinate is within range of player
+                if (Math.abs((point.getY() - player.location.getY())) < hitRange) {
+                    // System.out.println("Boom");
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 
 
