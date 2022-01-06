@@ -6,7 +6,7 @@ public class Game {
     private int width;
     private int turnCounter;
     private double acceptedRange;
-    private static int noOfPlayers = 2;
+    private static final int noOfPlayers = 2;
     public Game() {
         gravity = 0;
         height = 0;
@@ -48,5 +48,9 @@ public class Game {
 
     public double getGravity() {
         return gravity;
+    }
+
+    public double getAcceptedRange() {
+        return acceptedRange;
     }
 }

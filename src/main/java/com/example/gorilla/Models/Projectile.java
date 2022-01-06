@@ -1,5 +1,6 @@
 package com.example.gorilla.Models;
 
+import com.example.gorilla.Game;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.geometry.Point2D;
@@ -27,8 +28,8 @@ public class Projectile {
     public int angle;
     public int velocity;
     public ArrayList<Point2D> trajectory;
-    public double sceneHeight; // This will limit the projectile calculation to only the scene's height.
     public Path trajectoryPath;
+    public Game gameSettings;
 
 
     // Constructor 1
@@ -36,22 +37,21 @@ public class Projectile {
         this.startposition = startposition;
         validator(angle, velocity);
         this.trajectory = new ArrayList<>();
-        this.sceneHeight = 0;
         calculateTrajectory();
         trajectoryToPath();
     }
 
     // Constructor 2
-    public Projectile(Point2D startposition, int angle, int velocity, double sceneHeight) {
+    public Projectile(Point2D startposition, int angle, int velocity, Game gameSettings) {
         this.startposition = startposition;
         validator(angle, velocity);
         this.trajectory = new ArrayList<>();
-        this.sceneHeight = sceneHeight;
+        this.gameSettings = gameSettings;
         calculateTrajectory();
         trajectoryToPath();
     }
 
-    // TODO : Validate angle, speed and startpositions
+    // TODO : Validate angle and velocity
     public void validator(int angle, int velocity) {
         // Validate angle (0-90 allowed)
         if (angle > 90) angle = 90;
@@ -70,7 +70,6 @@ public class Projectile {
      * Saves it to the trajectory field in the form of an ArrayList of 2D Points.
      */
     private void calculateTrajectory() {
-
         double x = this.startposition.getX();
         double y = this.startposition.getY();
         double initialX = x;
@@ -83,10 +82,10 @@ public class Projectile {
         for(int i = 0; i < MAX_ITERATIONS; i++){
             time += TIME_INTERVAL;
             x = initialX + xVelocity * time;
-            y = initialY - (yVelocity * time - (GRAVITY / 2) * time * time);
+            y = initialY - (yVelocity * time - (gameSettings.getGravity() / 2) * time * time);
 
             // Don't calculate if projectile is out of bounds
-            if (sceneHeight != 0 && y >= (sceneHeight)) {
+            if (y >= (gameSettings.getHeight())) {
                 break;
             }
             trajectory.add(new Point2D(x, y));
@@ -164,16 +163,15 @@ public class Projectile {
     /**
      * Checks to see if the projectile hits a player
      * @param player the player we want to see if the trajectory hits
-     * @param hitRange the range from the player's position where a hit is registered
      * @return true if trajectory hits the targeted player
      */
-    public boolean doesTrajectoryHit(Player player, double hitRange) {
+    public boolean doesTrajectoryHit(Player player) {
         // Iterate over each point
         for (Point2D point : trajectory) {
             // Check to see if X-coordinate is within range of player
-            if (Math.abs((point.getX() - player.location.getX())) < hitRange) {
+            if (Math.abs((point.getX() - player.location.getX())) < gameSettings.getAcceptedRange()) {
                 // Check to see if Y-coordinate is within range of player
-                if (Math.abs((point.getY() - player.location.getY())) < hitRange) {
+                if (Math.abs((point.getY() - player.location.getY())) < gameSettings.getAcceptedRange()) {
                     // System.out.println("Boom");
                     return true;
                 }

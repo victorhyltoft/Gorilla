@@ -148,9 +148,8 @@ public class Controller extends Application {
 
         // Initialize objects
         System.out.println(throwPosition+","+angle+","+velocity);
-        Projectile projectile = new Projectile(throwPosition,angle,velocity,gameSettings.getHeight());
         // Trajectory Group object
-        return projectile;
+        return new Projectile(throwPosition,angle,velocity,gameSettings);
     }
 
 

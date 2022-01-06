@@ -23,7 +23,8 @@ public class Trajectory extends Application {
         // Initialize objects
         Player player1 = new Player("player1", new Point2D(0,stage.getHeight() - 50));
         Player player2 = new Player("player2", new Point2D(stage.getWidth() - 51,stage.getHeight() - 50));
-        Projectile projectile = new Projectile(player1.location,45,66, stage.getHeight() - 10);
+        Game gameTest = new Game();
+        Projectile projectile = new Projectile(player1.location,45,66, gameTest);
 
         //Setting title to the Stage
         Button button = new Button("Throw");
@@ -123,14 +124,14 @@ public class Trajectory extends Application {
         //Creating a scene object
         Scene scene = new Scene(root, 600, 300);
 
-        for (Point2D point : projectile.trajectory) {
-//            System.out.println(Math.abs((point.getY() - players[1].location.getY())));
-            if (Math.abs((point.getX() - players[1].location.getX())) < acceptedRange) {
-                if (Math.abs((point.getY() - players[1].location.getY())) < acceptedRange) {
-                    System.out.println("Boom");
-                }
-            }
+        int currentPlayer = 0;
+        int opponnetPlayer = (currentPlayer + 1) % players.length;
 
+
+        if (projectile.doesTrajectoryHit(players[opponnetPlayer])) {
+            System.out.println(players[currentPlayer].name + " hit " + players[1].name);
+            players[currentPlayer].incrementScore();
+            System.out.println(players[currentPlayer].name + " now has: " + players[currentPlayer].score + " points");
         }
         //Setting title to the Stage
         stage.setTitle("TrajectoryHit");
