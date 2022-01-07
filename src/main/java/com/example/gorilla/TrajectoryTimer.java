@@ -49,6 +49,8 @@ public class TrajectoryTimer extends AnimationTimer {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
                     resetTrajectory();
+                    Controller.player1.incrementScore();
+                    System.out.println(Controller.player1.score);
                     stop();
                 }
             }
@@ -60,6 +62,8 @@ public class TrajectoryTimer extends AnimationTimer {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
                     resetTrajectory();
+                    Controller.player2.incrementScore();
+                    System.out.println(Controller.player2.score);
                     stop();
                 }
             }
