@@ -9,12 +9,13 @@ public class TrajectoryTimer extends AnimationTimer {
     private static final double GRAVITY = 9.81;
     private double velocity = Controller.getVelocity();
     private double angle = Controller.getAngle();
-    private Double initialX = Controller.playerCircle1.getCenterX();
-    private Double initialY = Controller.playerCircle1.getCenterY();
+    private Double initialX = Controller.projectile.getCenterX();
+    private Double initialY = Controller.projectile.getCenterY();
     private double xVelocity = velocity * Math.cos(Math.toRadians(angle));
     private double yVelocity = velocity * Math.sin(Math.toRadians(angle));
     public double time =  0.0;
 //        private double TIME_INTERVAL = 0.1;
+
 
     @Override
     public void handle(long now) {
@@ -41,15 +42,29 @@ public class TrajectoryTimer extends AnimationTimer {
 
 
         // Check to see if X-coordinate is within range of player
-        if (Math.abs((getX(time) - Controller.playerCircle2.getCenterX())) < Controller.game.getAcceptedRange()) {
-            // Check to see if Y-coordinate is within range of player
-            if (Math.abs((getY(time) - Controller.playerCircle2.getCenterY())) < Controller.game.getAcceptedRange()) {
-                System.out.println("Boom");
-                // Stop the timer (and thereby the animation)
-                resetTrajectory();
-                stop();
+        if (Controller.game.getCurrentPlayer() != 0) {
+            if (Math.abs((getX(time) - Controller.playerCircle2.getCenterX())) < Controller.game.getAcceptedRange()) {
+                // Check to see if Y-coordinate is within range of player
+                if (Math.abs((getY(time) - Controller.playerCircle2.getCenterY())) < Controller.game.getAcceptedRange()) {
+                    System.out.println("Boom");
+                    // Stop the timer (and thereby the animation)
+                    resetTrajectory();
+                    stop();
+                }
             }
         }
+        else {
+            if (Math.abs((getX(time) - Controller.playerCircle1.getCenterX())) < Controller.game.getAcceptedRange()) {
+                // Check to see if Y-coordinate is within range of player
+                if (Math.abs((getY(time) - Controller.playerCircle1.getCenterY())) < Controller.game.getAcceptedRange()) {
+                    System.out.println("Boom");
+                    // Stop the timer (and thereby the animation)
+                    resetTrajectory();
+                    stop();
+                }
+            }
+        }
+
 
         // Check if outside the screen
         if (getY(time) >= Controller.game.getHeight()) {

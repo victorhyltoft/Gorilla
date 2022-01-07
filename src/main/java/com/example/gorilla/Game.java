@@ -38,11 +38,11 @@ public class Game {
         this.acceptedRange = width/50;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 

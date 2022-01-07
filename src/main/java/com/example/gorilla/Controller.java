@@ -66,14 +66,11 @@ public class Controller implements Initializable {
     }
 
     private static int angle;
-    private int width;
-    private int height;
-    private double gravity;
     private Stage stage;
     private Scene scene;
     private static String Player1NameT = "player1";
     private static String Player2NameT = "player1";
-    public static Game game = new Game();
+    public static Game game = new Game(0,0,0);
     public static Player player1;
     public static Player player2;
     public static Circle playerCircle1;
@@ -152,6 +149,7 @@ public class Controller implements Initializable {
     public void initUI(ActionEvent event) throws IOException {
         // Create player objects
         game.setCurrentPlayer();
+        System.out.println(game.getCurrentPlayer());
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
 
@@ -163,17 +161,25 @@ public class Controller implements Initializable {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         trajectory = new Path();
         MoveTo moveTo;
+
         if (game.getCurrentPlayer() == 1) {
+            System.out.println("Setting projectile start (p1):");
             moveTo = new MoveTo(playerCircle1.getCenterX(), playerCircle1.getCenterY());
             projectile = new Circle(playerCircle1.getCenterX(), playerCircle1.getCenterY(), game.getAcceptedRange());
+            System.out.println(projectile.getCenterX());
+            System.out.println(projectile.getCenterY());
         }
         else {
+            System.out.println("Setting projectile start (p2):");
             moveTo = new MoveTo(playerCircle2.getCenterX(), playerCircle2.getCenterY());
             projectile = new Circle(playerCircle2.getCenterX(), playerCircle2.getCenterY(), game.getAcceptedRange());
             angle = (angle * -1) + 180;
+            System.out.println(projectile.getCenterX());
+            System.out.println(projectile.getCenterY());
         }
 
         trajectory.getElements().add(moveTo);
+        System.out.println(trajectory.getElements());
 
         ((AnchorPane) root).getChildren().add(players);
         ((AnchorPane) root).getChildren().add(projectile);
@@ -226,6 +232,7 @@ public class Controller implements Initializable {
         game.setWidth(Integer.parseInt(widthField.getText()));
         game.setHeight(Integer.parseInt(heightField.getText()));
         game.setGravity(Double.parseDouble(gravityField.getText()));
+        game.setAcceptedRange(game.getWidth());
     }
 
     public void displayImage() {
