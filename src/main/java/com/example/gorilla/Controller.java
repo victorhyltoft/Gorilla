@@ -161,15 +161,16 @@ public class Controller implements Initializable {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        projectile = new Circle(100, 100, 20);
         trajectory = new Path();
         MoveTo moveTo;
-
         if (game.getCurrentPlayer() == 1) {
             moveTo = new MoveTo(playerCircle1.getCenterX(), playerCircle1.getCenterY());
+            projectile = new Circle(playerCircle1.getCenterX(), playerCircle1.getCenterY(), game.getAcceptedRange());
         }
         else {
             moveTo = new MoveTo(playerCircle2.getCenterX(), playerCircle2.getCenterY());
+            projectile = new Circle(playerCircle2.getCenterX(), playerCircle2.getCenterY(), game.getAcceptedRange());
+            angle = (angle * -1) + 180;
         }
 
         trajectory.getElements().add(moveTo);
