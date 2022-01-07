@@ -2,6 +2,7 @@ package com.example.gorilla;
 
 import com.example.gorilla.Models.Player;
 import com.example.gorilla.Models.Projectile;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -60,9 +64,13 @@ public class Controller implements Initializable {
     private Scene scene;
     private static String Player1NameT = "player1";
     private static String Player2NameT = "player1";
-    private static Game game = new Game();
-    private static Player player1;
-    private static Player player2;
+    public static Game game = new Game();
+    public static Player player1;
+    public static Player player2;
+    public static Circle playerCircle1;
+    public static Circle playerCircle2;
+    public static Circle projectile;
+    public static Path trajectory;
 
     Image myImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cat.png")));
 
@@ -103,7 +111,7 @@ public class Controller implements Initializable {
     /**
      *
      */
-    public void updateGame(ActionEvent event) throws IOException {
+    /*public void updateGame(ActionEvent event) throws IOException {
         Projectile projectile = bananaThrow(game);
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -125,13 +133,42 @@ public class Controller implements Initializable {
         scene = new Scene(root, game.getWidth(), game.getHeight());
         stage.setScene(scene);
         stage.show();
-    }
+    }*/
 
     public int coinFlip() {
         Random random = new Random();
         return random.nextInt(2);
     }
 
+    public void initUI(ActionEvent event) throws IOException {
+        // Create player objects
+        playerCircle1 = new Circle(player1.location.getX(), player1.location.getY(), 10);
+        playerCircle2 = new Circle(player2.location.getX(), player2.location.getY(), 10);
+        Group players = new Group(playerCircle1, playerCircle2);
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        projectile = new Circle(100, 100, 20);
+        trajectory = new Path();
+        MoveTo moveto = new MoveTo(playerCircle1.getCenterX(), playerCircle1.getCenterY());
+        trajectory.getElements().add(moveto);
+
+        ((AnchorPane) root).getChildren().add(players);
+        ((AnchorPane) root).getChildren().add(projectile);
+        ((AnchorPane) root).getChildren().add(trajectory);
+
+
+        // Start animation timer
+        TrajectoryTimer timer = new TrajectoryTimer();
+        timer.start();
+
+        scene = new Scene(root, game.getWidth(), game.getHeight());
+
+        stage.setTitle("AnimationTimer");
+        stage.setScene(scene);
+        stage.show();
+    }
+/*
     public Projectile bananaThrow(Game gameSettings) {
         gameSettings.setCurrentPlayer();
         velocity = Integer.parseInt(velocityField.getText());
@@ -147,7 +184,7 @@ public class Controller implements Initializable {
         // Trajectory Group object
         return new Projectile(throwPosition,angle,velocity,gameSettings);
     }
-
+*/
 
 
     public void createPlayers() {
