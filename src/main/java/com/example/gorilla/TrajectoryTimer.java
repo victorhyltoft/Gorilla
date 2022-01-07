@@ -1,13 +1,14 @@
 package com.example.gorilla;
 
+import com.example.gorilla.Models.Projectile;
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.LineTo;
 
 
 public class TrajectoryTimer extends AnimationTimer {
     private static final double GRAVITY = 9.81;
-    private double velocity = 70;
-    private double angle = 45;
+    private double velocity = Controller.getVelocity();
+    private double angle = Controller.getAngle();
     private Double initialX = Controller.playerCircle1.getCenterX();
     private Double initialY = Controller.playerCircle1.getCenterY();
     private double xVelocity = velocity * Math.cos(Math.toRadians(angle));

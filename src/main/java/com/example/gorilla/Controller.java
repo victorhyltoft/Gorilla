@@ -55,8 +55,17 @@ public class Controller implements Initializable {
     private TextField PlayerName2;
 
     private Point2D throwPosition;
-    private int velocity;
-    private int angle;
+    private static int velocity;
+
+    public static int getVelocity() {
+        return velocity;
+    }
+
+    public static int getAngle() {
+        return angle;
+    }
+
+    private static int angle;
     private int width;
     private int height;
     private double gravity;
@@ -142,6 +151,10 @@ public class Controller implements Initializable {
 
     public void initUI(ActionEvent event) throws IOException {
         // Create player objects
+        game.setCurrentPlayer();
+        velocity = Integer.parseInt(velocityField.getText());
+        angle = Integer.parseInt(angleField.getText());
+
         playerCircle1 = new Circle(player1.location.getX(), player1.location.getY(), 10);
         playerCircle2 = new Circle(player2.location.getX(), player2.location.getY(), 10);
         Group players = new Group(playerCircle1, playerCircle2);
@@ -150,8 +163,16 @@ public class Controller implements Initializable {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         projectile = new Circle(100, 100, 20);
         trajectory = new Path();
-        MoveTo moveto = new MoveTo(playerCircle1.getCenterX(), playerCircle1.getCenterY());
-        trajectory.getElements().add(moveto);
+        MoveTo moveTo;
+
+        if (game.getCurrentPlayer() == 1) {
+            moveTo = new MoveTo(playerCircle1.getCenterX(), playerCircle1.getCenterY());
+        }
+        else {
+            moveTo = new MoveTo(playerCircle2.getCenterX(), playerCircle2.getCenterY());
+        }
+
+        trajectory.getElements().add(moveTo);
 
         ((AnchorPane) root).getChildren().add(players);
         ((AnchorPane) root).getChildren().add(projectile);
