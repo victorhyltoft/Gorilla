@@ -30,16 +30,16 @@ public class TrajectoryAnimation extends Application {
 
     @Override
     public void start(Stage stage) {
-        initUI(stage);
         height = 400;
         width = 500;
         acceptedRange = width / 50;
+        initUI(stage);
 
     }
 
     private void initUI(Stage stage) {
-        stage.setHeight(400);
-        stage.setWidth(500);
+        stage.setHeight(height);
+        stage.setWidth(width);
 
         // Create player objects
         player1 = new Circle(BUFFER, stage.getHeight() - BUFFER, 10);
@@ -48,7 +48,7 @@ public class TrajectoryAnimation extends Application {
 
         root = new AnchorPane();
 
-        projectile = new Circle(100, 100, 20);
+        projectile = new Circle(100, 100, acceptedRange);
         trajectory = new Path();
         MoveTo moveto = new MoveTo(player1.getCenterX(), player1.getCenterY());
         trajectory.getElements().add(moveto);
