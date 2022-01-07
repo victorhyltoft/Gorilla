@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-public class Controller extends Application implements Initializable {
+public class Controller implements Initializable {
     @FXML
     private TextField angleField;
     @FXML
@@ -66,22 +66,6 @@ public class Controller extends Application implements Initializable {
 
     Image myImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cat.png")));
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-menu.fxml")));
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.setTitle("SIMPGorillas");
-        stage.show();
-    }
 
     /**ww
      *
