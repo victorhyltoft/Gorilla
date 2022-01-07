@@ -2,22 +2,16 @@ package com.example.gorilla;
 
 public class Game {
     private double gravity;
-    private int height;
-    private int width;
+    private double height;
+    private double width;
     private int turnCounter;
     private double acceptedRange;
     private static final int noOfPlayers = 2;
-    public Game() {
-        gravity = 0;
-        height = 0;
-        width = 0;
-    }
 
     public Game(double gravity, int height, int width) {
         this.gravity = gravity;
         this.height = height;
         this.width = width;
-        this.acceptedRange = width/50;
     }
 
     public void setCurrentPlayer() {
@@ -38,6 +32,10 @@ public class Game {
 
     public void setGravity(double newGravity) {
         this.gravity = newGravity;
+    }
+
+    public void setAcceptedRange(double width) {
+        this.acceptedRange = width/50;
     }
 
     public int getHeight() {
