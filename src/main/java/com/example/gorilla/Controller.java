@@ -1,9 +1,6 @@
 package com.example.gorilla;
 
 import com.example.gorilla.Models.Player;
-import com.example.gorilla.Models.Projectile;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +24,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -81,10 +77,10 @@ public class Controller implements Initializable {
     Image myImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cat.png")));
 
 
-    /**ww
-     *
+    /**
+     * This starts the actual game.
      */
-    public void startGame2(ActionEvent event) throws IOException {
+    public void startGame(ActionEvent event) throws IOException {
         createPlayers();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -95,9 +91,21 @@ public class Controller implements Initializable {
     }
 
     /**
-     *
+     * Creates player objects and sets their initial positions
      */
-    public void switchToPlayGameScreen(ActionEvent event) throws IOException {
+    public void createPlayers() {
+        setPlayerNames();
+        // TODO : Clean up
+        player1 = new Player(Player1NameT, new Point2D(game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
+        player2 = new Player(Player2NameT, new Point2D(game.getWidth()-game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
+        System.out.println(player1.name + " " + player2.name);
+    }
+
+    /**
+     * Switches to the settings.
+     * Here the width, height and gravity is set.
+     */
+    public void switchToSettingsScreen(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("settings.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -105,6 +113,10 @@ public class Controller implements Initializable {
         stage.show();
     }
 
+    /**
+     * Switches to the screen allowing players to customize their player
+     * Here the name of the player and the texture is set
+     */
     public void switchToPlayerCreator(ActionEvent event) throws IOException {
         gameSettings();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
@@ -114,7 +126,11 @@ public class Controller implements Initializable {
         stage.show();
     }
 
-    public void initUI(ActionEvent event) throws IOException {
+    /**
+     * This function gets the angle and velocity and animates the projectile and trajectory until
+     * a miss or hit is registered.
+     */
+    public void throwProjectile(ActionEvent event) throws IOException {
         // Create player objects
         game.setCurrentPlayer();
         System.out.println(game.getCurrentPlayer());
@@ -145,10 +161,8 @@ public class Controller implements Initializable {
         trajectory.getElements().add(moveTo);
         System.out.println(trajectory.getElements());
 
-        ((AnchorPane) root).getChildren().add(players);
-        ((AnchorPane) root).getChildren().add(projectile);
-        ((AnchorPane) root).getChildren().add(trajectory);
-
+        // Add the players, projectile and trajectory to the window
+        ((AnchorPane) root).getChildren().addAll(players, projectile, trajectory);
 
         // Start animation timer
         TrajectoryTimer timer = new TrajectoryTimer();
@@ -162,13 +176,6 @@ public class Controller implements Initializable {
     }
 
 
-    public void createPlayers() {
-        SetPlayerNames();
-        // TODO : Clean up
-        player1 = new Player(Player1NameT, new Point2D(game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
-        player2 = new Player(Player2NameT, new Point2D(game.getWidth()-game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
-        System.out.println(player1.name + " " + player2.name);
-    }
     public void exit() {
         System.exit(0);
     }
@@ -185,7 +192,7 @@ public class Controller implements Initializable {
         TextureImageView.setImage(myImage);
     }
 
-    public void SetPlayerNames() {
+    public void setPlayerNames() {
         Player1NameT = PlayerName1.getText();
         Player2NameT = PlayerName2.getText();
     }

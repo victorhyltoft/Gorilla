@@ -19,7 +19,7 @@
             <Font name="Courier New" size="25.0" />
          </font>
       </Button>
-      <Button layoutX="374.0" layoutY="93.0" mnemonicParsing="false" onAction="#switchToPlayGameScreen" stylesheets="@application.css" text="Play game" AnchorPane.rightAnchor="765.0">
+      <Button layoutX="374.0" layoutY="93.0" mnemonicParsing="false" onAction="#switchToSettingsScreen" stylesheets="@application.css" text="Play game" AnchorPane.rightAnchor="765.0">
          <font>
             <Font name="Courier New" size="25.0" />
          </font>
