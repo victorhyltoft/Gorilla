@@ -27,21 +27,15 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class GameController implements Initializable {
     @FXML
     private TextField angleField;
     @FXML
     private TextField velocityField;
     @FXML
-    private TextField heightField;
-    @FXML
-    private TextField widthField;
-    @FXML
     ImageView TextureImageView;
     @FXML
     Button TextureButtonRight;
-    @FXML
-    private TextField gravityField;
     @FXML
     private Label PlayerName1Text;
     @FXML
@@ -53,7 +47,6 @@ public class Controller implements Initializable {
     @FXML
     private Text CurrentPlayerTurn;
 
-    private Point2D throwPosition;
     private static int velocity;
 
     public static int getVelocity() {
@@ -69,7 +62,7 @@ public class Controller implements Initializable {
     private Scene scene;
     private static String Player1NameT = "player1";
     private static String Player2NameT = "player1";
-    public static Game game = new Game(0,0,0);
+    public static Game game = SettingsController.game;
     public static Player player1;
     public static Player player2;
     public static Circle playerCircle1;
@@ -104,30 +97,29 @@ public class Controller implements Initializable {
         System.out.println(player1.name + " " + player2.name);
     }
 
-    /**
-     * Switches to the settings.
-     * Here the width, height and gravity is set.
-     */
-    public void switchToSettingsScreen(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("settings.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
+    public void displayImage() {
+        TextureImageView.setImage(myImage);
     }
 
-    /**
-     * Switches to the screen allowing players to customize their player
-     * Here the name of the player and the texture is set
-     */
-    public void switchToPlayerCreator(ActionEvent event) throws IOException {
-        gameSettings();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void setPlayerNames() {
+        Player1NameT = PlayerName1.getText();
+        Player2NameT = PlayerName2.getText();
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (url.toString().endsWith("game.fxml")) {
+            PlayerName1Text.setText(Player1NameT);
+            PlayerName2Text.setText(Player2NameT);
+            CurrentPlayerTurn.setX(game.getWidth() / 2 -70);
+            CurrentPlayerTurn.setY(0 + 20);
+            if (game.getCurrentPlayer() == 0) {
+                CurrentPlayerTurn.setText("Its " + Player1NameT + "'s turn");
+            } else { CurrentPlayerTurn.setText("Its " + Player2NameT + "'s turn"); }
+        }
+    }
+
 
     /**
      * This function gets the angle and velocity and animates the projectile and trajectory until
@@ -179,37 +171,4 @@ public class Controller implements Initializable {
     }
 
 
-    public void exit() {
-        System.exit(0);
-    }
-
-
-    public void gameSettings() {
-        game.setWidth(Integer.parseInt(widthField.getText()));
-        game.setHeight(Integer.parseInt(heightField.getText()));
-        game.setGravity(Double.parseDouble(gravityField.getText()));
-        game.setAcceptedRange(game.getWidth());
-    }
-
-    public void displayImage() {
-        TextureImageView.setImage(myImage);
-    }
-
-    public void setPlayerNames() {
-        Player1NameT = PlayerName1.getText();
-        Player2NameT = PlayerName2.getText();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (url.toString().endsWith("game.fxml")) {
-            PlayerName1Text.setText(Player1NameT);
-            PlayerName2Text.setText(Player2NameT);
-            CurrentPlayerTurn.setX(game.getWidth() / 2 -70);
-            CurrentPlayerTurn.setY(0 + 20);
-            if (game.getCurrentPlayer() == 0) {
-                CurrentPlayerTurn.setText("Its " + Player1NameT + "'s turn");
-            } else { CurrentPlayerTurn.setText("Its " + Player2NameT + "'s turn"); }
-        }
-        }
     }
