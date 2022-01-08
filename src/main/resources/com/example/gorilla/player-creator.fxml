@@ -22,7 +22,7 @@
                 <Font size="24.0" />
             </font>
         </Label>
-        <Button layoutX="522.0" layoutY="624.0" mnemonicParsing="false" onAction="#startGame2" stylesheets="@application.css" text="confirm">
+        <Button layoutX="522.0" layoutY="624.0" mnemonicParsing="false" onAction="#startGame" stylesheets="@application.css" text="confirm">
             <font>
                 <Font name="Courier New Bold" size="42.0" />
             </font>

@@ -14,6 +14,7 @@ public class TrajectoryTimer extends AnimationTimer {
     private double xVelocity = velocity * Math.cos(Math.toRadians(angle));
     private double yVelocity = velocity * Math.sin(Math.toRadians(angle));
     public double time =  0.0;
+    private final double TIME_INTERVAL = (1.0 / (60.0 * velocity)) * velocity;
 //        private double TIME_INTERVAL = 0.1;
 
 
@@ -27,25 +28,25 @@ public class TrajectoryTimer extends AnimationTimer {
     private void doHandle() {
         // Calculate next point
 
+
         // JavaFX renders 60fps. To make the projectile fly "velocity" pixel/sec we need to adjust the time between each render
-        double TIME_INTERVAL = (1.0 / (60.0 * velocity)) * velocity;
         time += TIME_INTERVAL;
+        double currentX = getX(time);
+        double currentY = getY(time);
 
         // Update projectile
-        Controller.projectile.setCenterX(getX(time));
-        Controller.projectile.setCenterY(getY(time));
+        Controller.projectile.setCenterX(currentX);
+        Controller.projectile.setCenterY(currentY);
 
         // Update trajectory
-        Controller.trajectory.getElements().addAll(new LineTo(getX(time), getY(time)));
+        Controller.trajectory.getElements().addAll(new LineTo(currentX, currentY));
 
         // Check if we hit a player
-
-
         // Check to see if X-coordinate is within range of player
         if (Controller.game.getCurrentPlayer() != 0) {
-            if (Math.abs((getX(time) - Controller.playerCircle2.getCenterX())) < Controller.game.getAcceptedRange()) {
+            if (Math.abs((currentX - Controller.playerCircle2.getCenterX())) < Controller.game.getAcceptedRange()) {
                 // Check to see if Y-coordinate is within range of player
-                if (Math.abs((getY(time) - Controller.playerCircle2.getCenterY())) < Controller.game.getAcceptedRange()) {
+                if (Math.abs((currentY - Controller.playerCircle2.getCenterY())) < Controller.game.getAcceptedRange()) {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
                     resetTrajectory();
@@ -55,10 +56,12 @@ public class TrajectoryTimer extends AnimationTimer {
                 }
             }
         }
+
+
         else {
-            if (Math.abs((getX(time) - Controller.playerCircle1.getCenterX())) < Controller.game.getAcceptedRange()) {
+            if (Math.abs((currentX - Controller.playerCircle1.getCenterX())) < Controller.game.getAcceptedRange()) {
                 // Check to see if Y-coordinate is within range of player
-                if (Math.abs((getY(time) - Controller.playerCircle1.getCenterY())) < Controller.game.getAcceptedRange()) {
+                if (Math.abs((currentY - Controller.playerCircle1.getCenterY())) < Controller.game.getAcceptedRange()) {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
                     resetTrajectory();
@@ -71,32 +74,34 @@ public class TrajectoryTimer extends AnimationTimer {
 
 
         // Check if outside the screen
-        if (getY(time) >= Controller.game.getHeight()) {
+        if (currentY >= Controller.game.getHeight()) {
             stop();
             resetTrajectory();
             System.out.println("Outside bottom");
         }
 
         // Check if outside either horizontal edge
-        if (getX(time) >= Controller.game.getWidth() || getX(time) <= 0) {
+        if (currentX >= Controller.game.getWidth() || currentX <= 0) {
             // Remove trajectory
             resetTrajectory();
             stop();
             System.out.println("Outside right or left side");
         }
-
     }
 
+    
     private void resetTrajectory() {
         Controller.trajectory.getElements().removeAll(Controller.trajectory.getElements());
         Controller.projectile.setRadius(0);
         Controller.projectile.setVisible(false);
     }
 
+    
     private Double getY(double time) {
         return initialY - (yVelocity * time - (GRAVITY / 2) * time * time);
     }
 
+    
     private Double getX(double time) {
         return initialX + xVelocity * time;
     }
