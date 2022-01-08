@@ -114,38 +114,6 @@ public class Controller implements Initializable {
         stage.show();
     }
 
-    /**
-     *
-     */
-    /*public void updateGame(ActionEvent event) throws IOException {
-        Projectile projectile = bananaThrow(game);
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Group trajectory = projectile.trajectoryToGroup();
-        if (game.getCurrentPlayer() == 1) {
-            System.out.println(projectile.doesTrajectoryHit(player2));
-            if (projectile.doesTrajectoryHit(player2)) {
-                player1.incrementScore();
-                System.out.println(player1.score);
-            }
-        }
-        else if (game.getCurrentPlayer() == 0) {
-            if (projectile.doesTrajectoryHit(player1)) {
-                player2.incrementScore();
-                System.out.println(player2.score);
-            }
-        }
-        ((AnchorPane) root).getChildren().add(trajectory);
-        scene = new Scene(root, game.getWidth(), game.getHeight());
-        stage.setScene(scene);
-        stage.show();
-    }*/
-
-    public int coinFlip() {
-        Random random = new Random();
-        return random.nextInt(2);
-    }
-
     public void initUI(ActionEvent event) throws IOException {
         // Create player objects
         game.setCurrentPlayer();
@@ -153,8 +121,8 @@ public class Controller implements Initializable {
         velocity = Integer.parseInt(velocityField.getText());
         angle = Integer.parseInt(angleField.getText());
 
-        playerCircle1 = new Circle(player1.location.getX(), player1.location.getY(), 10);
-        playerCircle2 = new Circle(player2.location.getX(), player2.location.getY(), 10);
+        playerCircle1 = new Circle(player1.location.getX(), player1.location.getY(), game.getAcceptedRange());
+        playerCircle2 = new Circle(player2.location.getX(), player2.location.getY(), game.getAcceptedRange());
         Group players = new Group(playerCircle1, playerCircle2);
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
@@ -166,16 +134,12 @@ public class Controller implements Initializable {
             System.out.println("Setting projectile start (p1):");
             moveTo = new MoveTo(playerCircle1.getCenterX(), playerCircle1.getCenterY());
             projectile = new Circle(playerCircle1.getCenterX(), playerCircle1.getCenterY(), game.getAcceptedRange());
-            System.out.println(projectile.getCenterX());
-            System.out.println(projectile.getCenterY());
         }
         else {
             System.out.println("Setting projectile start (p2):");
             moveTo = new MoveTo(playerCircle2.getCenterX(), playerCircle2.getCenterY());
             projectile = new Circle(playerCircle2.getCenterX(), playerCircle2.getCenterY(), game.getAcceptedRange());
             angle = (angle * -1) + 180;
-            System.out.println(projectile.getCenterX());
-            System.out.println(projectile.getCenterY());
         }
 
         trajectory.getElements().add(moveTo);
@@ -196,31 +160,13 @@ public class Controller implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-/*
-    public Projectile bananaThrow(Game gameSettings) {
-        gameSettings.setCurrentPlayer();
-        velocity = Integer.parseInt(velocityField.getText());
-        angle = Integer.parseInt(angleField.getText());
-        if (game.getCurrentPlayer() == 1) {
-            throwPosition = player1.location;
-        }
-        else {
-            throwPosition = player2.location;
-        }
-
-        // Initialize objects
-        // Trajectory Group object
-        return new Projectile(throwPosition,angle,velocity,gameSettings);
-    }
-*/
 
 
     public void createPlayers() {
         SetPlayerNames();
-        Point2D player1Pos = new Point2D(50, game.getHeight()-100);
-        Point2D player2Pos = new Point2D(game.getWidth()-50, game.getHeight()-100);
-        player1 = new Player(Player1NameT, player1Pos);
-        player2 = new Player(Player2NameT, player2Pos);
+        // TODO : Clean up
+        player1 = new Player(Player1NameT, new Point2D(game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
+        player2 = new Player(Player2NameT, new Point2D(game.getWidth()-game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
         System.out.println(player1.name + " " + player2.name);
     }
     public void exit() {
@@ -251,15 +197,5 @@ public class Controller implements Initializable {
             PlayerName2Text.setText(Player2NameT);
         }
     }
-
-   /* public void updateGame(Stage stage, Group root, Projectile projectile) {
-        System.out.println("Updating view");
-        Group trajectory = Trajectory.trajectoryToGroup(projectile);
-        root.getChildren().add(trajectory);
-        Scene scene = root.getScene();
-        stage.setScene(scene);
-        stage.show();
-    }*/
-
 
 }
