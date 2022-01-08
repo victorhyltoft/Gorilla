@@ -22,6 +22,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -53,6 +55,8 @@ public class Controller implements Initializable {
     private TextField PlayerName1;
     @FXML
     private TextField PlayerName2;
+    @FXML
+    private Text CurrentPlayerTurn;
 
     private Point2D throwPosition;
     private static int velocity;
@@ -249,6 +253,12 @@ public class Controller implements Initializable {
         if (url.toString().endsWith("game.fxml")) {
             PlayerName1Text.setText(Player1NameT);
             PlayerName2Text.setText(Player2NameT);
+            CurrentPlayerTurn.setX(game.getWidth() / 2 -70);
+            CurrentPlayerTurn.setY(0 + 20);
+            if (game.getCurrentPlayer() == 0) {
+                CurrentPlayerTurn.setText("Its " + Player1NameT + "'s turn");
+            } else { CurrentPlayerTurn.setText("Its " + Player2NameT + "'s turn"); }
+            }
         }
     }
 
@@ -262,4 +272,3 @@ public class Controller implements Initializable {
     }*/
 
 
-}
