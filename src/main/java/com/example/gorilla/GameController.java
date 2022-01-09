@@ -35,6 +35,7 @@ public class GameController implements Initializable {
     @FXML
     private TextField velocityField;
     @FXML
+    static
     ImageView TextureImageView;
     @FXML
     Button TextureButtonRight;
@@ -58,8 +59,8 @@ public class GameController implements Initializable {
     private static int angle;
     private Stage stage;
     private Scene scene;
-    private static String Player1NameT = "player1";
-    private static String Player2NameT = "player1";
+    public static String Player1NameT = "player1";
+    public static String Player2NameT = "player1";
     public static Game game = SettingsController.game;
     public static Player player1;
     public static Player player2;
@@ -84,64 +85,14 @@ public class GameController implements Initializable {
         return angle;
     }
 
-    Image myImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cat.png")));
+    static Image myImage = new Image(Objects.requireNonNull(GameController.class.getResourceAsStream("Cat.png")));
 
 
 
-    /**
-     * This starts the actual game.
-     * This function is called from the "player-creater.fxml"
-     */
-    public void startGame(ActionEvent event) throws IOException {
-        System.out.println("Starting game");
-        createPlayers();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        // TODO : REMOVE
-//        ImageView myImage = new ImageView( new Image(Objects.requireNonNull(getClass().getResourceAsStream("Cat.png"))));
-//        myImage.setFitHeight(game.getAcceptedRange() * 2);
-//        myImage.setFitWidth(game.getAcceptedRange() * 2);
-//        myImage.setPreserveRatio(true);
-//        myImage.setX(game.getWidth() / 2);
-//        myImage.setY(game.getHeight() / 2);
-//        myImage.setRotate(myImage.getRotate());
-
-        // Adds the created players to the root
-        ((AnchorPane) root).getChildren().addAll(playerCircle1, playerCircle2, scoreText);
 
 
-        scene = new Scene(root,game.getWidth(),game.getHeight());
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-    }
 
 
-    /**
-     * Creates player objects and sets their initial positions
-     */
-    public void createPlayers() {
-        setPlayerNames();
-        // TODO : Clean up
-        player1 = new Player(Player1NameT, new Point2D(game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
-        player2 = new Player(Player2NameT, new Point2D(game.getWidth()-game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
-
-        playerCircle1 = new Circle(player1.location.getX(), player1.location.getY(), game.getAcceptedRange());
-        playerCircle2 = new Circle(player2.location.getX(), player2.location.getY(), game.getAcceptedRange());
-
-        System.out.println(player1.name + " " + player2.name);
-    }
-
-
-    public void displayImage() {
-        TextureImageView.setImage(myImage);
-    }
-
-    public void setPlayerNames() {
-        Player1NameT = PlayerName1.getText();
-        Player2NameT = PlayerName2.getText();
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

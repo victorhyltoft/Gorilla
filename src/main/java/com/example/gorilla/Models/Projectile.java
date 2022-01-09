@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 /**
+ * @deprecated
  * @author Victor Hyltoft
  */
 
@@ -195,7 +196,7 @@ public class Projectile {
      * @param player the player we want to see if the trajectory hits
      * @return true if trajectory hits the targeted player
      */
-    public boolean doesTrajectoryHit(Player player) {
+    public boolean doesTrajectoryHit(com.example.gorilla.Models.Player player) {
         // Iterate over each point
         for (Point2D point : trajectory) {
             // Check to see if X-coordinate is within range of player

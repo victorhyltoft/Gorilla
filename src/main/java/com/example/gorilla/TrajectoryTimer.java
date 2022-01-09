@@ -13,6 +13,7 @@ public class TrajectoryTimer extends AnimationTimer {
     private double xVelocity = velocity * Math.cos(Math.toRadians(angle));
     private double yVelocity = velocity * Math.sin(Math.toRadians(angle));
     public double time =  0.0;
+    // TODO : Verify this is the correct
     private final double TIME_INTERVAL = (1.0 / (60.0 * velocity)) * velocity;
 //        private double TIME_INTERVAL = 0.1;
 
@@ -48,9 +49,8 @@ public class TrajectoryTimer extends AnimationTimer {
                 if (Math.abs((currentY - GameController.playerCircle2.getCenterY())) < GameController.game.getAcceptedRange()) {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
-                    resetTrajectory();
                     GameController.player1.incrementScore();
-                    System.out.println(GameController.player1.score);
+                    GameController.throwFinished();
                     stop();
                 }
             }
@@ -63,9 +63,8 @@ public class TrajectoryTimer extends AnimationTimer {
                 if (Math.abs((currentY - GameController.playerCircle1.getCenterY())) < GameController.game.getAcceptedRange()) {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
-                    resetTrajectory();
                     GameController.player2.incrementScore();
-                    System.out.println(GameController.player2.score);
+                    GameController.throwFinished();
                     stop();
                 }
             }
@@ -75,26 +74,19 @@ public class TrajectoryTimer extends AnimationTimer {
         // Check if outside the screen
         if (currentY >= GameController.game.getHeight()) {
             stop();
-            resetTrajectory();
+            GameController.throwFinished();
             System.out.println("Outside bottom");
         }
 
         // Check if outside either horizontal edge
         if (currentX >= GameController.game.getWidth() || currentX <= 0) {
             // Remove trajectory
-            resetTrajectory();
+            GameController.throwFinished();
             stop();
             System.out.println("Outside right or left side");
         }
     }
 
-
-    private void resetTrajectory() {
-        GameController.trajectory.getElements().removeAll(GameController.trajectory.getElements());
-        GameController.projectile.setRadius(0);
-        GameController.projectile.setVisible(false);
-        GameController.throwFinished();
-    }
 
 
     private Double getY(double time) {
