@@ -161,7 +161,8 @@ public class GameController implements Initializable {
 
         // Add the players, projectile and trajectory to the window
         ((AnchorPane) root).getChildren().addAll(playerCircle1, playerCircle2, projectile, trajectory, scoreText, CurrentPlayerTurn);
-
+        CurrentPlayerTurn.setText("Throwing...");
+        CurrentPlayerTurn.setX(game.getWidth() / 2 - CurrentPlayerTurn.getLayoutBounds().getWidth());
         // Start animation timer
         TrajectoryTimer timer = new TrajectoryTimer();
         timer.start();
