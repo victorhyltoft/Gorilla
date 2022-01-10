@@ -6,7 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,13 +27,15 @@ public class SettingsController {
     private TextField widthField;
     @FXML
     private TextField gravityField;
+    @FXML
+    private Label UseNumbersPlz;
 
     /**
      * Switches to the screen allowing players to customize their player
      * Here the name of the player and the texture is set
      */
     public void switchToPlayerCreator(ActionEvent event) throws IOException {
-        if (gameSettings() == 1){
+        if (gameSettings() == true){
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
@@ -40,22 +44,19 @@ public class SettingsController {
         }
     }
 
-    public int gameSettings() {
-        int CheckForNumbers = 0;
+    public boolean gameSettings() {
+        boolean CheckForNumbers  = false;
         try {
             game.setWidth(Integer.parseInt(widthField.getText()));
             game.setHeight(Integer.parseInt(heightField.getText()));
             game.setGravity(Double.parseDouble(gravityField.getText()));
             game.setAcceptedRange(game.getWidth());
-            CheckForNumbers = 1;
+            CheckForNumbers = true;
             return CheckForNumbers;
         } catch (NumberFormatException e) {
             System.out.println("only numbers");
-            CheckForNumbers = 0;
-            return CheckForNumbers;
-        } catch (Exception e) {
-            System.out.println("error");
-            CheckForNumbers = 0;
+            UseNumbersPlz.setText("enter only numbers plz");
+            UseNumbersPlz.setTextAlignment(TextAlignment.CENTER);
             return CheckForNumbers;
         }
 
