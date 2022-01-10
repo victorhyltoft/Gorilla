@@ -134,10 +134,9 @@ public class GameController implements Initializable {
     public void throwProjectile(ActionEvent event) throws IOException {
         // Update the latest player
         game.setCurrentPlayer();
-
+        validate();
         // Get velocity and angle from the textfield
-        velocity = Integer.parseInt(velocityField.getText());
-        angle = Integer.parseInt(angleField.getText());
+
 
         // Load the basic game scene
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
@@ -179,6 +178,51 @@ public class GameController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Validates angle and velocity
+     */
+    public void validate() {
+        if (angleField.getText() == null || !isNumber(angleField.getText())) {
+            angle = 0;
+        }
+        else {
+            angle = Integer.parseInt(angleField.getText());
+        }
+
+        if (velocityField.getText() == null || !isNumber(velocityField.getText())) {
+            velocity = 0;
+        }
+        else {
+            velocity = Integer.parseInt(velocityField.getText());
+        }
+
+        if (angle < 0) {
+            angle = 0;
+        }
+        else if (angle > 90) {
+            angle = 90;
+        }
+
+        if (velocity < 0) {
+            velocity = 0;
+        }
+    }
+
+    /**
+     * Checks if the given string can be parsed to an integer. Used for checking and validating velocityField and angleField.
+     * @param string
+     * @return
+     */
+    public boolean isNumber(String string) {
+        try {
+            Integer.parseInt(string);
+            return true;
+        }
+        catch (NumberFormatException e){
+            System.out.println("Cannot be parsed to integer");
+        }
+        return false;
+    }
 
 
     }
