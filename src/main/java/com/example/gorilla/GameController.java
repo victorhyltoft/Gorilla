@@ -85,12 +85,9 @@ public class GameController implements Initializable {
     static Image myImage = new Image(Objects.requireNonNull(GameController.class.getResourceAsStream("Cat.png")));
 
 
-
-
-
-
-
-
+    /**
+     * This function is run everytime the "game.fxml" file is loaded
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (url.toString().endsWith("game.fxml")) {
@@ -99,7 +96,7 @@ public class GameController implements Initializable {
 
             // Score text at bottom
             scoreText = new Text(player1.score + " | " + player2.score);
-            scoreText.setStyle("-fx-text-fill: white;" + "-fx-font-size: 24");
+            scoreText.setStyle("-fx-text-fill: white; -fx-font-size: 24");
             scoreText.setX(game.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
             scoreText.setTextAlignment(TextAlignment.CENTER);
             scoreText.setY(game.getHeight() - 24);
@@ -131,16 +128,21 @@ public class GameController implements Initializable {
      */
     public void throwProjectile(ActionEvent event) throws IOException {
         // Update the latest player
-        // Get velocity and angle from the textfields and validate them.
-        validate();
+
+        // Make sure the text fields are valid
+        if (!validateTextFields()) {
+            return;
+        }
+
         // Load the basic game scene
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        // Create a new trajectory path (used to
+        // Create a new trajectory path (used to display the trajectory)
         trajectory = new Path();
-        MoveTo moveTo;
+        MoveTo moveTo; // Sets the start position of the Path
 
+        // TODO : Code improvements
         if (game.getCurrentPlayer() == 1) {
             System.out.println("Setting projectile start (p1):");
             moveTo = new MoveTo(playerCircle1.getCenterX(), playerCircle1.getCenterY());
@@ -156,10 +158,7 @@ public class GameController implements Initializable {
         trajectory.getElements().add(moveTo);
         System.out.println(trajectory.getElements());
 
-
-
-
-        // Add the players, projectile and trajectory to the window
+        // Add the objects which are going to be updated
         ((AnchorPane) root).getChildren().addAll(playerCircle1, playerCircle2, projectile, trajectory, scoreText, CurrentPlayerTurn);
         CurrentPlayerTurn.setText("Throwing...");
         CurrentPlayerTurn.setX(game.getWidth() / 2 - CurrentPlayerTurn.getLayoutBounds().getWidth());
@@ -175,50 +174,24 @@ public class GameController implements Initializable {
     }
 
     /**
-     * Validates angle and velocity
+     * Validates that the angle and velocity text fields both are integers and
+     * the angle is between 0-90 and velocity is greater than 0
+     * @return true if angle and velocity text fields both are valid
      */
-    public void validate() {
-        if (angleField.getText() == null || !isNumber(angleField.getText())) {
-            angle = 0;
-        }
-        else {
-            angle = Integer.parseInt(angleField.getText());
-        }
-
-        if (velocityField.getText() == null || !isNumber(velocityField.getText())) {
-            velocity = 0;
-        }
-        else {
-            velocity = Integer.parseInt(velocityField.getText());
-        }
-
-        if (angle < 0) {
-            angle = 0;
-        }
-        else if (angle > 90) {
-            angle = 90;
-        }
-
-        if (velocity < 0) {
-            velocity = 0;
-        }
-    }
-
-    /**
-     * Checks if the given string can be parsed to an integer. Used for checking and validating velocityField and angleField.
-     * @param string
-     * @return
-     */
-    public boolean isNumber(String string) {
+    public boolean validateTextFields() {
         try {
-            Integer.parseInt(string);
-            return true;
+            angle = Integer.parseInt(angleField.getText());
+            velocity = Integer.parseInt(velocityField.getText());
+
+            // Make sure angle is between 0-90 and velocity is greater than 0
+            return angle <= 90 && angle >= 0 && velocity >= 0;
+
+        } catch (Exception e) {
+            System.out.println("Only numbers allowed");
+            return false;
         }
-        catch (NumberFormatException e){
-            System.out.println("Cannot be parsed to integer");
-        }
-        return false;
     }
+
 
 
 }
