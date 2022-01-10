@@ -31,18 +31,32 @@ public class SettingsController {
      * Here the name of the player and the texture is set
      */
     public void switchToPlayerCreator(ActionEvent event) throws IOException {
-        gameSettings();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if (gameSettings() == 1){
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
-    public void gameSettings() {
-        game.setWidth(Integer.parseInt(widthField.getText()));
-        game.setHeight(Integer.parseInt(heightField.getText()));
-        game.setGravity(Double.parseDouble(gravityField.getText()));
-        game.setAcceptedRange(game.getWidth());
-    }
-}
+    public int gameSettings() {
+        int CheckForNumbers = 0;
+        try {
+            game.setWidth(Integer.parseInt(widthField.getText()));
+            game.setHeight(Integer.parseInt(heightField.getText()));
+            game.setGravity(Double.parseDouble(gravityField.getText()));
+            game.setAcceptedRange(game.getWidth());
+            CheckForNumbers = 1;
+            return CheckForNumbers;
+        } catch (NumberFormatException e) {
+            System.out.println("only numbers");
+            CheckForNumbers = 0;
+            return CheckForNumbers;
+        } catch (Exception e) {
+            System.out.println("error");
+            CheckForNumbers = 0;
+            return CheckForNumbers;
+        }
+
+    } }
