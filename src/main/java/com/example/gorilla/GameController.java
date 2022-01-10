@@ -184,7 +184,7 @@ public class GameController implements Initializable {
             velocity = Integer.parseInt(velocityField.getText());
 
             // Make sure angle is between 0-90 and velocity is greater than 0
-            return angle <= 90 && angle >= 0 && velocity >= 0;
+            return angle <= 90 && angle >= 0 && velocity > 0;
 
         } catch (Exception e) {
             System.out.println("Only numbers allowed");
