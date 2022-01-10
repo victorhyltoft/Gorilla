@@ -48,7 +48,7 @@
       </Text>
       <Label id="myLabel" fx:id="PlayerName1Text" layoutX="429.0" layoutY="12.0" text="Player 1" textFill="WHITE" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="10.0" />
       <Label id="myLabel" fx:id="PlayerName2Text" layoutX="432.0" layoutY="55.0" text="Player 2" textFill="WHITE" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="55.0" />
-      <Text id="CurrentText" fx:id="CurrentPlayerTurn" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+      <Text id="CurrentText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
          <font>
             <Font name="Courier New" size="20.0" />
          </font></Text>

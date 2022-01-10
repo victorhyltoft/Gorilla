@@ -46,8 +46,6 @@ public class GameController implements Initializable {
     @FXML
     private TextField PlayerName2;
     @FXML
-    private Text CurrentPlayerTurn;
-    @FXML
     public Text Player1Score;
     @FXML
     public Text Player2Score;
@@ -72,6 +70,7 @@ public class GameController implements Initializable {
     // TODO : TEST-BLOCK
     public static Text scoreText;
     // TEST-BLOCK DONE
+    public static Text CurrentPlayerTurn;
 
 
     // GETTERS
@@ -104,11 +103,12 @@ public class GameController implements Initializable {
             scoreText.setX(game.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
             scoreText.setTextAlignment(TextAlignment.CENTER);
             scoreText.setY(game.getHeight() - 24);
-            
 
-            CurrentPlayerTurn.setX(game.getWidth() / 2 -70);
-            CurrentPlayerTurn.setY(0 + 20);
-            CurrentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
+            CurrentPlayerTurn = new Text("It's " + game.getCurrentPlayerName() + "'s turn.");
+            CurrentPlayerTurn.setStyle("-fx-text-fill: white;" + "-fx-font-size: 24");
+            CurrentPlayerTurn.setX(game.getWidth() / 2 - CurrentPlayerTurn.getLayoutBounds().getWidth());
+            CurrentPlayerTurn.setTextAlignment(TextAlignment.CENTER);
+            CurrentPlayerTurn.setY(24);
         }
     }
 
@@ -117,7 +117,7 @@ public class GameController implements Initializable {
         projectile.setRadius(0);
         projectile.setVisible(false);
         game.setCurrentPlayer();
-        System.out.println(game.getCurrentPlayerName());
+        CurrentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
         scoreText.setText(player1.score + " | " + player2.score);
 
         Player1ScoreText = new Text("test???");
@@ -160,7 +160,7 @@ public class GameController implements Initializable {
 
 
         // Add the players, projectile and trajectory to the window
-        ((AnchorPane) root).getChildren().addAll(playerCircle1, playerCircle2, projectile, trajectory, scoreText);
+        ((AnchorPane) root).getChildren().addAll(playerCircle1, playerCircle2, projectile, trajectory, scoreText, CurrentPlayerTurn);
 
         // Start animation timer
         TrajectoryTimer timer = new TrajectoryTimer();

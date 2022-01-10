@@ -38,7 +38,7 @@ public class PlayerCreatorController {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         // Adds the created players to the root
-        ((AnchorPane) root).getChildren().addAll(GameController.playerCircle1, GameController.playerCircle2, GameController.scoreText);
+        ((AnchorPane) root).getChildren().addAll(GameController.playerCircle1, GameController.playerCircle2, GameController.scoreText, GameController.CurrentPlayerTurn);
 
 
         scene = new Scene(root,SettingsController.game.getWidth(),SettingsController.game.getHeight());
