@@ -4,7 +4,7 @@ public class Game {
     private double gravity;
     private double height;
     private double width;
-    private int turnCounter;
+    private int turnCounter = 1;
     private double acceptedRange;
     private static final int noOfPlayers = 2;
 
@@ -52,5 +52,14 @@ public class Game {
 
     public double getAcceptedRange() {
         return acceptedRange;
+    }
+
+    public String getCurrentPlayerName() {
+        if (getCurrentPlayer() == 1) {
+            return GameController.player1.name;
+        }
+        else {
+            return GameController.player2.name;
+        }
     }
 }

@@ -1,11 +1,9 @@
 package com.example.gorilla;
 
-import com.example.gorilla.Models.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -110,9 +108,7 @@ public class GameController implements Initializable {
 
             CurrentPlayerTurn.setX(game.getWidth() / 2 -70);
             CurrentPlayerTurn.setY(0 + 20);
-            if (game.getCurrentPlayer() == 0) {
-                CurrentPlayerTurn.setText("Its " + Player1NameT + "'s turn");
-            } else { CurrentPlayerTurn.setText("Its " + Player2NameT + "'s turn"); }
+            CurrentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
         }
     }
 
@@ -120,6 +116,8 @@ public class GameController implements Initializable {
         trajectory.getElements().removeAll(GameController.trajectory.getElements());
         projectile.setRadius(0);
         projectile.setVisible(false);
+        game.setCurrentPlayer();
+        System.out.println(game.getCurrentPlayerName());
         scoreText.setText(player1.score + " | " + player2.score);
 
         Player1ScoreText = new Text("test???");
@@ -133,11 +131,8 @@ public class GameController implements Initializable {
      */
     public void throwProjectile(ActionEvent event) throws IOException {
         // Update the latest player
-        game.setCurrentPlayer();
+        // Get velocity and angle from the textfields and validate them.
         validate();
-        // Get velocity and angle from the textfield
-
-
         // Load the basic game scene
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -225,4 +220,4 @@ public class GameController implements Initializable {
     }
 
 
-    }
+}

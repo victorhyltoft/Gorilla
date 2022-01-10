@@ -1,6 +1,5 @@
 package com.example.gorilla;
 
-import com.example.gorilla.Models.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;

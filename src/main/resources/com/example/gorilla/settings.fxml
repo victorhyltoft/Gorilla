@@ -54,7 +54,7 @@
                   <Image url="@textures/gravity.png" />
                </image>
             </ImageView>
-            <Label fx:id="UseNumbersPlz" layoutX="75.0" layoutY="336.0" prefHeight="50.0" prefWidth="300.0" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="errorText" layoutX="75.0" layoutY="336.0" prefHeight="50.0" prefWidth="300.0" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Courier New" size="20.0" />
                </font>

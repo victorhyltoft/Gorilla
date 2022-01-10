@@ -1,4 +1,4 @@
-package com.example.gorilla.Models;
+package com.example.gorilla;
 
 import javafx.geometry.Point2D;
 
@@ -21,4 +21,6 @@ public class Player {
     public void incrementScore() {
         this.score += 1;
     }
+
+
 }
