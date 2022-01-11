@@ -40,7 +40,7 @@ public class Player {
     }
 
     public Circle getCircle() {
-        return circle;
+        return new Circle(location.getX(), location.getY(), SettingsController.game.getAcceptedRange());
     }
 
 
