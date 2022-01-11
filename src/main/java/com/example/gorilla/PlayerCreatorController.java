@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,12 +21,12 @@ public class PlayerCreatorController {
 
 
     @FXML
-    public TextField PlayerName1;
+    public TextField playerName1;
     @FXML
-    public TextField PlayerName2;
-    public ImageView TextureImageView;
-    public Button TextureButtonRight;
-    public Button TextureButtonLeft;
+    public TextField playerName2;
+    public ImageView textureImageView;
+    public Button textureButtonRight;
+    public Button textureButtonLeft;
 
     private Stage stage;
     private Scene scene;
@@ -62,19 +61,19 @@ public class PlayerCreatorController {
     public void createPlayers() {
         setPlayerNames();
         // TODO : Clean up
-        GameController.player1 = new Player(PlayerName1.getText(), new Point2D(game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
-        GameController.player2 = new Player(PlayerName2.getText(), new Point2D(game.getWidth()-game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
+        GameController.player1 = new Player(playerName1.getText(), new Point2D(game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
+        GameController.player2 = new Player(playerName2.getText(), new Point2D(game.getWidth()-game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
 
         System.out.println(GameController.player1.name + " " + GameController.player2.name);
     }
 
 
     public void displayImage() {
-        GameController.TextureImageView.setImage(myImage);
+        GameController.textureImageView.setImage(myImage);
     }
 
     public void setPlayerNames() {
-        GameController.Player1NameT = PlayerName1.getText();
-        GameController.Player2NameT = PlayerName2.getText();
+        GameController.player1NameT = playerName1.getText();
+        GameController.player2NameT = playerName2.getText();
     }
 }

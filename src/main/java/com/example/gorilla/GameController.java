@@ -25,15 +25,15 @@ public class GameController implements Initializable {
     @FXML
     private TextField velocityField;
     @FXML
-    static ImageView TextureImageView;
+    static ImageView textureImageView;
     @FXML
     private Label playerName1Text;
     @FXML
     private Label playerName2Text;
     @FXML
-    public Text Player1Score;
+    public Text player1Score;
     @FXML
-    public Text Player2Score;
+    public Text player2Score;
 
     // FIELDS
     public static Parent root;
@@ -42,8 +42,8 @@ public class GameController implements Initializable {
     private static int velocity;
     private static int angle;
 
-    public static String Player1NameT = "player1";
-    public static String Player2NameT = "player2";
+    public static String player1NameT = "player1";
+    public static String player2NameT = "player2";
     public static Game game = SettingsController.game;
     public static Player player1;
     public static Player player2;
@@ -70,8 +70,8 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        playerName1Text.setText(Player1NameT);
-        playerName2Text.setText(Player2NameT);
+        playerName1Text.setText(player1NameT);
+        playerName2Text.setText(player2NameT);
 
         // Score text at bottom
         scoreText = new Text(player1.score + " | " + player2.score);
