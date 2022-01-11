@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
 
-    public static Text Player1ScoreText;
+    public static Text player1ScoreText;
     // FXML ANNOTATION
     @FXML
     private TextField angleField;
@@ -34,29 +34,29 @@ public class GameController implements Initializable {
     private TextField velocityField;
     @FXML
     static
-    ImageView TextureImageView;
+    ImageView textureImageView;
     @FXML
-    Button TextureButtonRight;
+    Button textureButtonRight;
     @FXML
-    private Label PlayerName1Text;
+    private Label playerName1Text;
     @FXML
-    private Label PlayerName2Text;
+    private Label playerName2Text;
     @FXML
-    private TextField PlayerName1;
+    private TextField playerName1;
     @FXML
-    private TextField PlayerName2;
+    private TextField playerName2;
     @FXML
-    public Text Player1Score;
+    public Text player1Score;
     @FXML
-    public Text Player2Score;
+    public Text player2Score;
 
     // FIELDS
     private static int velocity;
     private static int angle;
     private Stage stage;
     private Scene scene;
-    public static String Player1NameT = "player1";
-    public static String Player2NameT = "player1";
+    public static String player1NameT = "player1";
+    public static String player2NameT = "player1";
     public static Game game = SettingsController.game;
     public static Player player1;
     public static Player player2;
@@ -70,7 +70,7 @@ public class GameController implements Initializable {
     // TODO : TEST-BLOCK
     public static Text scoreText;
     // TEST-BLOCK DONE
-    public static Text CurrentPlayerTurn;
+    public static Text currentPlayerTurn;
 
 
     // GETTERS
@@ -91,8 +91,8 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (url.toString().endsWith("game.fxml")) {
-            PlayerName1Text.setText(Player1NameT);
-            PlayerName2Text.setText(Player2NameT);
+            playerName1Text.setText(player1NameT);
+            playerName2Text.setText(player2NameT);
 
             // Score text at bottom
             scoreText = new Text(player1.score + " | " + player2.score);
@@ -101,11 +101,11 @@ public class GameController implements Initializable {
             scoreText.setTextAlignment(TextAlignment.CENTER);
             scoreText.setY(game.getHeight() - 24);
 
-            CurrentPlayerTurn = new Text("It's " + game.getCurrentPlayerName() + "'s turn.");
-            CurrentPlayerTurn.setStyle("-fx-text-fill: white;" + "-fx-font-size: 24");
-            CurrentPlayerTurn.setX(game.getWidth() / 2 - CurrentPlayerTurn.getLayoutBounds().getWidth());
-            CurrentPlayerTurn.setTextAlignment(TextAlignment.CENTER);
-            CurrentPlayerTurn.setY(24);
+            currentPlayerTurn = new Text("It's " + game.getCurrentPlayerName() + "'s turn.");
+            currentPlayerTurn.setStyle("-fx-text-fill: white;" + "-fx-font-size: 24");
+            currentPlayerTurn.setX(game.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
+            currentPlayerTurn.setTextAlignment(TextAlignment.CENTER);
+            currentPlayerTurn.setY(24);
         }
     }
 
@@ -114,10 +114,10 @@ public class GameController implements Initializable {
         projectile.setRadius(0);
         projectile.setVisible(false);
         game.setCurrentPlayer();
-        CurrentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
+        currentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
         scoreText.setText(player1.score + " | " + player2.score);
 
-        Player1ScoreText = new Text("test???");
+        player1ScoreText = new Text("test???");
 
     }
 
@@ -159,9 +159,9 @@ public class GameController implements Initializable {
         System.out.println(trajectory.getElements());
 
         // Add the objects which are going to be updated
-        ((AnchorPane) root).getChildren().addAll(playerCircle1, playerCircle2, projectile, trajectory, scoreText, CurrentPlayerTurn);
-        CurrentPlayerTurn.setText("Throwing...");
-        CurrentPlayerTurn.setX(game.getWidth() / 2 - CurrentPlayerTurn.getLayoutBounds().getWidth());
+        ((AnchorPane) root).getChildren().addAll(playerCircle1, playerCircle2, projectile, trajectory, scoreText, currentPlayerTurn);
+        currentPlayerTurn.setText("Throwing...");
+        currentPlayerTurn.setX(game.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
         // Start animation timer
         TrajectoryTimer timer = new TrajectoryTimer();
         timer.start();

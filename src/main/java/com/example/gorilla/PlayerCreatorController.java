@@ -19,11 +19,11 @@ import java.util.Objects;
 public class PlayerCreatorController {
 
 
-    public TextField PlayerName1;
-    public ImageView TextureImageView;
-    public Button TextureButtonRight;
-    public Button TextureButtonLeft;
-    public TextField PlayerName2;
+    public TextField playerName1;
+    public ImageView textureImageView;
+    public Button textureButtonRight;
+    public Button textureButtonLeft;
+    public TextField playerName2;
     private Stage stage;
     private Scene scene;
 
@@ -38,7 +38,7 @@ public class PlayerCreatorController {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         // Adds the created players to the root
-        ((AnchorPane) root).getChildren().addAll(GameController.playerCircle1, GameController.playerCircle2, GameController.scoreText, GameController.CurrentPlayerTurn);
+        ((AnchorPane) root).getChildren().addAll(GameController.playerCircle1, GameController.playerCircle2, GameController.scoreText, GameController.currentPlayerTurn);
 
 
         scene = new Scene(root,SettingsController.game.getWidth(),SettingsController.game.getHeight());
@@ -53,8 +53,8 @@ public class PlayerCreatorController {
     public void createPlayers() {
         setPlayerNames();
         // TODO : Clean up
-        GameController.player1 = new Player(GameController.Player1NameT, new Point2D(SettingsController.game.getAcceptedRange(), SettingsController.game.getHeight() - SettingsController.game.getAcceptedRange()));
-        GameController.player2 = new Player(GameController.Player2NameT, new Point2D(SettingsController.game.getWidth()-SettingsController.game.getAcceptedRange(), SettingsController.game.getHeight() - SettingsController.game.getAcceptedRange()));
+        GameController.player1 = new Player(GameController.player1NameT, new Point2D(SettingsController.game.getAcceptedRange(), SettingsController.game.getHeight() - SettingsController.game.getAcceptedRange()));
+        GameController.player2 = new Player(GameController.player2NameT, new Point2D(SettingsController.game.getWidth()-SettingsController.game.getAcceptedRange(), SettingsController.game.getHeight() - SettingsController.game.getAcceptedRange()));
 
         GameController.playerCircle1 = new Circle(GameController.player1.location.getX(), GameController.player1.location.getY(), GameController.game.getAcceptedRange());
         GameController.playerCircle2 = new Circle(GameController.player2.location.getX(), GameController.player2.location.getY(), GameController.game.getAcceptedRange());
@@ -64,11 +64,11 @@ public class PlayerCreatorController {
 
 
     public void displayImage() {
-        GameController.TextureImageView.setImage(GameController.myImage);
+        GameController.textureImageView.setImage(GameController.myImage);
     }
 
     public void setPlayerNames() {
-        GameController.Player1NameT = PlayerName1.getText();
-        GameController.Player2NameT = PlayerName2.getText();
+        GameController.player1NameT = playerName1.getText();
+        GameController.player2NameT = playerName2.getText();
     }
 }

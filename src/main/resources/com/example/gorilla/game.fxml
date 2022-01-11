@@ -26,12 +26,12 @@
          </font>
       </TextField>
       <Button id="Player1ThrowButton" fx:id="Player1ThrowButton" layoutX="19.0" layoutY="74.0" mnemonicParsing="false" onAction="#throwProjectile" prefHeight="24.0" prefWidth="64.0" stylesheets="@application.css" text="Throw!" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="60.0" />
-      <Text id="Player1ScoreText" fx:id="Player1ScoreText" fill="WHITE" layoutX="428.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
+      <Text id="Player1ScoreText" fx:id="player1ScoreText" fill="WHITE" layoutX="428.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Text>
-      <Text id="Player1ScorePoints" fx:id="Player1Score" fill="WHITE" layoutX="481.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
+      <Text id="Player1ScorePoints" fx:id="player1Score" fill="WHITE" layoutX="481.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
@@ -41,13 +41,13 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Text>
-      <Text id="Player2ScorePoints" fx:id="Player2Score" fill="WHITE" layoutX="19.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="75.0">
+      <Text id="Player2ScorePoints" fx:id="player2Score" fill="WHITE" layoutX="19.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="75.0">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </Text>
-      <Label id="myLabel" fx:id="PlayerName1Text" layoutX="429.0" layoutY="12.0" text="Player 1" textFill="WHITE" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="10.0" />
-      <Label id="myLabel" fx:id="PlayerName2Text" layoutX="432.0" layoutY="55.0" text="Player 2" textFill="WHITE" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="55.0" />
+      <Label id="myLabel" fx:id="playerName1Text" layoutX="429.0" layoutY="12.0" text="Player 1" textFill="WHITE" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="10.0" />
+      <Label id="myLabel" fx:id="playerName2Text" layoutX="432.0" layoutY="55.0" text="Player 2" textFill="WHITE" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="55.0" />
       <Text id="CurrentText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
          <font>
             <Font name="Courier New" size="20.0" />
