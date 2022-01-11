@@ -45,6 +45,10 @@ public class SettingsController {
 
     public boolean validateTextFields() {
         try {
+            if (Integer.parseInt(widthField.getText()) < 300 || Integer.parseInt(heightField.getText()) < 300) {
+                errorText.setText("minimum size is 300");
+                return false;
+            }
             game.setWidth(Integer.parseInt(widthField.getText()));
             game.setHeight(Integer.parseInt(heightField.getText()));
             game.setGravity(Double.parseDouble(gravityField.getText()));
@@ -53,6 +57,7 @@ public class SettingsController {
         } catch (NumberFormatException e) {
             System.out.println("only numbers");
             errorText.setText("Only numbers allowed");
+
             return false;
         }
 
