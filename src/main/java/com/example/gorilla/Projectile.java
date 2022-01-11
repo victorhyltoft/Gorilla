@@ -46,10 +46,10 @@ public class Projectile extends AnimationTimer {
 
         // Check if we hit a player
         // Check to see if X-coordinate is within range of player
-        if (GameController.game.getCurrentPlayer() != 0) {
-            if (Math.abs((currentX - GameController.player2.location.getX())) < GameController.game.getAcceptedRange()) {
+        if (GameController.game.getCurrentTurn() != 0) {
+            if (Math.abs((currentX - GameController.player2.getLocation().getX())) < GameController.game.getAcceptedRange()) {
                 // Check to see if Y-coordinate is within range of player
-                if (Math.abs((currentY - GameController.player2.location.getY())) < GameController.game.getAcceptedRange()) {
+                if (Math.abs((currentY - GameController.player2.getLocation().getY())) < GameController.game.getAcceptedRange()) {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
                     GameController.player1.incrementScore();
@@ -61,9 +61,9 @@ public class Projectile extends AnimationTimer {
 
 
         else {
-            if (Math.abs((currentX - GameController.player1.location.getX())) < GameController.game.getAcceptedRange()) {
+            if (Math.abs((currentX - GameController.player1.getLocation().getX())) < GameController.game.getAcceptedRange()) {
                 // Check to see if Y-coordinate is within range of player
-                if (Math.abs((currentY - GameController.player1.location.getY())) < GameController.game.getAcceptedRange()) {
+                if (Math.abs((currentY - GameController.player1.getLocation().getY())) < GameController.game.getAcceptedRange()) {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
                     GameController.player2.incrementScore();

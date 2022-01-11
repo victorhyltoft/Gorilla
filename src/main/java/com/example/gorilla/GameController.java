@@ -42,8 +42,6 @@ public class GameController implements Initializable {
     private static int velocity;
     private static int angle;
 
-    public static String player1NameT = "player1";
-    public static String player2NameT = "player2";
     public static Game game = SettingsController.game;
     public static Player player1;
     public static Player player2;
@@ -70,11 +68,11 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        playerName1Text.setText(player1NameT);
-        playerName2Text.setText(player2NameT);
+        playerName1Text.setText(player1.getName());
+        playerName2Text.setText(player2.getName());
 
         // Score text at bottom
-        scoreText = new Text(player1.score + " | " + player2.score);
+        scoreText = new Text(player1.getScore() + " | " + player2.getScore());
         scoreText.setStyle("-fx-text-fill: white; -fx-font-size: 24");
         scoreText.setX(game.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
         scoreText.setTextAlignment(TextAlignment.CENTER);
@@ -110,15 +108,15 @@ public class GameController implements Initializable {
         MoveTo moveTo; // Sets the start position of the Path
 
         // TODO : Code improvements
-        if (game.getCurrentPlayer() == 1) {
+        if (game.getCurrentTurn() == 1) {
             System.out.println("Setting projectile start (p1):");
-            moveTo = new MoveTo(player1.location.getX(), player2.location.getY());
-            projectile = new Circle(player1.location.getX(), player1.location.getY(), 20);
+            moveTo = new MoveTo(player1.getLocation().getX(), player2.getLocation().getY());
+            projectile = new Circle(player1.getLocation().getX(), player1.getLocation().getY(), 20);
         }
         else {
             System.out.println("Setting projectile start (p2):");
-            moveTo = new MoveTo(player2.location.getX(), player2.location.getY());
-            projectile = new Circle(player2.location.getX(), player2.location.getY(), 20);
+            moveTo = new MoveTo(player2.getLocation().getX(), player2.getLocation().getY());
+            projectile = new Circle(player2.getLocation().getX(), player2.getLocation().getY(), 20);
             angle = (angle * -1) + 180;
         }
 
@@ -172,7 +170,7 @@ public class GameController implements Initializable {
         currentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
 
         // Update score
-        scoreText.setText(player1.score + " | " + player2.score);
+        scoreText.setText(player1.getScore() + " | " + player2.getScore());
     }
 
 

@@ -5,10 +5,10 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 
 public class Player {
-    public String name;
-    public Point2D location;
-    public int score;
-    public Circle circle;
+    private String name;
+    private Point2D location;
+    private int score;
+    private Circle circle;
 //    public Image image;
 
     // Constructor 1
@@ -25,6 +25,22 @@ public class Player {
 
     public void incrementScore() {
         this.score += 1;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Point2D getLocation() {
+        return location;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public Circle getCircle() {
+        return circle;
     }
 
 

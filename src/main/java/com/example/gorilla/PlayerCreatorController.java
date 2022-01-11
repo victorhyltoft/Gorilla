@@ -45,7 +45,7 @@ public class PlayerCreatorController {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         // Adds the created players to the root
-        ((AnchorPane) root).getChildren().addAll(GameController.player1.circle, GameController.player2.circle, GameController.scoreText, GameController.currentPlayerTurn, GameController.trajectory);
+        ((AnchorPane) root).getChildren().addAll(GameController.player1.getCircle(), GameController.player2.getCircle(), GameController.scoreText, GameController.currentPlayerTurn, GameController.trajectory);
         GameController.root = root;
 
         scene = new Scene(root,SettingsController.game.getWidth(),SettingsController.game.getHeight());
@@ -59,12 +59,11 @@ public class PlayerCreatorController {
      * Creates player objects and sets their initial positions
      */
     public void createPlayers() {
-        setPlayerNames();
         // TODO : Clean up
         GameController.player1 = new Player(playerName1.getText(), new Point2D(game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
         GameController.player2 = new Player(playerName2.getText(), new Point2D(game.getWidth()-game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
 
-        System.out.println(GameController.player1.name + " " + GameController.player2.name);
+        System.out.println(GameController.player1.getName() + " " + GameController.player2.getName());
     }
 
 
@@ -72,8 +71,4 @@ public class PlayerCreatorController {
         GameController.textureImageView.setImage(myImage);
     }
 
-    public void setPlayerNames() {
-        GameController.player1NameT = playerName1.getText();
-        GameController.player2NameT = playerName2.getText();
-    }
 }

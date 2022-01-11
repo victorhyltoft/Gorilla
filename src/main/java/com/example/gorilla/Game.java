@@ -18,7 +18,7 @@ public class Game {
         turnCounter += 1;
     }
 
-    public int getCurrentPlayer() {
+    public int getCurrentTurn() {
         return turnCounter % noOfPlayers;
     }
 
@@ -55,11 +55,20 @@ public class Game {
     }
 
     public String getCurrentPlayerName() {
-        if (getCurrentPlayer() == 1) {
-            return GameController.player1.name;
+        if (getCurrentTurn() == 1) {
+            return GameController.player1.getName();
         }
         else {
-            return GameController.player2.name;
+            return GameController.player2.getName();
+        }
+    }
+
+    public Player getCurrentPlayer() {
+        if (getCurrentTurn() == 1) {
+            return GameController.player1;
+        }
+        else {
+            return GameController.player2;
         }
     }
 }
