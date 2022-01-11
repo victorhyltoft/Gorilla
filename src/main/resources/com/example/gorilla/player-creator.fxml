@@ -14,7 +14,7 @@
     <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@textures/5256.png" />
+            <Image url="@textures/player-creator-background.png" />
          </image>
       </ImageView>
       <Pane id="SquareOutline" prefHeight="400.0" prefWidth="400.0" stylesheets="@application.css" AnchorPane.bottomAnchor="139.0" AnchorPane.leftAnchor="437.0" AnchorPane.rightAnchor="437.0" AnchorPane.topAnchor="175.0" />
