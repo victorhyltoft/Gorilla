@@ -4,18 +4,22 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.shape.LineTo;
 
 
-public class TrajectoryTimer extends AnimationTimer {
+public class Projectile extends AnimationTimer {
+    // Constant gravitational acceleration for now
     private static final double GRAVITY = 9.81;
-    private double velocity = GameController.getVelocity();
-    private double angle = GameController.getAngle();
-    private Double initialX = GameController.projectile.getCenterX();
-    private Double initialY = GameController.projectile.getCenterY();
-    private double xVelocity = velocity * Math.cos(Math.toRadians(angle));
-    private double yVelocity = velocity * Math.sin(Math.toRadians(angle));
-    public double time =  0.0;
-    // TODO : Verify this is the correct
+//    private static final double GRAVITY = GameController.game.getGravity();
+
+
+    private final double velocity = GameController.getVelocity();
+    private final double angle = GameController.getAngle();
+    private final double initialX = GameController.projectile.getCenterX();
+    private final double initialY = GameController.projectile.getCenterY();
+    private final double xVelocity = velocity * Math.cos(Math.toRadians(angle));
+    private final double yVelocity = velocity * Math.sin(Math.toRadians(angle));
+    private double time =  0.0;
+
+    // TODO : Verify this is the correct time unit
     private final double TIME_INTERVAL = (1.0 / (60.0 * velocity)) * velocity;
-//        private double TIME_INTERVAL = 0.1;
 
 
     @Override
@@ -27,7 +31,6 @@ public class TrajectoryTimer extends AnimationTimer {
 
     private void doHandle() {
         // Calculate next point
-
 
         // JavaFX renders 60fps. To make the projectile fly "velocity" pixel/sec we need to adjust the time between each render
         time += TIME_INTERVAL;
@@ -44,9 +47,9 @@ public class TrajectoryTimer extends AnimationTimer {
         // Check if we hit a player
         // Check to see if X-coordinate is within range of player
         if (GameController.game.getCurrentPlayer() != 0) {
-            if (Math.abs((currentX - GameController.playerCircle2.getCenterX())) < GameController.game.getAcceptedRange()) {
+            if (Math.abs((currentX - GameController.player2.location.getX())) < GameController.game.getAcceptedRange()) {
                 // Check to see if Y-coordinate is within range of player
-                if (Math.abs((currentY - GameController.playerCircle2.getCenterY())) < GameController.game.getAcceptedRange()) {
+                if (Math.abs((currentY - GameController.player2.location.getY())) < GameController.game.getAcceptedRange()) {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
                     GameController.player1.incrementScore();
@@ -58,9 +61,9 @@ public class TrajectoryTimer extends AnimationTimer {
 
 
         else {
-            if (Math.abs((currentX - GameController.playerCircle1.getCenterX())) < GameController.game.getAcceptedRange()) {
+            if (Math.abs((currentX - GameController.player1.location.getX())) < GameController.game.getAcceptedRange()) {
                 // Check to see if Y-coordinate is within range of player
-                if (Math.abs((currentY - GameController.playerCircle1.getCenterY())) < GameController.game.getAcceptedRange()) {
+                if (Math.abs((currentY - GameController.player1.location.getY())) < GameController.game.getAcceptedRange()) {
                     System.out.println("Boom");
                     // Stop the timer (and thereby the animation)
                     GameController.player2.incrementScore();
@@ -88,13 +91,13 @@ public class TrajectoryTimer extends AnimationTimer {
     }
 
 
-
-    private Double getY(double time) {
+    // Get y-coordinate
+    private double getY(double time) {
         return initialY - (yVelocity * time - (GRAVITY / 2) * time * time);
     }
 
-
-    private Double getX(double time) {
+    // Get x-coordinate
+    private double getX(double time) {
         return initialX + xVelocity * time;
     }
 }

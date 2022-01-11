@@ -1,16 +1,11 @@
 package com.example.gorilla;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -18,58 +13,43 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
-import java.io.IOException;
+
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
 
-    public static Text player1ScoreText;
     // FXML ANNOTATION
     @FXML
     private TextField angleField;
     @FXML
     private TextField velocityField;
     @FXML
-    static
-    ImageView textureImageView;
-    @FXML
-    Button textureButtonRight;
+    static ImageView TextureImageView;
     @FXML
     private Label playerName1Text;
     @FXML
     private Label playerName2Text;
     @FXML
-    private TextField playerName1;
+    public Text Player1Score;
     @FXML
-    private TextField playerName2;
-    @FXML
-    public Text player1Score;
-    @FXML
-    public Text player2Score;
+    public Text Player2Score;
 
     // FIELDS
+    public static Parent root;
+    public static Scene scene;
+
     private static int velocity;
     private static int angle;
-    private Stage stage;
-    private Scene scene;
-    public static String player1NameT = "player1";
-    public static String player2NameT = "player1";
+
+    public static String Player1NameT = "player1";
+    public static String Player2NameT = "player2";
     public static Game game = SettingsController.game;
     public static Player player1;
     public static Player player2;
-    public static Circle playerCircle1;
-    public static Circle playerCircle2;
-    public static Circle projectile;
-    public static Path trajectory;
-
-    private Parent root;
-
-    // TODO : TEST-BLOCK
+    public static Circle projectile = new Circle();
+    public static Path trajectory = new Path();
     public static Text scoreText;
-    // TEST-BLOCK DONE
     public static Text currentPlayerTurn;
 
 
@@ -82,42 +62,33 @@ public class GameController implements Initializable {
         return angle;
     }
 
-    static Image myImage = new Image(Objects.requireNonNull(GameController.class.getResourceAsStream("Cat.png")));
-
 
     /**
-     * This function is run everytime the "game.fxml" file is loaded
+     * This function is ran everytime the "game.fxml" file is loaded (which is only once in PlayerCreatorController)
+     * It initializes
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (url.toString().endsWith("game.fxml")) {
-            playerName1Text.setText(player1NameT);
-            playerName2Text.setText(player2NameT);
 
-            // Score text at bottom
-            scoreText = new Text(player1.score + " | " + player2.score);
-            scoreText.setStyle("-fx-text-fill: white; -fx-font-size: 24");
-            scoreText.setX(game.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
-            scoreText.setTextAlignment(TextAlignment.CENTER);
-            scoreText.setY(game.getHeight() - 24);
+        playerName1Text.setText(Player1NameT);
+        playerName2Text.setText(Player2NameT);
 
-            currentPlayerTurn = new Text("It's " + game.getCurrentPlayerName() + "'s turn.");
-            currentPlayerTurn.setStyle("-fx-text-fill: white;" + "-fx-font-size: 24");
-            currentPlayerTurn.setX(game.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
-            currentPlayerTurn.setTextAlignment(TextAlignment.CENTER);
-            currentPlayerTurn.setY(24);
-        }
-    }
+        // Score text at bottom
+        scoreText = new Text(player1.score + " | " + player2.score);
+        scoreText.setStyle("-fx-text-fill: white; -fx-font-size: 24");
+        scoreText.setX(game.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
+        scoreText.setTextAlignment(TextAlignment.CENTER);
+        scoreText.setY(game.getHeight() - 24);
 
-    public static void throwFinished() {
-        trajectory.getElements().removeAll(GameController.trajectory.getElements());
-        projectile.setRadius(0);
-        projectile.setVisible(false);
-        game.setCurrentPlayer();
-        currentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
-        scoreText.setText(player1.score + " | " + player2.score);
+        currentPlayerTurn = new Text("It's " + game.getCurrentPlayerName() + "'s turn.");
+        currentPlayerTurn.setStyle("-fx-text-fill: white;" + "-fx-font-size: 24");
+        currentPlayerTurn.setX(game.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
+        currentPlayerTurn.setTextAlignment(TextAlignment.CENTER);
+        currentPlayerTurn.setY(24);
 
-        player1ScoreText = new Text("test???");
+
+        // Add the objects which are going to be updated
+//        ((AnchorPane) root).getChildren().addAll(projectile, trajectory);
 
     }
 
@@ -126,52 +97,46 @@ public class GameController implements Initializable {
      * This function gets the angle and velocity and animates the projectile and trajectory until
      * a miss or hit is registered.
      */
-    public void throwProjectile(ActionEvent event) throws IOException {
-        // Update the latest player
+    public void throwProjectile() {
 
         // Make sure the text fields are valid
         if (!validateTextFields()) {
+            angleField.setText("");
+            velocityField.setText("");
             return;
         }
 
-        // Load the basic game scene
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
         // Create a new trajectory path (used to display the trajectory)
-        trajectory = new Path();
         MoveTo moveTo; // Sets the start position of the Path
 
         // TODO : Code improvements
         if (game.getCurrentPlayer() == 1) {
             System.out.println("Setting projectile start (p1):");
-            moveTo = new MoveTo(playerCircle1.getCenterX(), playerCircle1.getCenterY());
-            projectile = new Circle(playerCircle1.getCenterX(), playerCircle1.getCenterY(), game.getAcceptedRange());
+            moveTo = new MoveTo(player1.location.getX(), player2.location.getY());
+            projectile = new Circle(player1.location.getX(), player1.location.getY(), 20);
         }
         else {
             System.out.println("Setting projectile start (p2):");
-            moveTo = new MoveTo(playerCircle2.getCenterX(), playerCircle2.getCenterY());
-            projectile = new Circle(playerCircle2.getCenterX(), playerCircle2.getCenterY(), game.getAcceptedRange());
+            moveTo = new MoveTo(player2.location.getX(), player2.location.getY());
+            projectile = new Circle(player2.location.getX(), player2.location.getY(), 20);
             angle = (angle * -1) + 180;
         }
 
-        trajectory.getElements().add(moveTo);
-        System.out.println(trajectory.getElements());
 
-        // Add the objects which are going to be updated
-        ((AnchorPane) root).getChildren().addAll(playerCircle1, playerCircle2, projectile, trajectory, scoreText, currentPlayerTurn);
+        // Set the start position of the trajectory (which depends on the player position)
+        trajectory.getElements().add(moveTo);
+
+        ((AnchorPane) root).getChildren().addAll(projectile);
+
         currentPlayerTurn.setText("Throwing...");
         currentPlayerTurn.setX(game.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
-        // Start animation timer
-        TrajectoryTimer timer = new TrajectoryTimer();
-        timer.start();
 
-
-        scene = new Scene(root, game.getWidth(), game.getHeight());
-
-        stage.setScene(scene);
-        stage.show();
+        // Calculate and display the projectile position and its trajectory
+        Projectile projectile = new Projectile();
+        projectile.start();
     }
+
+
 
     /**
      * Validates that the angle and velocity text fields both are integers and
@@ -191,6 +156,26 @@ public class GameController implements Initializable {
             return false;
         }
     }
+
+    public static void throwFinished() {
+
+        // Reset/Hide trajectory and projectile
+        trajectory.getElements().removeAll(trajectory.getElements());
+        projectile.setRadius(0);
+        projectile.setVisible(false);
+
+        //
+        ((AnchorPane) root).getChildren().removeAll(projectile);
+
+        // Get the next player and update turn
+        game.nextPlayer();
+        currentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
+
+        // Update score
+        scoreText.setText(player1.score + " | " + player2.score);
+    }
+
+
 
 
 

@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class SettingsController {
 
-    public static Game game = new Game(0,0,0);
+    public static Game game = new Game();
     private Stage stage;
     private Scene scene;
 

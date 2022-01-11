@@ -8,13 +8,13 @@ public class Game {
     private double acceptedRange;
     private static final int noOfPlayers = 2;
 
-    public Game(double gravity, int height, int width) {
+    public Game() {
         this.gravity = gravity;
         this.height = height;
         this.width = width;
     }
 
-    public void setCurrentPlayer() {
+    public void nextPlayer() {
         turnCounter += 1;
     }
 
