@@ -8,18 +8,12 @@ public class Game {
     private double acceptedRange;
     private static final int noOfPlayers = 2;
 
-    public Game() {
-        this.gravity = gravity;
-        this.height = height;
-        this.width = width;
-    }
-
     public void nextPlayer() {
-        turnCounter += 1;
+        turnCounter = (turnCounter + 1) % noOfPlayers;
     }
 
     public int getCurrentTurn() {
-        return turnCounter % noOfPlayers;
+        return turnCounter;
     }
 
     public void setHeight(int newHeight) {
