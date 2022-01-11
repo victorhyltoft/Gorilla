@@ -111,12 +111,12 @@ public class GameController implements Initializable {
         if (game.getCurrentTurn() == 1) {
             System.out.println("Setting projectile start (p1):");
             moveTo = new MoveTo(player1.getLocation().getX(), player2.getLocation().getY());
-            projectile = player1.getCircle();
+            projectile = player1.getNewCircle();
         }
         else {
             System.out.println("Setting projectile start (p2):");
             moveTo = new MoveTo(player2.getLocation().getX(), player2.getLocation().getY());
-            projectile = player2.getCircle();
+            projectile = player2.getNewCircle();
             angle = (angle * -1) + 180;
         }
 
