@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -27,9 +28,9 @@ public class GameController implements Initializable {
     @FXML
     static ImageView textureImageView;
     @FXML
-    private Label playerName1Text;
+    public Label playerName1Text;
     @FXML
-    private Label playerName2Text;
+    public Label playerName2Text;
     @FXML
     public Text player1Score;
     @FXML
@@ -77,12 +78,14 @@ public class GameController implements Initializable {
         scoreText.setX(game.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
         scoreText.setTextAlignment(TextAlignment.CENTER);
         scoreText.setY(game.getHeight() - 24);
+        scoreText.setFill(Color.WHITE);
 
         currentPlayerTurn = new Text("It's " + game.getCurrentPlayerName() + "'s turn.");
         currentPlayerTurn.setStyle("-fx-text-fill: white;" + "-fx-font-size: 24");
         currentPlayerTurn.setX(game.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
         currentPlayerTurn.setTextAlignment(TextAlignment.CENTER);
         currentPlayerTurn.setY(24);
+        currentPlayerTurn.setFill(Color.WHITE);
 
 
         // Add the objects which are going to be updated
