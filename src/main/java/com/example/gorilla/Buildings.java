@@ -16,7 +16,7 @@ public class Buildings extends Application {
             building.buildingRectangle(building.getWidth(), building.getHeight(), totalBuildingWidth);
             buildings.add(building);
             totalBuildingWidth += building.getWidth();
-            System.out.println(totalBuildingWidth);
+            System.out.println(building.getRectangle().toString());
         }
     }
 

@@ -31,7 +31,6 @@ public class Building {
     }
 
     public void buildingRectangle(double width, double height, double x) {
-        calculateSize();
         Rectangle r = new Rectangle();
         r.setX(x);
         r.setY(SCENE_HEIGHT-height);
