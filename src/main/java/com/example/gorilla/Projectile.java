@@ -65,6 +65,8 @@ public class Projectile extends AnimationTimer {
         projectile.setX(currentX);
         projectile.setY(currentY);
 
+        projectile.setRotate(projectile.getRotate() + 2);
+
         // Update trajectory
         trajectory.getElements().addAll(new LineTo(currentX, currentY));
     }
