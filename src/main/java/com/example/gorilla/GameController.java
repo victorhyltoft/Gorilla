@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -39,7 +40,8 @@ public class GameController implements Initializable {
     public static Game gameSettings;
     public static Player player1;
     public static Player player2;
-    private Circle projectile;
+    private Image image = new Image(getClass().getResourceAsStream("textures/Banana.png"));
+    private ImageView projectile;
     public static Path trajectory = new Path();
     public static Text scoreText;
     public static Text currentPlayerTurn;
@@ -63,7 +65,7 @@ public class GameController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        projectile = new Circle();
+        projectile = new ImageView(image);
         setScoreText();
         setCurrentPlayerTurnText();
     }
@@ -100,9 +102,9 @@ public class GameController implements Initializable {
         }
 
 
-        projectile.setCenterX(gameSettings.getCurrentPlayer().getLocation().getX());
-        projectile.setCenterY(gameSettings.getCurrentPlayer().getLocation().getY());
-        projectile.setRadius(gameSettings.getAcceptedRange());
+        projectile.setX(gameSettings.getCurrentPlayer().getLocation().getX());
+        projectile.setY(gameSettings.getCurrentPlayer().getLocation().getY());
+     //   projectile.setRadius(gameSettings.getAcceptedRange());
         ((AnchorPane) root).getChildren().addAll(projectile);
 
         // TODO : Revamp for 3+ players

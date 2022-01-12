@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.AbstractList;
 import java.util.Objects;
 
+
 public class PlayerCreatorController {
 
 
@@ -32,8 +33,9 @@ public class PlayerCreatorController {
     private Stage stage;
     private Scene scene;
     private final Game game = SettingsController.game;
-    private Image myImage;
+    public Image myImage;
     public static Parent root;
+
 
     /**
      * This starts the actual game.
@@ -50,7 +52,7 @@ public class PlayerCreatorController {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         // Adds the created players to the root
-        ((AnchorPane) root).getChildren().addAll(GameController.player1.getCircle(), GameController.player2.getCircle(), GameController.scoreText, GameController.currentPlayerTurn, GameController.trajectory);
+        ((AnchorPane) root).getChildren().addAll(GameController.player1.getImageView(), GameController.player2.getImageView(), GameController.scoreText, GameController.currentPlayerTurn, GameController.trajectory);
         GameController.root = root;
 
         Scene scene = new Scene(root, game.getWidth(), game.getHeight());

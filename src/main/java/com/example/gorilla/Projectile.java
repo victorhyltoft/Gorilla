@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
@@ -27,15 +28,17 @@ public class Projectile extends AnimationTimer {
     private double time;
     private Game gameSettings;
     private GameController gameController;
-    private Circle projectile;
+    private ImageView projectile;
     private Path trajectory;
     private double currentX;
     private double currentY;
     private Parent root;
     private Button player1ThrowButton;
 
-    public Projectile(Circle projectile) {
+    public Projectile(ImageView projectile) {
         this.projectile = projectile;
+        projectile.setScaleX(gameSettings.getAcceptedRange());
+        projectile.setScaleY(gameSettings.getAcceptedRange());
         this.time = 0.0;
     }
 
@@ -58,8 +61,8 @@ public class Projectile extends AnimationTimer {
 
     private void updateProjectile() {
         // Update projectile
-        projectile.setCenterX(currentX);
-        projectile.setCenterY(currentY);
+        projectile.setX(currentX);
+        projectile.setY(currentY);
 
         // Update trajectory
         trajectory.getElements().addAll(new LineTo(currentX, currentY));
@@ -132,7 +135,7 @@ public class Projectile extends AnimationTimer {
 
 
     // SETTERS
-    public void setProjectile(Circle projectile) {
+    public void setProjectile(ImageView projectile) {
         this.projectile = projectile;
     }
 
