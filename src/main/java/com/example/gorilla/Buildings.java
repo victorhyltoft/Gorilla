@@ -6,17 +6,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Buildings extends Application {
     private ArrayList<Building> buildings = new ArrayList<>();
     private double totalBuildingWidth;
     public void createBuildings() {
         while (totalBuildingWidth < 1280) {
-            Building building = new Building();
-            building.buildingRectangle(building.getWidth(), building.getHeight(), totalBuildingWidth);
-            buildings.add(building);
-            totalBuildingWidth += building.getWidth();
-            System.out.println(building.getRectangle().toString());
+            Building b = new Building(totalBuildingWidth);
+            buildings.add(b);
+            totalBuildingWidth += b.getWidth();
         }
     }
 
@@ -28,8 +27,9 @@ public class Buildings extends Application {
         createBuildings();
         for (Building building : buildings) {
             root.getChildren().addAll(building.getRectangle());
+            root.getChildren().addAll(building.getWindows());
         }
-        stage.setTitle("SIMPGorillas");
+        stage.setTitle("Gorillas ");
         stage.show();
     }
 
