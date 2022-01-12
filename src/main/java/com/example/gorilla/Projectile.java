@@ -37,8 +37,7 @@ public class Projectile extends AnimationTimer {
 
     public Projectile(ImageView projectile) {
         this.projectile = projectile;
-        projectile.setScaleX(gameSettings.getAcceptedRange());
-        projectile.setScaleY(gameSettings.getAcceptedRange());
+
         this.time = 0.0;
     }
 
@@ -50,6 +49,8 @@ public class Projectile extends AnimationTimer {
         updateProjectile();
         checkPlayerCollision();
         checkOutsideGame();
+        projectile.setScaleX(gameSettings.getAcceptedRange());
+        projectile.setScaleY(gameSettings.getAcceptedRange());
     }
 
     private void calculateNextPosition() {
