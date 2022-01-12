@@ -1,8 +1,11 @@
 package com.example.gorilla;
 
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Building {
@@ -14,30 +17,75 @@ public class Building {
     private double minHeight;
     private double maxWidth;
     private double minWidth;
+    private final Random random = new Random();
+
+    // Building components
     private Rectangle rectangle;
+    private final Color[] colors = new Color[]{Color.web("#00aaaa"), Color.web("#aa0000"), Color.web("#aaaaaa")};
+
+    // Window components
+    private final ArrayList<Rectangle> windows = new ArrayList<>();
+    private final double windowWidthPadding = 6;
+    private double totalWindowWidth = windowWidthPadding;
+    private final double windowHeightPadding = 10;
+    private double totalWindowHeight = windowHeightPadding;
 
 
-    public Building() {
+    public Building(double xPosition) {
         this.maxHeight = SCENE_HEIGHT*0.60;
         this.minHeight = SCENE_HEIGHT*0.20;
         this.maxWidth = SCENE_WIDTH*0.12;
         this.minWidth = SCENE_WIDTH*0.07;
-        calculateSize();
+        generateSize();
+        generateRectangle(xPosition);
+        generateColor();
+        generateWindows();
     }
 
-    public void calculateSize() {
+    private void generateSize() {
         this.height = ThreadLocalRandom.current().nextDouble(minHeight,maxHeight);
         this.width = ThreadLocalRandom.current().nextDouble(minWidth,maxWidth);
     }
 
-    public void buildingRectangle(double width, double height, double x) {
+    private void generateColor() {
+        int colorIdx = ThreadLocalRandom.current().nextInt(0, colors.length);
+        this.rectangle.setFill(colors[colorIdx]);
+    }
+
+    private void generateRectangle(double x) {
         Rectangle r = new Rectangle();
         r.setX(x);
-        r.setY(SCENE_HEIGHT-height);
-        r.setWidth(width);
-        r.setHeight(height);
+        r.setY(SCENE_HEIGHT-this.height);
+        r.setWidth(this.width);
+        r.setHeight(this.height);
         this.rectangle = r;
     }
+
+    private void generateWindows() {
+        double windowHeight = 20;
+        double windowWidth = 10;
+
+        while ((totalWindowHeight + windowHeight) < rectangle.getHeight()) {
+
+            while ((totalWindowWidth + windowWidth) < rectangle.getWidth()) {
+                Rectangle window = new Rectangle();
+                window.setWidth(windowWidth);
+                window.setHeight(windowHeight);
+                window.setX(rectangle.getX() + totalWindowWidth);
+                window.setY(rectangle.getY() + totalWindowHeight);
+                window.setFill(isWindowLit() ? Color.web("#ffff55") : Color.web("#555555"));
+                windows.add(window);
+                totalWindowWidth += windowWidth + windowWidthPadding;
+            }
+            totalWindowWidth = windowWidthPadding;
+            totalWindowHeight += windowHeight + windowHeightPadding;
+        }
+    }
+
+    private boolean isWindowLit() {
+        return random.nextBoolean();
+    }
+
 
     public double getWidth() {
         return width;
@@ -49,5 +97,9 @@ public class Building {
 
     public Rectangle getRectangle() {
         return rectangle;
+    }
+
+    public ArrayList<Rectangle> getWindows() {
+        return windows;
     }
 }
