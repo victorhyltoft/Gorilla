@@ -69,9 +69,6 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        playerName1Text.setText(player1.getName());
-        playerName2Text.setText(player2.getName());
-
         // Score text at bottom
         scoreText = new Text(player1.getScore() + " | " + player2.getScore());
         scoreText.setStyle("-fx-text-fill: white; -fx-font-size: 24");

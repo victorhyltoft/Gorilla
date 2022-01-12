@@ -50,6 +50,7 @@ public class PlayerCreatorController {
 
         scene = new Scene(root,SettingsController.game.getWidth(),SettingsController.game.getHeight());
         GameController.scene = scene;
+        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

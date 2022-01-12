@@ -9,51 +9,21 @@
 
 <AnchorPane id="background" fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="499.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gorilla.GameController">
    <children>
-      <Text id="Player1AngleText" fill="WHITE" layoutX="3.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Angle:" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="10.0">
-         <font>
-            <Font name="Courier New Bold" size="12.0" />
-         </font>
-      </Text>
-      <TextField id="Player1AngleType" fx:id="angleField" layoutX="50.0" layoutY="21.0" prefHeight="10.0" prefWidth="194.0" promptText="Type here" styleClass="text-field" stylesheets="@application.css" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="-5.0">
+      <TextField id="Player1AngleType" fx:id="angleField" layoutX="60.0" layoutY="-2.0" prefHeight="10.0" prefWidth="194.0" promptText="Type here" styleClass="text-field" stylesheets="@application.css" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="-2.0">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font></TextField>
-      <Text id="Player1VelocityText" fx:id="Player1VelocityText" fill="WHITE" layoutX="13.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velocity:" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="35.0">
-         <font>
-            <Font name="Courier New Bold" size="12.0" />
-         </font>
-      </Text>
-      <TextField id="Player1AngleType" fx:id="velocityField" layoutX="60.0" layoutY="31.0" promptText="Type here" styleClass="text-field" stylesheets="@application.css" AnchorPane.topAnchor="20.0">
+      <TextField id="Player1AngleType" fx:id="velocityField" layoutX="60.0" layoutY="31.0" promptText="Type here" styleClass="text-field" stylesheets="@application.css" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="25.0">
          <font>
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </TextField>
       <Button id="Player1ThrowButton" fx:id="Player1ThrowButton" layoutX="19.0" layoutY="74.0" mnemonicParsing="false" onAction="#throwProjectile" stylesheets="@application.css" text="Throw!" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="70.0" />
-      <Text id="Player1ScoreText" fx:id="player1ScoreText" fill="WHITE" layoutX="428.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
-         <font>
-            <Font name="Courier New Bold" size="12.0" />
-         </font>
-      </Text>
-      <Text id="Player1ScorePoints" fx:id="player1Score" fill="WHITE" layoutX="481.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
-         <font>
-            <Font name="Courier New Bold" size="12.0" />
-         </font>
-      </Text>
-      <Text id="Player2ScoreText" fx:id="Player2ScoreText" fill="WHITE" layoutX="273.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="75.0">
-         <font>
-            <Font name="Courier New Bold" size="12.0" />
-         </font>
-      </Text>
-      <Text id="Player2ScorePoints" fx:id="player2Score" fill="WHITE" layoutX="19.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="75.0">
-         <font>
-            <Font name="Courier New Bold" size="12.0" />
-         </font>
-      </Text>
-      <Label id="myLabel" fx:id="playerName1Text" layoutX="429.0" layoutY="12.0" text="Player 1" textFill="WHITE" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="10.0" />
-      <Label id="myLabel" fx:id="playerName2Text" layoutX="432.0" layoutY="55.0" stylesheets="@application.css" text="Player 2" textFill="WHITE" AnchorPane.rightAnchor="22.0" AnchorPane.topAnchor="55.0" />
       <Text id="CurrentText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
          <font>
             <Font name="Courier New" size="20.0" />
          </font></Text>
+      <Label id="AngleText" fx:id="angleTextFX" layoutX="-3.0" layoutY="-2.0" stylesheets="@application.css" text="Angle:" textFill="WHITE" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="0.0" />
+      <Label id="AngleText" fx:id="angleTextFX1" layoutX="7.0" layoutY="8.0" stylesheets="@application.css" text="Velocity:" textFill="WHITE" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="30.0" />
    </children>
 </AnchorPane>
