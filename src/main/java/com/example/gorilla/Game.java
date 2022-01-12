@@ -1,15 +1,17 @@
 package com.example.gorilla;
 
+import java.util.ArrayList;
+
 public class Game {
     private double gravity;
     private double height;
     private double width;
-    private int turnCounter = 1;
+    private int turnCounter = 0;
     private double acceptedRange;
-    private static final int noOfPlayers = 2;
+    private ArrayList<Player> players = new ArrayList<>();
 
     public void nextPlayer() {
-        turnCounter = (turnCounter + 1) % noOfPlayers;
+        turnCounter = (turnCounter + 1) % players.size();
     }
 
     public int getCurrentTurn() {
@@ -49,20 +51,22 @@ public class Game {
     }
 
     public String getCurrentPlayerName() {
-        if (getCurrentTurn() == 1) {
-            return GameController.player1.getName();
-        }
-        else {
-            return GameController.player2.getName();
-        }
+        return players.get(turnCounter).getName();
     }
 
     public Player getCurrentPlayer() {
-        if (getCurrentTurn() == 1) {
-            return GameController.player1;
-        }
-        else {
-            return GameController.player2;
-        }
+        return players.get(turnCounter);
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    public void addPlayer(Player player) {
+        this.players.add(player);
     }
 }

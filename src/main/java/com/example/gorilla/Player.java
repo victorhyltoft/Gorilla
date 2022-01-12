@@ -4,6 +4,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 
+import java.util.AbstractList;
+
 public class Player {
     private String name;
     private Point2D location;
@@ -13,6 +15,7 @@ public class Player {
 
     // Constructor 1
     public Player(String name, Point2D location) {
+
         this.name = name;
         this.location = location;
         this.score = 0;
@@ -42,6 +45,11 @@ public class Player {
     public Circle getCircle() {
         return circle;
     }
+
+    /**
+     * @deprecated
+     * @return
+     */
     public Circle getNewCircle() {
         return new Circle(location.getX(), location.getY(), SettingsController.game.getAcceptedRange());
     }

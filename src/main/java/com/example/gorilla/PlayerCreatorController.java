@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.AbstractList;
 import java.util.Objects;
 
 public class PlayerCreatorController {
@@ -39,6 +40,10 @@ public class PlayerCreatorController {
      * This function is called from the "player-creater.fxml"
      */
     public void startGame(ActionEvent event) throws IOException {
+        // TODO : REVAMP!!!
+        // TODO : Get the instance of the GameController and set the appropriate fields required
+//        GameController gameController = new GameController();
+
         System.out.println("Starting game");
         createPlayers();
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
@@ -48,7 +53,7 @@ public class PlayerCreatorController {
         ((AnchorPane) root).getChildren().addAll(GameController.player1.getCircle(), GameController.player2.getCircle(), GameController.scoreText, GameController.currentPlayerTurn, GameController.trajectory);
         GameController.root = root;
 
-        scene = new Scene(root,SettingsController.game.getWidth(),SettingsController.game.getHeight());
+        Scene scene = new Scene(root, game.getWidth(), game.getHeight());
         GameController.scene = scene;
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         stage.setScene(scene);
@@ -61,8 +66,15 @@ public class PlayerCreatorController {
      */
     public void createPlayers() {
         // TODO : Clean up
-        GameController.player1 = new Player(playerName1.getText(), new Point2D(game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
-        GameController.player2 = new Player(playerName2.getText(), new Point2D(game.getWidth()-game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
+        Player player1 = new Player(playerName1.getText(), new Point2D(game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
+        Player player2 = new Player(playerName2.getText(), new Point2D(game.getWidth()-game.getAcceptedRange(), game.getHeight() - game.getAcceptedRange()));
+
+        game.addPlayer(player1);
+        game.addPlayer(player2);
+
+        GameController.player1 = player1;
+        GameController.player2 = player2;
+
 
         System.out.println(GameController.player1.getName() + " " + GameController.player2.getName());
     }
