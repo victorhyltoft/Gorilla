@@ -3,6 +3,7 @@ package com.example.gorilla;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
@@ -31,6 +32,7 @@ public class Projectile extends AnimationTimer {
     private double currentX;
     private double currentY;
     private Parent root;
+    private Button player1ThrowButton;
 
     public Projectile(Circle projectile) {
         this.projectile = projectile;
@@ -102,6 +104,7 @@ public class Projectile extends AnimationTimer {
         stop();
         resetProjectile();
         GameController.updatePlayerTurn();
+        throwButton();
     }
 
     public void resetProjectile() {
@@ -187,5 +190,13 @@ public class Projectile extends AnimationTimer {
 
     public void setRoot(Parent root) {
         this.root = root;
+    }
+
+    public void throwButton() {
+        this.player1ThrowButton.setDisable(false);
+    }
+
+    public void setPlayer1ThrowButton(Button player1ThrowButton) {
+        this.player1ThrowButton = player1ThrowButton;
     }
 }

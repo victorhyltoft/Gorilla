@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -11,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
 
 
+    @FXML
+    public Button Player1ThrowButton;
     // FXML ANNOTATION
     @FXML
     private TextField angleField;
@@ -70,20 +72,18 @@ public class GameController implements Initializable {
     // Creates the text object for the score and styles it
     private void setScoreText() {
         scoreText = new Text(player1.getScore() + " | " + player2.getScore());
-        scoreText.setStyle("-fx-text-fill: white; -fx-font-size: 24");
+        scoreText.setStyle("-fx-text-fill: white; -fx-font-size: 24; -fx-font-family: Fipps");
         scoreText.setX(gameSettings.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
-        scoreText.setTextAlignment(TextAlignment.CENTER);
-        scoreText.setY(gameSettings.getHeight() - 24);
+        scoreText.setY(gameSettings.getHeight() - 18);
         scoreText.setFill(Color.WHITE);
     }
 
     // Creates the text object for the text displaying the current player and styles it
     private void setCurrentPlayerTurnText() {
         currentPlayerTurn = new Text("It's " + gameSettings.getCurrentPlayerName() + "'s turn.");
-        currentPlayerTurn.setStyle("-fx-text-fill: white;" + "-fx-font-size: 24");
+        currentPlayerTurn.setStyle("-fx-text-fill: white;" + "-fx-font-size: 18; -fx-font-family: Fipps");
         currentPlayerTurn.setX(gameSettings.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
-        currentPlayerTurn.setTextAlignment(TextAlignment.CENTER);
-        currentPlayerTurn.setY(24);
+        currentPlayerTurn.setY(30);
         currentPlayerTurn.setFill(Color.WHITE);
     }
 
@@ -111,11 +111,13 @@ public class GameController implements Initializable {
         }
 
         currentPlayerTurn.setText("Throwing...");
-        currentPlayerTurn.setX(gameSettings.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
+        currentPlayerTurn.setX(gameSettings.getWidth() / 2 - (currentPlayerTurn.getLayoutBounds().getWidth() / 2));
+        Player1ThrowButton.setDisable(true);
 
         // Pass the data from the GameController into the Projectile model
         setProjectileData();
         resetFields();
+
     }
 
 
@@ -128,6 +130,7 @@ public class GameController implements Initializable {
         p.setGameSettings(gameSettings);
         p.setStartPosition(gameSettings.getCurrentPlayer().getLocation());
         p.setTrajectory(trajectory);
+        p.setPlayer1ThrowButton(Player1ThrowButton);
         p.start(); // Starts the calculation and animation of the projectile and its trajectory
     }
 
@@ -136,7 +139,6 @@ public class GameController implements Initializable {
         angleField.setText("");
         velocityField.setText("");
     }
-
 
 
     public static void updatePlayerTurn() {
