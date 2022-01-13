@@ -138,13 +138,13 @@ public class PlayerCreatorController implements Initializable {
 
 
     public void player1RightArrow(ActionEvent event) {
-        count = Math.floorMod((count - 1), totalTextures);
+        count = Math.floorMod((count + 1), totalTextures);
         player1TextureImage.setImage(images.get(count));
 
     }
 
     public void player2RightArrow(ActionEvent event) {
-        count2 = Math.floorMod((count2 - 1), totalTextures);
+        count2 = Math.floorMod((count2 + 1), totalTextures);
         player2TextureImage.setImage(images.get(count2));
     }
     public void player2LeftArrow(ActionEvent event) {
