@@ -18,12 +18,12 @@ public class Player {
     public ImageView imageView;
 
     // Constructor 1
-    public Player(String name, Point2D location) {
+    public Player(String name, Point2D location, Image texture) {
         this.name = name;
         this.location = location;
         this.score = 0;
         this.circle = new Circle(location.getX(), location.getY(), SettingsController.game.getAcceptedRange());
-        setImage();
+        setImage(texture);
     }
 
     public void setName(String name) {
@@ -50,12 +50,11 @@ public class Player {
         return circle;
     }
 
-    public void setImage() {
-        this.image = new Image(getClass().getResourceAsStream("textures/Gorilla.png"));
+    public void setImage(Image texture) {
+        this.image = texture;
         this.imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
-        imageView.setScaleX(2);
-        imageView.setScaleY(2);
+        imageView.setFitWidth(50);
         imageView.setX(location.getX()-10);
         imageView.setY(location.getY()-25);
     }
