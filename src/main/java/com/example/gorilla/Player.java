@@ -23,13 +23,7 @@ public class Player {
         this.location = location;
         this.score = 0;
         this.circle = new Circle(location.getX(), location.getY(), SettingsController.game.getAcceptedRange());
-        this.image = new Image(getClass().getResourceAsStream("textures/Gorilla.png"));
-        this.imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
-        imageView.setScaleX(2);
-        imageView.setScaleY(2);
-        imageView.setX(location.getX()-10);
-        imageView.setY(location.getY()-25);
+        setImage();
     }
 
     public void setName(String name) {
@@ -54,6 +48,16 @@ public class Player {
 
     public Circle getCircle() {
         return circle;
+    }
+
+    public void setImage() {
+        this.image = new Image(getClass().getResourceAsStream("textures/Gorilla.png"));
+        this.imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setScaleX(2);
+        imageView.setScaleY(2);
+        imageView.setX(location.getX()-10);
+        imageView.setY(location.getY()-25);
     }
 
     /**
