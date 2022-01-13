@@ -25,7 +25,7 @@ public class Main extends Application {
         scene = new Scene(root);
         stage.setResizable(false);
         stage.setScene(scene);
-        stage.setTitle("SIMPGorillas");
+        stage.setTitle("Gorillas");
         stage.show();
     }
 }
