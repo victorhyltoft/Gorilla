@@ -5,6 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,12 +26,15 @@ public class Building {
     private double minWidth;
     private final Random random = new Random();
 
+
+
     // Building components
     private Rectangle rectangle;
+    private Shape buildingShape;
     private final Color[] colors = new Color[]{Color.web("#00aaaa"), Color.web("#aa0000"), Color.web("#aaaaaa")};
 
     // Window components
-    private final ArrayList<Rectangle> windows = new ArrayList<>();
+    private ArrayList<Shape> windows = new ArrayList<>();
     private final double windowWidthPadding = 10;
     private double totalWindowWidth = windowWidthPadding;
     private final double windowHeightPadding = 15;
@@ -65,6 +69,7 @@ public class Building {
         r.setWidth(this.width);
         r.setHeight(this.height);
         this.rectangle = r;
+        setBuildingShape(this.rectangle);
     }
 
 
@@ -81,7 +86,7 @@ public class Building {
                 window.setX(rectangle.getX() + totalWindowWidth);
                 window.setY(rectangle.getY() + totalWindowHeight);
                 window.setFill(isWindowLit() ? Color.web("#ffff55") : Color.web("#555555"));
-                windows.add(window);
+                windows.add((Shape) window);
                 totalWindowWidth += windowWidth + windowWidthPadding;
             }
             totalWindowWidth = windowWidthPadding;
@@ -101,7 +106,6 @@ public class Building {
 
 
 
-
     public double getWidth() {
         return width;
     }
@@ -114,11 +118,30 @@ public class Building {
         return rectangle;
     }
 
-    public Bounds getBounds() {
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
+    public Bounds getRectangleBounds() {
         return rectangle.getLayoutBounds();
     }
 
-    public ArrayList<Rectangle> getWindows() {
+    public Bounds getShapeBounds() {
+        // Gets a rectangular bounding box
+        return buildingShape.getLayoutBounds();
+    }
+
+    public ArrayList<Shape> getWindows() {
         return windows;
     }
+
+    public Shape getBuildingShape() {
+        return buildingShape;
+    }
+
+
+    public void setBuildingShape(Shape buildingShape) {
+        this.buildingShape = buildingShape;
+    }
+
 }

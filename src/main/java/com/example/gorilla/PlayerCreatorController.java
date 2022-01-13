@@ -12,11 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -60,7 +58,7 @@ public class PlayerCreatorController {
 
 
         for (Building building : buildings) {
-            ((AnchorPane) root).getChildren().addAll(building.getRectangle());
+            ((AnchorPane) root).getChildren().addAll(building.getBuildingShape());
             ((AnchorPane) root).getChildren().addAll(building.getWindows());
         }
 
@@ -88,7 +86,10 @@ public class PlayerCreatorController {
         double x1 = buildings.get(1).getBuildingRoof().getX();
         double y1 = buildings.get(1).getBuildingRoof().getY() - 19;
         Point2D location1 = new Point2D(x1, y1);
-        Point2D location2 = buildings.get(buildings.size() - 2).getBuildingRoof();
+
+        double x2 = buildings.get(buildings.size() - 2).getBuildingRoof().getX();
+        double y2 = buildings.get(buildings.size() - 2).getBuildingRoof().getY() - 19;
+        Point2D location2 = new Point2D(x2, y2);
 
         Player player1 = new Player(playerName1.getText(), location1);
         Player player2 = new Player(playerName2.getText(), location2);

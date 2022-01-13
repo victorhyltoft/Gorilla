@@ -1,12 +1,12 @@
 package com.example.gorilla;
 
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
 import java.util.ArrayList;
@@ -88,11 +88,49 @@ public class Projectile extends AnimationTimer {
         }
     }
 
+    Circle explosionCrater = new Circle(100,100, 40);
+
     private void checkBuildingCollision() {
+        // Iterate over each building
         for (Building building : buildings) {
-            if (projectile.intersects(building.getBounds())) {
+            // Check if projectile intersects with a building
+            if (projectile.intersects(building.getShapeBounds())) {
                 System.out.println("Projectile intersects building");
-                // TODO : Create crater
+
+                // TODO : Let projectile continue if there already is a crater in the building
+
+
+
+                explosionCrater.setCenterX(currentX);
+                explosionCrater.setCenterY(currentY);
+
+                ((AnchorPane) root).getChildren().removeAll(building.getBuildingShape());
+                ((AnchorPane) root).getChildren().removeAll(building.getWindows());
+
+                Shape newBuildingShape = Shape.subtract(building.getBuildingShape(), explosionCrater);
+
+
+                newBuildingShape.setFill(building.getRectangle().getFill());
+                building.setBuildingShape(newBuildingShape);
+
+                // Iterate over the windows to see if any of them are affected by the explosion
+                for (int i = 0; i < building.getWindows().size(); i++) {
+                    Shape currentWindow = building.getWindows().get(i);
+                    if (explosionCrater.intersects(currentWindow.getLayoutBounds())) {
+                        System.out.println("Explosion intersects window");
+
+                        Shape newWindowShape = Shape.subtract(currentWindow, explosionCrater);
+                        newWindowShape.setFill(currentWindow.getFill());
+                        building.getWindows().set(i, newWindowShape);
+                    }
+                }
+
+
+                ((AnchorPane) root).getChildren().addAll(building.getBuildingShape());
+                ((AnchorPane) root).getChildren().addAll(building.getWindows());
+
+                // TODO : Check if explosion affects any of the players
+
                 throwFinished();
             }
         }
@@ -136,12 +174,12 @@ public class Projectile extends AnimationTimer {
 
     // GETTERS
 
-    // Get y-coordinate
+    // Get y-coordinate of the trajectory
     private double getY(double time) {
         return initialY - (yVelocity * time - (gravity / 2) * time * time);
     }
 
-    // Get x-coordinate
+    // Get x-coordinate of the trajectory
     private double getX(double time) {
         return initialX + xVelocity * time;
     }

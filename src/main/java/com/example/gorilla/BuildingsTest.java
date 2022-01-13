@@ -1,22 +1,27 @@
 package com.example.gorilla;
 
 import javafx.application.Application;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
-public class Buildings extends Application {
+public class BuildingsTest extends Application {
     private ArrayList<Building> buildings = new ArrayList<>();
     private double totalBuildingWidth;
+
+
     public void createBuildings() {
         while (totalBuildingWidth < 1280) {
             Building b = new Building(totalBuildingWidth);
             buildings.add(b);
             totalBuildingWidth += b.getWidth();
         }
+
     }
 
     @Override
@@ -29,7 +34,15 @@ public class Buildings extends Application {
             root.getChildren().addAll(building.getRectangle());
             root.getChildren().addAll(building.getWindows());
         }
-        stage.setTitle("Gorillas ");
+
+
+
+        Point2D location1 = buildings.get(1).getBuildingRoof();
+        Circle p1 = new Circle(location1.getX(), location1.getY(), 10);
+        Point2D location2 = buildings.get(buildings.size() - 2).getBuildingRoof();
+        Circle p2 = new Circle(location2.getX(), location2.getY(), 10);
+        root.getChildren().addAll(p1, p2);
+
         stage.show();
     }
 
