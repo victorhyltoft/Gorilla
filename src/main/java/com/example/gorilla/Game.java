@@ -9,6 +9,7 @@ public class Game {
     private int turnCounter = 0;
     private double acceptedRange;
     private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Building> buildings = new ArrayList<>();
 
     public void nextPlayer() {
         turnCounter = (turnCounter + 1) % players.size();
@@ -68,5 +69,13 @@ public class Game {
 
     public void addPlayer(Player player) {
         this.players.add(player);
+    }
+
+    public ArrayList<Building> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(ArrayList<Building> buildings) {
+        this.buildings = buildings;
     }
 }

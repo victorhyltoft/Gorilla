@@ -1,15 +1,15 @@
 package com.example.gorilla;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.*;
+
+import java.util.ArrayList;
 
 
 /**
@@ -26,6 +26,7 @@ public class Projectile extends AnimationTimer {
     private double yVelocity;
     private double timeInterval;
     private double time;
+
     private Game gameSettings;
     private GameController gameController;
     private ImageView projectile;
@@ -34,11 +35,11 @@ public class Projectile extends AnimationTimer {
     private double currentY;
     private Parent root;
     private Button player1ThrowButton;
+    private ArrayList<Building> buildings;
 
     public Projectile(ImageView projectile) {
         this.projectile = projectile;
-
-        this.time = 0.0;
+        this.time = 0.0;;
     }
 
 
@@ -47,6 +48,7 @@ public class Projectile extends AnimationTimer {
     public void handle(long now) {
         calculateNextPosition();
         updateProjectile();
+        checkBuildingCollision();
         checkPlayerCollision();
         checkOutsideGame();
         projectile.setScaleX(gameSettings.getAcceptedRange());
@@ -74,16 +76,28 @@ public class Projectile extends AnimationTimer {
     private void checkOutsideGame() {
         // Check if outside the screen
         if (currentY >= gameSettings.getHeight()) {
-            throwFinished();
             System.out.println("Outside bottom");
+            throwFinished();
         }
 
         // Check if outside either horizontal edge
         if (currentX >= gameSettings.getWidth() || currentX <= 0) {
             // Remove trajectory
-            throwFinished();
             System.out.println("Outside right or left side");
+            throwFinished();
         }
+    }
+
+    private void checkBuildingCollision() {
+        for (Building building : buildings) {
+            if (projectile.intersects(building.getBounds())) {
+                System.out.println("Projectile intersects building");
+                // TODO : Create crater
+                throwFinished();
+            }
+        }
+
+
     }
 
     private void checkPlayerCollision() {
@@ -132,11 +146,6 @@ public class Projectile extends AnimationTimer {
         return initialX + xVelocity * time;
     }
 
-    public GameController getGameController() {
-        return gameController;
-    }
-
-
     // SETTERS
     public void setProjectile(ImageView projectile) {
         this.projectile = projectile;
@@ -162,22 +171,18 @@ public class Projectile extends AnimationTimer {
 
     public void setGameSettings(Game gameSettings) {
         this.gameSettings = gameSettings;
-
         setGravity(gameSettings.getGravity());
-
+        setStartPosition(gameSettings.getCurrentPlayer().getLocation());
+        setBuildings(gameSettings.getBuildings());
     }
 
     public void setGravity(double gravity) {
         this.gravity = gravity;
     }
 
-    public void setGameController(GameController gameController) {
-        this.gameController = gameController;
-    }
-
-    public void setStartPosition(Point2D startPosition) {
-        setInitialX(startPosition.getX());
-        setInitialY(startPosition.getY());
+    public void setStartPosition(Point2D location) {
+        setInitialX(location.getX());
+        setInitialY(location.getY());
     }
 
     public void setInitialX(double initialX) {
@@ -204,5 +209,9 @@ public class Projectile extends AnimationTimer {
 
     public void setPlayer1ThrowButton(Button player1ThrowButton) {
         this.player1ThrowButton = player1ThrowButton;
+    }
+
+    public void setBuildings(ArrayList<Building> buildings) {
+        this.buildings = buildings;
     }
 }

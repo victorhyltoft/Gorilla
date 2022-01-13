@@ -1,6 +1,8 @@
 package com.example.gorilla;
 
 
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -8,9 +10,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * @author Victor Hyltoft, Mikkel Allermand
+ */
 public class Building {
     private double width;
     private double height;
+    // TODO : REMOVE VALUES
     private double SCENE_WIDTH = 1280;
     private double SCENE_HEIGHT = 720;
     private double maxHeight;
@@ -25,12 +31,12 @@ public class Building {
 
     // Window components
     private final ArrayList<Rectangle> windows = new ArrayList<>();
-    private final double windowWidthPadding = 6;
+    private final double windowWidthPadding = 10;
     private double totalWindowWidth = windowWidthPadding;
-    private final double windowHeightPadding = 10;
+    private final double windowHeightPadding = 15;
     private double totalWindowHeight = windowHeightPadding;
 
-
+    // Constructor
     public Building(double xPosition) {
         this.maxHeight = SCENE_HEIGHT*0.60;
         this.minHeight = SCENE_HEIGHT*0.20;
@@ -61,6 +67,7 @@ public class Building {
         this.rectangle = r;
     }
 
+
     private void generateWindows() {
         double windowHeight = 20;
         double windowWidth = 10;
@@ -86,6 +93,14 @@ public class Building {
         return random.nextBoolean();
     }
 
+    public Point2D getBuildingRoof() {
+        double x = rectangle.getX() + (rectangle.getWidth() / 2);
+        double y = rectangle.getY();
+        return new Point2D(x,y);
+    }
+
+
+
 
     public double getWidth() {
         return width;
@@ -97,6 +112,10 @@ public class Building {
 
     public Rectangle getRectangle() {
         return rectangle;
+    }
+
+    public Bounds getBounds() {
+        return rectangle.getLayoutBounds();
     }
 
     public ArrayList<Rectangle> getWindows() {
