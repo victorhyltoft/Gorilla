@@ -3,6 +3,7 @@ package com.example.gorilla;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -12,30 +13,50 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
-public class PlayerCreatorController {
-
+public class PlayerCreatorController implements Initializable {
 
     @FXML
     public TextField playerName1;
     @FXML
     public TextField playerName2;
-    public ImageView textureImageView;
+    @FXML
+    public ImageView player1TextureImage;
+    @FXML
+    public ImageView player2TextureImage;
+    @FXML
+    public ImageView player3TextureImage;
+    @FXML
+    public Button player1RightArrowButton;
+    @FXML
+    public Button player2RightArrowButton;
+    @FXML
+    public Button player1LeftArrowButton;
+    @FXML
+    public Button player2LeftArrowButton;
+
     public Button textureButtonRight;
     public Button textureButtonLeft;
 
+    public static int count = 0;
+    public static int count2 = 0;
+    public static int totalTextures = 0;
     private Stage stage;
     private Scene scene;
     private final Game game = SettingsController.game;
     public Image myImage;
     public static Parent root;
-
+    public static ArrayList<Image> images;
     // TODO : TEST
     private ArrayList<Building> buildings = new ArrayList<>();
 
@@ -58,7 +79,7 @@ public class PlayerCreatorController {
 
 
         for (Building building : buildings) {
-            ((AnchorPane) root).getChildren().addAll(building.getBuildingShape());
+            ((AnchorPane) root).getChildren().addAll(building.getRectangle());
             ((AnchorPane) root).getChildren().addAll(building.getWindows());
         }
 
@@ -86,13 +107,10 @@ public class PlayerCreatorController {
         double x1 = buildings.get(1).getBuildingRoof().getX();
         double y1 = buildings.get(1).getBuildingRoof().getY() - 19;
         Point2D location1 = new Point2D(x1, y1);
+        Point2D location2 = buildings.get(buildings.size() - 2).getBuildingRoof();
 
-        double x2 = buildings.get(buildings.size() - 2).getBuildingRoof().getX();
-        double y2 = buildings.get(buildings.size() - 2).getBuildingRoof().getY() - 19;
-        Point2D location2 = new Point2D(x2, y2);
-
-        Player player1 = new Player(playerName1.getText(), location1);
-        Player player2 = new Player(playerName2.getText(), location2);
+        Player player1 = new Player(playerName1.getText(), location1, player1TextureImage.getImage());
+        Player player2 = new Player(playerName2.getText(), location2, player2TextureImage.getImage());
 
         game.addPlayer(player1);
         game.addPlayer(player2);
@@ -119,8 +137,36 @@ public class PlayerCreatorController {
     }
 
 
-    public void displayImage() {
-        GameController.textureImageView.setImage(myImage);
+    public void player1RightArrow(ActionEvent event) {
+        count = Math.floorMod((count + 1), totalTextures);
+        player1TextureImage.setImage(images.get(count));
+
     }
 
+    public void player2RightArrow(ActionEvent event) {
+        count2 = Math.floorMod((count2 + 1), totalTextures);
+        player2TextureImage.setImage(images.get(count2));
+    }
+    public void player2LeftArrow(ActionEvent event) {
+        count2 = Math.floorMod((count2 - 1), totalTextures);
+        player2TextureImage.setImage(images.get(count2));
+    }
+    public void player1LeftArrow(ActionEvent event) {
+        count = Math.floorMod((count - 1), totalTextures);
+        player1TextureImage.setImage(images.get(count));
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.images = new ArrayList<Image>();
+        this.images.add(new Image(getClass().getResourceAsStream("player-textures/Gorilla.png")));
+        this.images.add(new Image(getClass().getResourceAsStream("player-textures/1636748461118.jpg")));
+        this.images.add(new Image(getClass().getResourceAsStream("player-textures/bue.jpg")));
+        this.images.add(new Image(getClass().getResourceAsStream("player-textures/1636967318329.png")));
+        System.out.println("loaded");
+        System.out.println(this.images.get(1));
+        this.totalTextures = images.size();
+        System.out.println(totalTextures);
+    }
 }
