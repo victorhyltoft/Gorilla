@@ -152,8 +152,6 @@ public class Projectile extends AnimationTimer {
         return false;
     }
 
-    private void handleBuildingCollision() {
-    }
 
     private void checkPlayerCollision() {
         // Check if we hit an opponent

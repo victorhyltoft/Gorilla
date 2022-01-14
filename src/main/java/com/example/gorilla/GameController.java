@@ -150,8 +150,10 @@ public class GameController implements Initializable {
         gameSettings.nextPlayer();
         currentPlayerTurn.setText("It's " + gameSettings.getCurrentPlayerName() + "'s turn.");
 
+        System.out.println(player1.getScore() + " | " + player2.getScore());
         // Update the score text
         scoreText.setText(player1.getScore() + " | " + player2.getScore());
+        scoreText.toFront();
     }
 
 
