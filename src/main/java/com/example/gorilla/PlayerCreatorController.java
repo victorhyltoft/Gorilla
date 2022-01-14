@@ -44,19 +44,24 @@ public class PlayerCreatorController implements Initializable {
     public Button player1LeftArrowButton;
     @FXML
     public Button player2LeftArrowButton;
+    @FXML
+    public ImageView levelTextureImageView;
 
     public Button textureButtonRight;
     public Button textureButtonLeft;
 
     public static int count = 0;
     public static int count2 = 0;
+    public static int levelCount = 0;
     public static int totalTextures = 0;
+    public static int totalLevelTextures = 0;
     private Stage stage;
     private Scene scene;
     private final Game game = SettingsController.game;
-    public Image myImage;
+    public static Image myImage;
     public static Parent root;
     public static ArrayList<Image> images;
+    public static ArrayList<Image> levelTexture;
     // TODO : TEST
     private final ArrayList<Building> buildings = new ArrayList<>();
 
@@ -73,6 +78,7 @@ public class PlayerCreatorController implements Initializable {
 
         createBuildings();
         createPlayers();
+        SetBackground();
 
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -121,6 +127,7 @@ public class PlayerCreatorController implements Initializable {
         Player player1 = new Player(playerName1.getText(), location1, player1TextureImage.getImage());
         Player player2 = new Player(playerName2.getText(), location2, player2TextureImage.getImage());
 
+
         game.addPlayer(player1);
         game.addPlayer(player2);
 
@@ -145,6 +152,10 @@ public class PlayerCreatorController implements Initializable {
 
     }
 
+    public void SetBackground() {
+        GameController.testBackground = levelTextureImageView.getImage();
+    }
+
 
     public void player1RightArrow(ActionEvent event) {
         count = Math.floorMod((count + 1), totalTextures);
@@ -165,6 +176,14 @@ public class PlayerCreatorController implements Initializable {
         player1TextureImage.setImage(images.get(count));
     }
 
+    public void levelRightArrow(ActionEvent event) {
+        levelCount = Math.floorMod((levelCount + 1), totalLevelTextures);
+        levelTextureImageView.setImage(levelTexture.get(levelCount));
+    }
+    public void levelLeftArrow(ActionEvent event) {
+        levelCount = Math.floorMod((levelCount - 1), totalLevelTextures);
+        levelTextureImageView.setImage(levelTexture.get(levelCount));
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -173,9 +192,15 @@ public class PlayerCreatorController implements Initializable {
         images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/1636748461118.jpg"))));
         images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/bue.jpg"))));
         images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/1636967318329.png"))));
+
+        this.levelTexture = new ArrayList<Image>();
+        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/7bohtjox51461.png")));
+        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/Among-Us-A.jpg")));
+        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/bob-omb-battlefield.jpg")));
         System.out.println("loaded");
-        System.out.println(images.get(1));
-        totalTextures = images.size();
+        System.out.println(this.images.get(1));
+        this.totalTextures = images.size();
+        this.totalLevelTextures = levelTexture.size();
         System.out.println(totalTextures);
     }
 }

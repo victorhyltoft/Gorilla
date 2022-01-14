@@ -31,6 +31,8 @@ public class GameController implements Initializable {
     private TextField velocityField;
     @FXML
     static ImageView textureImageView;
+    @FXML
+    public ImageView gameBackground;
 
     // FIELDS
     public static Parent root;
@@ -39,6 +41,7 @@ public class GameController implements Initializable {
     private int velocity;
     private int angle;
 
+    public static Image testBackground;
     public static Game gameSettings;
     public static Player player1;
     public static Player player2;
@@ -69,6 +72,7 @@ public class GameController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        background();
         projectile = new ImageView(image);
         setScoreText();
         setCurrentPlayerTurnText();
@@ -178,5 +182,13 @@ public class GameController implements Initializable {
     }
 
 
+
+    public void background() {
+        gameBackground.setImage(testBackground);
+        System.out.println(gameSettings.getWidth());
+        gameBackground.setFitWidth(gameSettings.getWidth());
+        System.out.println(gameBackground.getX());
+
+    }
 
 }

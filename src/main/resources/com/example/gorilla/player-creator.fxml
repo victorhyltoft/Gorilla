@@ -17,6 +17,7 @@
          </image>
       </ImageView>
       <Pane id="SquareOutline" layoutX="257.0" layoutY="10.0" prefHeight="406.0" prefWidth="256.0" stylesheets="@application.css" AnchorPane.leftAnchor="357.0" AnchorPane.topAnchor="137.0" />
+      <Pane id="SquareOutline" prefHeight="406.0" prefWidth="256.0" stylesheets="@application.css" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="137.0" />
       <Pane id="SquareOutline" layoutX="267.0" layoutY="20.0" prefHeight="406.0" prefWidth="256.0" stylesheets="@application.css" AnchorPane.rightAnchor="357.0" AnchorPane.topAnchor="137.0" />
         <Button id="StartGameButton" fx:id="StartGameButton" layoutX="529.0" layoutY="607.0" mnemonicParsing="false" onAction="#startGame" stylesheets="@application.css" text="Start game" AnchorPane.bottomAnchor="37.0">
             <font>
@@ -55,6 +56,22 @@
             </ImageView>
             <Button fx:id="player2RightArrowButton" layoutX="127.0" layoutY="311.0" mnemonicParsing="false" onAction="#player2RightArrow" stylesheets="@application.css" text="&gt;" />
             <Button fx:id="player2LeftArrowButton" layoutX="90.0" layoutY="311.0" mnemonicParsing="false" onAction="#player2LeftArrow" stylesheets="@application.css" text="&lt;" />
+         </children>
+      </Pane>
+      <Pane id="SettingsSquare" layoutX="977.0" layoutY="140.0" maxWidth="250.0" prefHeight="400.0" prefWidth="250.0" stylesheets="@application.css" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="140.0">
+         <children>
+            <Label layoutX="43.0" layoutY="17.0" stylesheets="@application.css" text="stage select" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="levelTextureImageView" fitHeight="150.0" fitWidth="200.0" layoutX="27.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@level-textures/7bohtjox51461.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="player2RightArrowButton1" layoutX="127.0" layoutY="311.0" mnemonicParsing="false" onAction="#levelRightArrow" stylesheets="@application.css" text="&gt;" />
+            <Button fx:id="player2LeftArrowButton1" layoutX="90.0" layoutY="311.0" mnemonicParsing="false" onAction="#levelLeftArrow" stylesheets="@application.css" text="&lt;" />
          </children>
       </Pane>
     </children>
