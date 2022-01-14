@@ -45,6 +45,9 @@ public class GameController implements Initializable {
     public static Path trajectory = new Path();
     public static Text scoreText;
     public static Text currentPlayerTurn;
+    private Image obstacleImage = new Image(getClass().getResourceAsStream("textures/Bird.png"));
+    private ImageView obstacle = new ImageView(obstacleImage);
+    private Obstacle o = new Obstacle(obstacle);
 
     public GameController() {
         gameSettings = SettingsController.game;
@@ -100,8 +103,8 @@ public class GameController implements Initializable {
             resetFields();
             return; // Stop the program from continuing
         }
-
-
+        ((AnchorPane) root).getChildren().addAll(o.getImageView());
+        o.animatePath();
         projectile.setX(gameSettings.getCurrentPlayer().getLocation().getX());
         projectile.setY(gameSettings.getCurrentPlayer().getLocation().getY());
      //   projectile.setRadius(gameSettings.getAcceptedRange());
