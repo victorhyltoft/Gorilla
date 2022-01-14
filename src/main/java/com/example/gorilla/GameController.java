@@ -47,7 +47,7 @@ public class GameController implements Initializable {
     public static Path trajectory = new Path();
     public static Text scoreText;
     public static Text currentPlayerTurn;
-    public Obstacle o = new Obstacle();
+    public Obstacle obstacle = new Obstacle();
 
 
     public GameController() {

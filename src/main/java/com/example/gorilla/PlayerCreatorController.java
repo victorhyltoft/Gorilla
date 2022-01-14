@@ -88,6 +88,12 @@ public class PlayerCreatorController implements Initializable {
         ((AnchorPane) root).getChildren().addAll(GameController.scoreText, GameController.currentPlayerTurn, GameController.trajectory);
         // Add players
         ((AnchorPane) root).getChildren().addAll(GameController.player1.getImageView(), GameController.player2.getImageView());
+
+        // TODO : TEST
+        Obstacle bird = new Obstacle();
+        bird.animatePath();
+        ((AnchorPane) root).getChildren().addAll(bird.getImageView());
+
         GameController.root = root;
 
         Scene scene = new Scene(root, game.getWidth(), game.getHeight());
