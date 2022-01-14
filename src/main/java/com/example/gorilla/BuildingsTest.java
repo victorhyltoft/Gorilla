@@ -25,7 +25,7 @@ public class BuildingsTest extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         AnchorPane root = new AnchorPane();
         Scene scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
@@ -34,7 +34,6 @@ public class BuildingsTest extends Application {
             root.getChildren().addAll(building.getRectangle());
             root.getChildren().addAll(building.getWindows());
         }
-
 
 
         Point2D location1 = buildings.get(1).getBuildingRoof();

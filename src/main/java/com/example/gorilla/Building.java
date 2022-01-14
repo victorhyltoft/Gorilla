@@ -18,12 +18,12 @@ public class Building {
     private double width;
     private double height;
     // TODO : REMOVE VALUES
-    private double SCENE_WIDTH = 1280;
-    private double SCENE_HEIGHT = 720;
-    private double maxHeight;
-    private double minHeight;
-    private double maxWidth;
-    private double minWidth;
+    private final double SCENE_WIDTH = 1280;
+    private final double SCENE_HEIGHT = 720;
+    private final double maxHeight;
+    private final double minHeight;
+    private final double maxWidth;
+    private final double minWidth;
     private final Random random = new Random();
 
 
@@ -32,9 +32,10 @@ public class Building {
     private Rectangle rectangle;
     private Shape buildingShape;
     private final Color[] colors = new Color[]{Color.web("#00aaaa"), Color.web("#aa0000"), Color.web("#aaaaaa")};
+    private final ArrayList<Shape> craters;
 
     // Window components
-    private ArrayList<Shape> windows = new ArrayList<>();
+    private final ArrayList<Shape> windows = new ArrayList<>();
     private final double windowWidthPadding = 10;
     private double totalWindowWidth = windowWidthPadding;
     private final double windowHeightPadding = 15;
@@ -46,6 +47,7 @@ public class Building {
         this.minHeight = SCENE_HEIGHT*0.20;
         this.maxWidth = SCENE_WIDTH*0.12;
         this.minWidth = SCENE_WIDTH*0.07;
+        this.craters = new ArrayList<>();
         generateSize();
         generateRectangle(xPosition);
         generateColor();
@@ -86,7 +88,7 @@ public class Building {
                 window.setX(rectangle.getX() + totalWindowWidth);
                 window.setY(rectangle.getY() + totalWindowHeight);
                 window.setFill(isWindowLit() ? Color.web("#ffff55") : Color.web("#555555"));
-                windows.add((Shape) window);
+                windows.add(window);
                 totalWindowWidth += windowWidth + windowWidthPadding;
             }
             totalWindowWidth = windowWidthPadding;
@@ -142,6 +144,28 @@ public class Building {
 
     public void setBuildingShape(Shape buildingShape) {
         this.buildingShape = buildingShape;
+    }
+
+    public ArrayList<Shape> getCraters() {
+        return craters;
+    }
+
+    public void addCrater(Shape crater) {
+        this.craters.add(crater);
+        this.buildingShape = Shape.subtract(this.buildingShape, crater);
+        this.buildingShape.setFill(getRectangle().getFill());
+
+        // Iterate over the windows to see if any of them are affected by the explosion
+        for (int j = 0; j < getWindows().size(); j++) {
+            Shape currentWindow = getWindows().get(j);
+            if (crater.intersects(currentWindow.getLayoutBounds())) {
+                System.out.println("Explosion intersects window");
+
+                Shape newWindowShape = Shape.subtract(currentWindow, crater);
+                newWindowShape.setFill(currentWindow.getFill());
+                getWindows().set(j, newWindowShape);
+            }
+        }
     }
 
 }

@@ -1,19 +1,14 @@
 package com.example.gorilla;
 
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.AbstractList;
 
 public class Player {
     private String name;
     private Point2D location;
     private int score;
-    private Circle circle;
     public Image image;
     public ImageView imageView;
 
@@ -22,7 +17,6 @@ public class Player {
         this.name = name;
         this.location = location;
         this.score = 0;
-        this.circle = new Circle(location.getX(), location.getY(), SettingsController.game.getAcceptedRange());
         setImage(texture);
     }
 
@@ -46,9 +40,6 @@ public class Player {
         return score;
     }
 
-    public Circle getCircle() {
-        return circle;
-    }
 
     public void setImage(Image texture) {
         this.image = texture;
@@ -59,17 +50,13 @@ public class Player {
         imageView.setY(location.getY()-25);
     }
 
-    /**
-     * @deprecated
-     * @return
-     */
-    public Circle getNewCircle() {
-        return new Circle(location.getX(), location.getY(), SettingsController.game.getAcceptedRange());
-    }
 
     public ImageView getImageView() {
-        System.out.println(image.getUrl());
         return imageView;
+    }
+
+    public Bounds getBounds() {
+        return imageView.getLayoutBounds();
     }
 
 

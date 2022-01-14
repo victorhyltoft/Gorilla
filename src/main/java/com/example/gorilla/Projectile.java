@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
  */
 
 public class Projectile extends AnimationTimer {
+    // Fields for calculation of projectile trajectory
     private double velocity;
     private double angle;
     private double gravity;
@@ -26,20 +26,24 @@ public class Projectile extends AnimationTimer {
     private double yVelocity;
     private double timeInterval;
     private double time;
-
-    private Game gameSettings;
-    private GameController gameController;
-    private ImageView projectile;
-    private Path trajectory;
     private double currentX;
     private double currentY;
+
+    private Game gameSettings;
+    private ImageView projectile;
+    private Path trajectory;
     private Parent root;
     private Button player1ThrowButton;
+
     private ArrayList<Building> buildings;
+
+    // Crater
+    private final double craterRadius = 40;
+    private Circle crater = new Circle(100,100, craterRadius);
 
     public Projectile(ImageView projectile) {
         this.projectile = projectile;
-        this.time = 0.0;;
+        this.time = 0.0;
     }
 
 
@@ -48,12 +52,16 @@ public class Projectile extends AnimationTimer {
     public void handle(long now) {
         calculateNextPosition();
         updateProjectile();
-        checkBuildingCollision();
-        checkPlayerCollision();
-        checkOutsideGame();
-        projectile.setScaleX(gameSettings.getAcceptedRange());
-        projectile.setScaleY(gameSettings.getAcceptedRange());
+        if (!checkBuildingCollision()) {
+            checkPlayerCollision();
+            checkOutsideGame();
+        }
+
+        projectile.setScaleX(4);
+        projectile.setScaleY(4);
     }
+
+
 
     private void calculateNextPosition() {
         // Calculate next point
@@ -88,54 +96,63 @@ public class Projectile extends AnimationTimer {
         }
     }
 
-    Circle explosionCrater = new Circle(100,100, 40);
+    /**
+     *
+     * @return true if projectile collides with buildings
+     */
+    private boolean checkBuildingCollision() {
 
-    private void checkBuildingCollision() {
         // Iterate over each building
-        for (Building building : buildings) {
+        for (int i = 0, totalBuildings = buildings.size(); i < totalBuildings; i++) {
+            Building currentBuilding = buildings.get(i);
             // Check if projectile intersects with a building
-            if (projectile.intersects(building.getShapeBounds())) {
-                System.out.println("Projectile intersects building");
+            if (!projectile.intersects(currentBuilding.getShapeBounds())) {
+                continue;
+            }
 
-                // TODO : Let projectile continue if there already is a crater in the building
+            // Check if projectile intersects a crater from a previous shot
+            for (Shape crater : currentBuilding.getCraters()) {
+                if (projectile.intersects(crater.getLayoutBounds())) {
+                    return false;
+                }
+            }
 
+            // Create a crater
+            crater.setCenterX(currentX);
+            crater.setCenterY(currentY);
 
-
-                explosionCrater.setCenterX(currentX);
-                explosionCrater.setCenterY(currentY);
-
-                ((AnchorPane) root).getChildren().removeAll(building.getBuildingShape());
-                ((AnchorPane) root).getChildren().removeAll(building.getWindows());
-
-                Shape newBuildingShape = Shape.subtract(building.getBuildingShape(), explosionCrater);
-
-
-                newBuildingShape.setFill(building.getRectangle().getFill());
-                building.setBuildingShape(newBuildingShape);
-
-                // Iterate over the windows to see if any of them are affected by the explosion
-                for (int i = 0; i < building.getWindows().size(); i++) {
-                    Shape currentWindow = building.getWindows().get(i);
-                    if (explosionCrater.intersects(currentWindow.getLayoutBounds())) {
-                        System.out.println("Explosion intersects window");
-
-                        Shape newWindowShape = Shape.subtract(currentWindow, explosionCrater);
-                        newWindowShape.setFill(currentWindow.getFill());
-                        building.getWindows().set(i, newWindowShape);
+            // Check if explosion affects any of the players
+            for (Player player : gameSettings.getPlayers()) {
+                if (crater.intersects(player.getBounds())) {
+                    // Give the other player a point
+                    for (Player p : gameSettings.getPlayers()) {
+                        if (!p.equals(player)) {
+                            p.incrementScore();
+                        }
                     }
                 }
-
-
-                ((AnchorPane) root).getChildren().addAll(building.getBuildingShape());
-                ((AnchorPane) root).getChildren().addAll(building.getWindows());
-
-                // TODO : Check if explosion affects any of the players
-
-                throwFinished();
             }
+
+            // Check if any of the buildings are affected by the explosion
+            for (Building building : buildings) {
+                if (crater.intersects(building.getShapeBounds())) {
+                    ((AnchorPane) root).getChildren().removeAll(building.getBuildingShape());
+                    ((AnchorPane) root).getChildren().removeAll(building.getWindows());
+
+                    building.addCrater(crater);
+
+                    ((AnchorPane) root).getChildren().addAll(building.getBuildingShape());
+                    ((AnchorPane) root).getChildren().addAll(building.getWindows());
+                }
+            }
+
+            throwFinished();
+            return true;
         }
+        return false;
+    }
 
-
+    private void handleBuildingCollision() {
     }
 
     private void checkPlayerCollision() {
@@ -144,13 +161,10 @@ public class Projectile extends AnimationTimer {
             // Disable friendly fire (shooting yourself)
             if (!player.equals(gameSettings.getCurrentPlayer())) {
                 // Check to see if X-coordinate of projectile is within range of opponent
-                if (Math.abs((currentX - player.getLocation().getX())) < gameSettings.getAcceptedRange()) {
-                    // Check to see if Y-coordinate of projectile is within range of opponent
-                    if (Math.abs((currentY -player.getLocation().getY())) < gameSettings.getAcceptedRange()) {
-                        System.out.println("Boom");
-                        gameSettings.getCurrentPlayer().incrementScore();
-                        throwFinished();
-                    }
+                if (projectile.intersects(player.getBounds())) {
+                    System.out.println("Boom");
+                    gameSettings.getCurrentPlayer().incrementScore();
+                    throwFinished();
                 }
             }
         }

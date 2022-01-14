@@ -58,7 +58,7 @@ public class PlayerCreatorController implements Initializable {
     public static Parent root;
     public static ArrayList<Image> images;
     // TODO : TEST
-    private ArrayList<Building> buildings = new ArrayList<>();
+    private final ArrayList<Building> buildings = new ArrayList<>();
 
 
     /**
@@ -92,7 +92,7 @@ public class PlayerCreatorController implements Initializable {
 
         Scene scene = new Scene(root, game.getWidth(), game.getHeight());
         GameController.scene = scene;
-        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("application.css")).toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -104,10 +104,13 @@ public class PlayerCreatorController implements Initializable {
     public void createPlayers() {
         // TODO : Clean up
 
-        double x1 = buildings.get(1).getBuildingRoof().getX();
-        double y1 = buildings.get(1).getBuildingRoof().getY() - 19;
+        double x1 = buildings.get(1).getBuildingRoof().getX() - 12;
+        double y1 = buildings.get(1).getBuildingRoof().getY() - 24;
         Point2D location1 = new Point2D(x1, y1);
-        Point2D location2 = buildings.get(buildings.size() - 2).getBuildingRoof();
+
+        double x2 = buildings.get(buildings.size() - 2).getBuildingRoof().getX() - 12;
+        double y2 = buildings.get(buildings.size() - 2).getBuildingRoof().getY() - 24;
+        Point2D location2 = new Point2D(x2, y2);
 
         Player player1 = new Player(playerName1.getText(), location1, player1TextureImage.getImage());
         Player player2 = new Player(playerName2.getText(), location2, player2TextureImage.getImage());
@@ -159,14 +162,14 @@ public class PlayerCreatorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.images = new ArrayList<Image>();
-        this.images.add(new Image(getClass().getResourceAsStream("player-textures/Gorilla.png")));
-        this.images.add(new Image(getClass().getResourceAsStream("player-textures/1636748461118.jpg")));
-        this.images.add(new Image(getClass().getResourceAsStream("player-textures/bue.jpg")));
-        this.images.add(new Image(getClass().getResourceAsStream("player-textures/1636967318329.png")));
+        images = new ArrayList<>();
+        images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/Gorilla.png"))));
+        images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/1636748461118.jpg"))));
+        images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/bue.jpg"))));
+        images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/1636967318329.png"))));
         System.out.println("loaded");
-        System.out.println(this.images.get(1));
-        this.totalTextures = images.size();
+        System.out.println(images.get(1));
+        totalTextures = images.size();
         System.out.println(totalTextures);
     }
 }
