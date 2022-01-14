@@ -24,9 +24,10 @@ public class Obstacle {
     public Obstacle() {
         this.imageView = new ImageView(image);
         this.height = ThreadLocalRandom.current().nextDouble(buffer, gameSettings.getHeight() - maxHeight);
-        determinePosition();
         imageView.setScaleX(0.1);
         imageView.setScaleY(0.1);
+        determinePosition();
+
     }
 
     public ImageView getImageView() {
@@ -41,6 +42,7 @@ public class Obstacle {
         if (rightSide()) {
             startPosition = new Point2D(-200,height);
             endPosition = new Point2D(SettingsController.game.getWidth()+200,height);
+            imageView.setScaleX(-0.1);
         }
         else {
             startPosition = new Point2D(SettingsController.game.getWidth()+200,height);
