@@ -121,4 +121,8 @@ public class Building {
     public ArrayList<Rectangle> getWindows() {
         return windows;
     }
+
+    public double getMaxHeight() {
+        return maxHeight;
+    }
 }

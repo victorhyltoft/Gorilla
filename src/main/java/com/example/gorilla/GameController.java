@@ -1,6 +1,7 @@
 package com.example.gorilla;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -45,9 +47,8 @@ public class GameController implements Initializable {
     public static Path trajectory = new Path();
     public static Text scoreText;
     public static Text currentPlayerTurn;
-    private Image obstacleImage = new Image(getClass().getResourceAsStream("textures/Bird.png"));
-    private ImageView obstacle = new ImageView(obstacleImage);
-    private Obstacle o = new Obstacle(obstacle);
+    public Obstacle o = new Obstacle();
+
 
     public GameController() {
         gameSettings = SettingsController.game;
@@ -97,14 +98,11 @@ public class GameController implements Initializable {
      * a miss or hit is registered.
      */
     public void throwProjectile() {
-
         // Make sure the text fields are valid
         if (!validateTextFields()) {
             resetFields();
             return; // Stop the program from continuing
         }
-        ((AnchorPane) root).getChildren().addAll(o.getImageView());
-        o.animatePath();
         projectile.setX(gameSettings.getCurrentPlayer().getLocation().getX());
         projectile.setY(gameSettings.getCurrentPlayer().getLocation().getY());
      //   projectile.setRadius(gameSettings.getAcceptedRange());
@@ -122,6 +120,7 @@ public class GameController implements Initializable {
         // Pass the data from the GameController into the Projectile model
         setProjectileData();
         resetFields();
+
 
     }
 
@@ -156,6 +155,7 @@ public class GameController implements Initializable {
     }
 
 
+
     /**
      * Validates that the angle and velocity text fields both are integers and
      * the angle is between 0-90 and velocity is greater than 0
@@ -174,5 +174,7 @@ public class GameController implements Initializable {
             return false;
         }
     }
+
+
 
 }
