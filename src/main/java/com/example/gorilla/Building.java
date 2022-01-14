@@ -168,4 +168,8 @@ public class Building {
         }
     }
 
+    public double getMaxHeight() {
+        return maxHeight;
+    }
+
 }
