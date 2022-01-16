@@ -193,6 +193,7 @@ public class GameController implements Initializable {
         } else {
         gameBackground.setImage(testBackground);
         System.out.println(gameSettings.getWidth());
+        gameBackground.setPreserveRatio(false);
         gameBackground.setFitWidth(gameSettings.getWidth());
         System.out.println(gameBackground.getX());
 
