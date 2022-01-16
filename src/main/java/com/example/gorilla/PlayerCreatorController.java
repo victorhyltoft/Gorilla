@@ -188,6 +188,7 @@ public class PlayerCreatorController implements Initializable {
     }
     public void levelLeftArrow(ActionEvent event) {
         levelCount = Math.floorMod((levelCount - 1), totalLevelTextures);
+        GameController.ControllerCount = levelCount;
         levelTextureImageView.setImage(levelTexture.get(levelCount));
     }
 
