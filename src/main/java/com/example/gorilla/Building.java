@@ -9,6 +9,7 @@ import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -18,8 +19,7 @@ public class Building {
     private double width;
     private double height;
     // TODO : REMOVE VALUES
-    private final double SCENE_WIDTH = 1280;
-    private final double SCENE_HEIGHT = 720;
+
     private final double maxHeight;
     private final double minHeight;
     private final double maxWidth;
@@ -40,13 +40,16 @@ public class Building {
     private double totalWindowWidth = windowWidthPadding;
     private final double windowHeightPadding = 15;
     private double totalWindowHeight = windowHeightPadding;
+    private Game gameSettings = SettingsController.game;
+    private double sceneHeight = gameSettings.getHeight();
+    private double sceneWidth = gameSettings.getWidth();
 
     // Constructor
     public Building(double xPosition) {
-        this.maxHeight = SCENE_HEIGHT*0.60;
-        this.minHeight = SCENE_HEIGHT*0.20;
-        this.maxWidth = SCENE_WIDTH*0.12;
-        this.minWidth = SCENE_WIDTH*0.07;
+        this.maxHeight = sceneHeight*0.60;
+        this.minHeight = sceneHeight*0.20;
+        this.maxWidth = sceneWidth*0.12;
+        this.minWidth = sceneWidth*0.07;
         this.craters = new ArrayList<>();
         generateSize();
         generateRectangle(xPosition);
@@ -67,7 +70,7 @@ public class Building {
     private void generateRectangle(double x) {
         Rectangle r = new Rectangle();
         r.setX(x);
-        r.setY(SCENE_HEIGHT-this.height);
+        r.setY(sceneHeight-this.height);
         r.setWidth(this.width);
         r.setHeight(this.height);
         this.rectangle = r;
