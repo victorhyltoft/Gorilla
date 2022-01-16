@@ -23,7 +23,7 @@
             <Font name="Courier New Bold" size="12.0" />
          </font>
       </TextField>
-      <Button id="Player1ThrowButton" fx:id="Player1ThrowButton" layoutX="19.0" layoutY="74.0" mnemonicParsing="false" onAction="#throwProjectile" stylesheets="@application.css" text="Throw!" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="70.0" />
+      <Button id="Player1ThrowButton" fx:id="throwButton" layoutX="19.0" layoutY="74.0" mnemonicParsing="false" onAction="#throwProjectile" stylesheets="@application.css" text="Throw!" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="70.0" />
       <Text id="CurrentText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
          <font>
             <Font name="Courier New" size="20.0" />
