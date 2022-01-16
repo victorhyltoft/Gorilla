@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
@@ -40,12 +41,15 @@ public class GameController implements Initializable {
     private int angle;
 
     public static Image testBackground;
+    public static int ControllerCount;
     public static Game gameSettings;
     public static Player player1;
     public static Player player2;
     private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/Banana.png")));
+    private Image background1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/blank1.png")));
     private ImageView projectile;
     public static Path trajectory = new Path();
+    public static Pane scoreBackground;
     public static Text scoreText;
     public static Text currentPlayerTurn;
     public Obstacle obstacle = new Obstacle();
@@ -181,6 +185,12 @@ public class GameController implements Initializable {
 
 
     public void background() {
+        if(ControllerCount == 0) {
+            gameBackground.setImage(background1);
+            System.out.println(gameSettings.getWidth());
+            gameBackground.setFitWidth(gameSettings.getWidth());
+            System.out.println(gameBackground.getX());
+        } else {
         gameBackground.setImage(testBackground);
         System.out.println(gameSettings.getWidth());
         gameBackground.setFitWidth(gameSettings.getWidth());
@@ -188,4 +198,5 @@ public class GameController implements Initializable {
 
     }
 
+}
 }

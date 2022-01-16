@@ -183,6 +183,7 @@ public class PlayerCreatorController implements Initializable {
 
     public void levelRightArrow(ActionEvent event) {
         levelCount = Math.floorMod((levelCount + 1), totalLevelTextures);
+        GameController.ControllerCount = levelCount;
         levelTextureImageView.setImage(levelTexture.get(levelCount));
     }
     public void levelLeftArrow(ActionEvent event) {
@@ -199,9 +200,10 @@ public class PlayerCreatorController implements Initializable {
         images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/1636967318329.png"))));
 
         this.levelTexture = new ArrayList<Image>();
-        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/7bohtjox51461.png")));
-        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/Among-Us-A.jpg")));
-        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/bob-omb-battlefield.jpg")));
+        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/blankbackground.png")));
+        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/junglebackground.png")));
+        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/mario.jpg")));
+        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/space.jpg")));
         System.out.println("loaded");
         System.out.println(this.images.get(1));
         this.totalTextures = images.size();

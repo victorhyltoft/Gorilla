@@ -62,7 +62,7 @@
             <Pane id="SquareOutline" layoutX="52.0" layoutY="80.0" prefHeight="206.0" prefWidth="376.0" stylesheets="@application.css" />
             <ImageView fx:id="levelTextureImageView" fitHeight="200.0" fitWidth="370.0" layoutX="55.0" layoutY="83.0" pickOnBounds="true">
                <image>
-                  <Image url="@level-textures/7bohtjox51461.png" />
+                  <Image url="@level-textures/blankbackground.png" />
                </image>
             </ImageView>
             <Button fx:id="player2RightArrowButton1" layoutX="240.0" layoutY="314.0" mnemonicParsing="false" onAction="#levelRightArrow" stylesheets="@application.css" text="&gt;" />
