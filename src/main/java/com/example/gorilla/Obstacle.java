@@ -22,16 +22,15 @@ public class Obstacle {
     private double height;
     private final double buffer = 50;
     private final double maxHeight = gameSettings.getBuildings().get(1).getMaxHeight() + buffer;
-    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/BirdGif.gif")));
+    private Image image;
     private ImageView imageView;
     private Line line;
     private PathTransition transition;
 
     public Obstacle() {
+        setImage();
         this.imageView = new ImageView(image);
-        imageView.setScaleX(-0.2);
         imageView.setScaleY(0.2);
-
     }
 
     public ImageView getImageView() {
@@ -83,6 +82,23 @@ public class Obstacle {
     public void reset() {
         transition.stop();
         animatePath();
+    }
+
+    private void setImage() {
+        if (PlayerCreatorController.levelCount == 0) {
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/BirdGif.gif")));
+
+        }
+        else if (PlayerCreatorController.levelCount == 1) {
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/UnidentifiedFlyingObject.png")));
+
+        }
+        else {
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/Bullet.png")));
+
+
+        }
+
     }
 
 
