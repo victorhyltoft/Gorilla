@@ -30,7 +30,7 @@ public class Obstacle {
     public Obstacle() {
         this.imageView = new ImageView(image);
         imageView.setScaleX(-0.2);
-        imageView.setScaleY(-0.2);
+        imageView.setScaleY(0.2);
 
     }
 
