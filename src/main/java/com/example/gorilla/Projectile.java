@@ -55,6 +55,7 @@ public class Projectile extends AnimationTimer {
         if (!checkBuildingCollision()) {
             checkPlayerCollision();
             checkOutsideGame();
+            checkObstacleCollision();
         }
 
         projectile.setScaleX(4);
@@ -152,6 +153,15 @@ public class Projectile extends AnimationTimer {
         return false;
     }
 
+    private void checkObstacleCollision() {
+        if (projectile.intersects(PlayerCreatorController.getObstacle().getImageView().getBoundsInParent())) {
+            PlayerCreatorController.getObstacle().reset();
+            throwFinished();
+
+        }
+    }
+
+
 
     private void checkPlayerCollision() {
         // Check if we hit an opponent
@@ -175,6 +185,7 @@ public class Projectile extends AnimationTimer {
         resetProjectile();
         GameController.updatePlayerTurn();
         throwButton();
+
     }
 
     public void resetProjectile() {
@@ -195,6 +206,7 @@ public class Projectile extends AnimationTimer {
     private double getX(double time) {
         return initialX + xVelocity * time;
     }
+
 
     // SETTERS
     public void setProjectile(ImageView projectile) {

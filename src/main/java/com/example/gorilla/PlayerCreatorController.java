@@ -64,6 +64,7 @@ public class PlayerCreatorController implements Initializable {
     public static ArrayList<Image> levelTexture;
     // TODO : TEST
     private final ArrayList<Building> buildings = new ArrayList<>();
+    private static Obstacle bird;
 
 
     /**
@@ -96,7 +97,7 @@ public class PlayerCreatorController implements Initializable {
         ((AnchorPane) root).getChildren().addAll(GameController.player1.getImageView(), GameController.player2.getImageView());
 
         // TODO : TEST
-        Obstacle bird = new Obstacle();
+        bird = new Obstacle();
         bird.animatePath();
         ((AnchorPane) root).getChildren().addAll(bird.getImageView());
 
@@ -154,6 +155,10 @@ public class PlayerCreatorController implements Initializable {
 
     public void SetBackground() {
         GameController.testBackground = levelTextureImageView.getImage();
+    }
+
+    public static Obstacle getObstacle() {
+        return bird;
     }
 
 

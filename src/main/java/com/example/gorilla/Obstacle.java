@@ -1,6 +1,10 @@
 package com.example.gorilla;
 
+import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,15 +22,15 @@ public class Obstacle {
     private double height;
     private final double buffer = 50;
     private final double maxHeight = gameSettings.getBuildings().get(1).getMaxHeight() + buffer;
-    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/Bird.png")));
+    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/BirdGif.gif")));
     private ImageView imageView;
+    private Line line;
+    private PathTransition transition;
 
     public Obstacle() {
         this.imageView = new ImageView(image);
-        this.height = ThreadLocalRandom.current().nextDouble(buffer, gameSettings.getHeight() - maxHeight);
-        imageView.setScaleX(0.1);
-        imageView.setScaleY(0.1);
-        determinePosition();
+        imageView.setScaleX(-0.2);
+        imageView.setScaleY(-0.2);
 
     }
 
@@ -39,31 +43,47 @@ public class Obstacle {
     }
 
     public void determinePosition() {
+        setHeight();
         if (rightSide()) {
             startPosition = new Point2D(-200,height);
             endPosition = new Point2D(SettingsController.game.getWidth()+200,height);
-            imageView.setScaleX(-0.1);
+            imageView.setScaleX(0.2);
         }
         else {
             startPosition = new Point2D(SettingsController.game.getWidth()+200,height);
             endPosition = new Point2D(-200,height);
+            imageView.setScaleX(-0.2);
         }
     }
 
 
     public void animatePath() {
-        PathTransition transition = new PathTransition();
-        Line line = new Line(startPosition.getX(), startPosition.getY(), endPosition.getX(), endPosition.getY());
+        transition = new PathTransition();
+        transition.setDuration(Duration.seconds(20));
         transition.setNode(imageView);
-        transition.setDuration(Duration.seconds(10));
-        transition.setPath(line);
         transition.setCycleCount(1);
+        transition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                determinePosition();
+                line = new Line(startPosition.getX(), startPosition.getY(), endPosition.getX(), endPosition.getY());
+                transition.setPath(line);
+                transition.play();
+            }
+
+        });
+
         transition.play();
     }
 
+    public void setHeight() {
+        this.height = ThreadLocalRandom.current().nextDouble(buffer, gameSettings.getHeight() - maxHeight);
+    }
 
-
-
+    public void reset() {
+        transition.stop();
+        animatePath();
+    }
 
 
 }
