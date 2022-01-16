@@ -24,27 +24,27 @@
       </Button>
       <Pane id="SettingsSquare" layoutX="440.0" layoutY="178.0" prefHeight="400.0" prefWidth="400.0" stylesheets="@application.css" AnchorPane.bottomAnchor="142.0" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="440.0" AnchorPane.topAnchor="178.0">
          <children>
-            <TextField id="SettingTextField" fx:id="widthField" layoutX="250.0" layoutY="60.0" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" prefWidth="100.0" styleClass="MenuTextField" stylesheets="@application.css" text="1280">
+            <TextField id="SettingTextField" fx:id="widthField" layoutX="250.0" layoutY="40.0" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" prefWidth="100.0" styleClass="MenuTextField" stylesheets="@application.css" text="1280">
                <font>
                   <Font size="20.0" />
                </font>
             </TextField>
-            <TextField id="SettingTextField" fx:id="heightField" layoutX="250.0" layoutY="165.0" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" prefWidth="100.0" styleClass="MenuTextField" stylesheets="@application.css" text="720">
+            <TextField id="SettingTextField" fx:id="heightField" layoutX="250.0" layoutY="150.0" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" prefWidth="100.0" styleClass="MenuTextField" stylesheets="@application.css" text="720">
                <font>
                   <Font size="20.0" />
                </font>
             </TextField>
-            <TextField id="SettingTextField" fx:id="gravityField" layoutX="250.0" layoutY="270.0" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" prefWidth="100.0" styleClass="MenuTextField" stylesheets="@application.css" text="9.81">
+            <TextField id="SettingTextField" fx:id="gravityField" layoutX="250.0" layoutY="260.0" maxHeight="50.0" maxWidth="100.0" prefHeight="50.0" prefWidth="100.0" styleClass="MenuTextField" stylesheets="@application.css" text="9.81">
                <font>
                   <Font size="20.0" />
                </font>
             </TextField>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@textures/width.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="18.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="18.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@textures/height.png" />
                </image>
