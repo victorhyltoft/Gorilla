@@ -1,7 +1,6 @@
 package com.example.gorilla;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 
@@ -23,7 +21,7 @@ public class GameController implements Initializable {
 
 
     @FXML
-    public Button Player1ThrowButton;
+    public Button throwButton;
     // FXML ANNOTATION
     @FXML
     private TextField angleField;
@@ -119,7 +117,7 @@ public class GameController implements Initializable {
 
         currentPlayerTurn.setText("Throwing...");
         currentPlayerTurn.setX(gameSettings.getWidth() / 2 - (currentPlayerTurn.getLayoutBounds().getWidth() / 2));
-        Player1ThrowButton.setDisable(true);
+        throwButton.setDisable(true);
 
         // Pass the data from the GameController into the Projectile model
         setProjectileData();
@@ -137,7 +135,7 @@ public class GameController implements Initializable {
         p.setAngle(getAngle());
         p.setVelocity(getVelocity());
         p.setTrajectory(trajectory);
-        p.setPlayer1ThrowButton(Player1ThrowButton);
+        p.setPlayer1ThrowButton(throwButton);
         p.start(); // Starts the calculation and animation of the projectile and its trajectory
     }
 
