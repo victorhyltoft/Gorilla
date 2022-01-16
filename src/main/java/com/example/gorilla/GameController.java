@@ -45,7 +45,7 @@ public class GameController implements Initializable {
     public static Game gameSettings;
     public static Player player1;
     public static Player player2;
-    private Image image = new Image(getClass().getResourceAsStream("textures/Banana.png"));
+    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/Banana.png")));
     private ImageView projectile;
     public static Path trajectory = new Path();
     public static Text scoreText;
@@ -131,12 +131,11 @@ public class GameController implements Initializable {
 
     private void setProjectileData() {
         // Calculate and display the projectile position and its trajectory
-        Projectile p = new Projectile(this.projectile);
+        gameSettings.setRoot(root);
+        Projectile p = new Projectile(this.projectile, gameSettings);
         p.setRoot(root);
         p.setAngle(getAngle());
         p.setVelocity(getVelocity());
-        p.setGameSettings(gameSettings);
-        p.setStartPosition(gameSettings.getCurrentPlayer().getLocation());
         p.setTrajectory(trajectory);
         p.setPlayer1ThrowButton(Player1ThrowButton);
         p.start(); // Starts the calculation and animation of the projectile and its trajectory

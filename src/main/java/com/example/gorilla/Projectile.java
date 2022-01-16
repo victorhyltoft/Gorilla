@@ -4,11 +4,13 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
@@ -31,6 +33,7 @@ public class Projectile extends AnimationTimer {
 
     private Game gameSettings;
     private ImageView projectile;
+    private ImageView explosion = new ImageView();
     private Path trajectory;
     private Parent root;
     private Button player1ThrowButton;
@@ -39,11 +42,23 @@ public class Projectile extends AnimationTimer {
 
     // Crater
     private final double craterRadius = 40;
-    private Circle crater = new Circle(100,100, craterRadius);
+    private final Circle crater = new Circle(100,100, craterRadius);
 
-    public Projectile(ImageView projectile) {
+
+    // Constructor
+    public Projectile(ImageView projectile, Game gameSettings) {
+        this.root = gameSettings.getRoot();
+        this.gameSettings = gameSettings;
+        setGameSettings(gameSettings);
+
         this.projectile = projectile;
+        this.projectile.setX(gameSettings.getCurrentPlayer().getLocation().getX());
+        this.projectile.setY(gameSettings.getCurrentPlayer().getLocation().getY());
+
         this.time = 0.0;
+
+        explosion.setVisible(false);
+        ((AnchorPane) root).getChildren().add(explosion);
     }
 
 
@@ -97,6 +112,7 @@ public class Projectile extends AnimationTimer {
         }
     }
 
+
     /**
      *
      * @return true if projectile collides with buildings
@@ -146,7 +162,6 @@ public class Projectile extends AnimationTimer {
                     ((AnchorPane) root).getChildren().addAll(building.getWindows());
                 }
             }
-
             throwFinished();
             return true;
         }
@@ -178,10 +193,23 @@ public class Projectile extends AnimationTimer {
         }
     }
 
+    private void createExplosion() {
+        // Set the imageview (in a final field)
+        // When throwFinished(), render the explosion
+        explosion.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/explosion.gif"))));
+        explosion.setScaleX(0.25);
+        explosion.setScaleY(0.25);
+        System.out.println(explosion.getFitWidth());
+        explosion.setX(currentX - explosion.getImage().getWidth() / 2);
+        explosion.setY(currentY - (explosion.getImage().getHeight() / 2));
+        explosion.setVisible(true);
+
+    }
 
     public void throwFinished() {
         // Stop the timer (and thereby the animation)
         stop();
+        createExplosion();
         resetProjectile();
         GameController.updatePlayerTurn();
         throwButton();
@@ -191,7 +219,7 @@ public class Projectile extends AnimationTimer {
     public void resetProjectile() {
         // Reset/Hide trajectory and projectile
         trajectory.getElements().removeAll(trajectory.getElements());
-        ((AnchorPane) root).getChildren().removeAll(projectile); // Remove the
+        ((AnchorPane) root).getChildren().removeAll(projectile);
     }
 
 
@@ -228,11 +256,9 @@ public class Projectile extends AnimationTimer {
 
     public void setAngle(double angle) {
         this.angle = angle;
-
     }
 
     public void setGameSettings(Game gameSettings) {
-        this.gameSettings = gameSettings;
         setGravity(gameSettings.getGravity());
         setStartPosition(gameSettings.getCurrentPlayer().getLocation());
         setBuildings(gameSettings.getBuildings());

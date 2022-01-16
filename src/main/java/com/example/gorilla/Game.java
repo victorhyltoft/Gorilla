@@ -1,5 +1,7 @@
 package com.example.gorilla;
 
+import javafx.scene.Parent;
+
 import java.util.ArrayList;
 
 public class Game {
@@ -10,6 +12,7 @@ public class Game {
     private double acceptedRange;
     private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Building> buildings = new ArrayList<>();
+    private Parent root;
 
     public void nextPlayer() {
         turnCounter = (turnCounter + 1) % players.size();
@@ -79,4 +82,11 @@ public class Game {
         this.buildings = buildings;
     }
 
+    public void setRoot(Parent root) {
+        this.root = root;
+    }
+
+    public Parent getRoot() {
+        return root;
+    }
 }
