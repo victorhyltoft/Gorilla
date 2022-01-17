@@ -117,12 +117,12 @@ public class PlayerCreatorController implements Initializable {
     public void createPlayers() {
         // TODO : Clean up
 
-        double x1 = buildings.get(1).getBuildingRoof().getX() - 12;
-        double y1 = buildings.get(1).getBuildingRoof().getY() - 24;
+        double x1 = buildings.get(1).getBuildingRoof().getX()-22;
+        double y1 = buildings.get(1).getBuildingRoof().getY()-52;
         Point2D location1 = new Point2D(x1, y1);
 
-        double x2 = buildings.get(buildings.size() - 2).getBuildingRoof().getX() - 12;
-        double y2 = buildings.get(buildings.size() - 2).getBuildingRoof().getY() - 24;
+        double x2 = buildings.get(buildings.size() - 2).getBuildingRoof().getX() - 22;
+        double y2 = buildings.get(buildings.size() - 2).getBuildingRoof().getY() - 52;
         Point2D location2 = new Point2D(x2, y2);
 
         Player player1 = new Player(playerName1.getText(), location1, player1TextureImage.getImage());

@@ -13,6 +13,7 @@ public class Game {
     private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Building> buildings = new ArrayList<>();
     private Parent root;
+    private int[] score;
 
     public void nextPlayer() {
         turnCounter = (turnCounter + 1) % players.size();
@@ -88,5 +89,14 @@ public class Game {
 
     public Parent getRoot() {
         return root;
+    }
+
+    public void isWon() {
+        if (GameController.player1.getScore() == 5) {
+            GameController.player1.isWinner();
+        }
+        else if (GameController.player2.getScore() == 5) {
+            GameController.player2.isWinner();
+        }
     }
 }

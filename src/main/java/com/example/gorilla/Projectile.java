@@ -48,12 +48,13 @@ public class Projectile extends AnimationTimer {
     // Constructor
     public Projectile(ImageView projectile, Game gameSettings) {
         this.root = gameSettings.getRoot();
-        this.gameSettings = gameSettings;
-        setGameSettings(gameSettings);
+
 
         this.projectile = projectile;
-        this.projectile.setX(gameSettings.getCurrentPlayer().getLocation().getX());
-        this.projectile.setY(gameSettings.getCurrentPlayer().getLocation().getY());
+        this.gameSettings = gameSettings;
+        this.projectile.setScaleX(1);
+        this.projectile.setScaleY(1);
+        setGameSettings(gameSettings);
 
         this.time = 0.0;
 
@@ -72,9 +73,6 @@ public class Projectile extends AnimationTimer {
             checkOutsideGame();
             checkObstacleCollision();
         }
-
-        projectile.setScaleX(4);
-        projectile.setScaleY(4);
     }
 
 
@@ -187,6 +185,7 @@ public class Projectile extends AnimationTimer {
                 if (projectile.intersects(player.getBounds())) {
                     System.out.println("Boom");
                     gameSettings.getCurrentPlayer().incrementScore();
+                    gameSettings.isWon();
                     throwFinished();
                 }
             }
@@ -260,7 +259,7 @@ public class Projectile extends AnimationTimer {
 
     public void setGameSettings(Game gameSettings) {
         setGravity(gameSettings.getGravity());
-        setStartPosition(gameSettings.getCurrentPlayer().getLocation());
+        setStartPosition(gameSettings.getCurrentPlayer().getLocationCenter());
         setBuildings(gameSettings.getBuildings());
     }
 

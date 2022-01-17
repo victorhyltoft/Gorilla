@@ -45,7 +45,7 @@ public class GameController implements Initializable {
     public static Game gameSettings;
     public static Player player1;
     public static Player player2;
-    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/Banana.png")));
+    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/banan3.png")));
     private Image background1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/blank1.png")));
     private ImageView projectile;
     public static Path trajectory = new Path();

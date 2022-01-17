@@ -11,6 +11,7 @@ public class Player {
     private int score;
     public Image image;
     public ImageView imageView;
+    private Boolean winner;
 
     // Constructor 1
     public Player(String name, Point2D location, Image texture) {
@@ -46,8 +47,8 @@ public class Player {
         this.imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(50);
-        imageView.setX(location.getX()-10);
-        imageView.setY(location.getY()-25);
+        imageView.setX(location.getX());
+        imageView.setY(location.getY());
     }
 
 
@@ -57,6 +58,15 @@ public class Player {
 
     public Bounds getBounds() {
         return imageView.getLayoutBounds();
+    }
+
+    public Point2D getLocationCenter() {
+        System.out.println(imageView.getFitWidth());
+        return new Point2D(location.getX()+(imageView.getFitWidth()/2),location.getY()+(imageView.getFitHeight()/2));
+    }
+
+    public void isWinner() {
+        winner = true;
     }
 
 
