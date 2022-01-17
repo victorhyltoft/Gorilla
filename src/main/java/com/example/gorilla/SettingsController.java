@@ -55,7 +55,6 @@ public class SettingsController {
             game.setAcceptedRange(game.getWidth());
             return true;
         } catch (NumberFormatException e) {
-            System.out.println("only numbers");
             errorText.setText("Only numbers allowed");
 
             return false;

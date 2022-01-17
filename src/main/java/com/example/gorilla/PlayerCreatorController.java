@@ -72,7 +72,6 @@ public class PlayerCreatorController implements Initializable {
      * This function is called from the "player-creater.fxml"
      */
     public void startGame(ActionEvent event) throws IOException {
-        System.out.println("Starting game");
         // TODO : REVAMP!!!
         // TODO : Get the instance of the GameController and set the appropriate fields required
 //        GameController gameController = new GameController();
@@ -136,7 +135,6 @@ public class PlayerCreatorController implements Initializable {
         GameController.player2 = player2;
 
 
-        System.out.println(GameController.player1.getName() + " " + GameController.player2.getName());
     }
 
 
@@ -205,10 +203,7 @@ public class PlayerCreatorController implements Initializable {
         this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/junglebackground.png")));
         this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/mario.jpg")));
         this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/space.jpg")));
-        System.out.println("loaded");
-        System.out.println(this.images.get(1));
         this.totalTextures = images.size();
         this.totalLevelTextures = levelTexture.size();
-        System.out.println(totalTextures);
     }
 }

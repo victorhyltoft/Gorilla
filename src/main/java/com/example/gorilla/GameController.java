@@ -155,7 +155,6 @@ public class GameController implements Initializable {
         gameSettings.nextPlayer();
         currentPlayerTurn.setText("It's " + gameSettings.getCurrentPlayerName() + "'s turn.");
 
-        System.out.println(player1.getScore() + " | " + player2.getScore());
         // Update the score text
         scoreText.setText(player1.getScore() + " | " + player2.getScore());
         scoreText.toFront();
@@ -187,15 +186,11 @@ public class GameController implements Initializable {
     public void background() {
         if(ControllerCount == 0) {
             gameBackground.setImage(background1);
-            System.out.println(gameSettings.getWidth());
             gameBackground.setFitWidth(gameSettings.getWidth());
-            System.out.println(gameBackground.getX());
         } else {
         gameBackground.setImage(testBackground);
-        System.out.println(gameSettings.getWidth());
         gameBackground.setPreserveRatio(false);
         gameBackground.setFitWidth(gameSettings.getWidth());
-        System.out.println(gameBackground.getX());
 
     }
 

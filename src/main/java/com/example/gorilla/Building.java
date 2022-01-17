@@ -162,7 +162,6 @@ public class Building {
         for (int j = 0; j < getWindows().size(); j++) {
             Shape currentWindow = getWindows().get(j);
             if (crater.intersects(currentWindow.getLayoutBounds())) {
-                System.out.println("Explosion intersects window");
 
                 Shape newWindowShape = Shape.subtract(currentWindow, crater);
                 newWindowShape.setFill(currentWindow.getFill());

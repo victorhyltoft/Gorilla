@@ -61,7 +61,6 @@ public class Player {
     }
 
     public Point2D getLocationCenter() {
-        System.out.println(imageView.getFitWidth());
         return new Point2D(location.getX()+(imageView.getFitWidth()/2),location.getY()+(imageView.getFitHeight()/2));
     }
 

@@ -98,14 +98,12 @@ public class Projectile extends AnimationTimer {
     private void checkOutsideGame() {
         // Check if outside the screen
         if (currentY >= gameSettings.getHeight()) {
-            System.out.println("Outside bottom");
             throwFinished();
         }
 
         // Check if outside either horizontal edge
         if (currentX >= gameSettings.getWidth() || currentX <= 0) {
             // Remove trajectory
-            System.out.println("Outside right or left side");
             throwFinished();
         }
     }
@@ -183,7 +181,6 @@ public class Projectile extends AnimationTimer {
             if (!player.equals(gameSettings.getCurrentPlayer())) {
                 // Check to see if X-coordinate of projectile is within range of opponent
                 if (projectile.intersects(player.getBounds())) {
-                    System.out.println("Boom");
                     gameSettings.getCurrentPlayer().incrementScore();
                     gameSettings.isWon();
                     throwFinished();
@@ -198,7 +195,6 @@ public class Projectile extends AnimationTimer {
         explosion.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/explosion.gif"))));
         explosion.setScaleX(0.25);
         explosion.setScaleY(0.25);
-        System.out.println(explosion.getFitWidth());
         explosion.setX(currentX - explosion.getImage().getWidth() / 2);
         explosion.setY(currentY - (explosion.getImage().getHeight() / 2));
         explosion.setVisible(true);
