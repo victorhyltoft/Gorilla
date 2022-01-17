@@ -85,16 +85,16 @@ public class Obstacle {
     }
 
     private void setImage() {
-        if (PlayerCreatorController.levelCount == 1) {
-            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/BirdGif.gif")));
-
-        }
-        else if (PlayerCreatorController.levelCount == 2) {
+        if (PlayerCreatorController.levelCount == 2) {
             image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/Bullet.png")));
 
         }
-        else {
+        else if (PlayerCreatorController.levelCount == 3) {
             image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/UnidentifiedFlyingObject.png")));
+
+        }
+        else {
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/BirdGif.gif")));
 
 
         }
