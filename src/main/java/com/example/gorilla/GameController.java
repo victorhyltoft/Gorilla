@@ -122,6 +122,8 @@ public class GameController implements Initializable {
         currentPlayerTurn.setText("Throwing...");
         currentPlayerTurn.setX(gameSettings.getWidth() / 2 - (currentPlayerTurn.getLayoutBounds().getWidth() / 2));
         throwButton.setDisable(true);
+        angleField.setDisable(true);
+        velocityField.setDisable(true);
 
         // Pass the data from the GameController into the Projectile model
         setProjectileData();
@@ -139,7 +141,7 @@ public class GameController implements Initializable {
         p.setAngle(getAngle());
         p.setVelocity(getVelocity());
         p.setTrajectory(trajectory);
-        p.setPlayer1ThrowButton(throwButton);
+        p.setThrowFields(throwButton, velocityField, angleField);
         p.start(); // Starts the calculation and animation of the projectile and its trajectory
     }
 

@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +38,8 @@ public class Projectile extends AnimationTimer {
     private Path trajectory;
     private Parent root;
     private Button player1ThrowButton;
+    private TextField angleField;
+    private TextField velocityField;
 
     private ArrayList<Building> buildings;
 
@@ -207,7 +210,7 @@ public class Projectile extends AnimationTimer {
         createExplosion();
         resetProjectile();
         GameController.updatePlayerTurn();
-        throwButton();
+        throwFields();
 
     }
 
@@ -286,12 +289,16 @@ public class Projectile extends AnimationTimer {
         this.root = root;
     }
 
-    public void throwButton() {
+    public void throwFields() {
         this.player1ThrowButton.setDisable(false);
+        this.angleField.setDisable(false);
+        this.velocityField.setDisable(false);
     }
 
-    public void setPlayer1ThrowButton(Button player1ThrowButton) {
+    public void setThrowFields(Button player1ThrowButton, TextField velocityField, TextField angleField) {
         this.player1ThrowButton = player1ThrowButton;
+        this.angleField = angleField;
+        this.velocityField = velocityField;
     }
 
     public void setBuildings(ArrayList<Building> buildings) {
