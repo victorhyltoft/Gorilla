@@ -92,10 +92,10 @@ public class Game {
     }
 
     public void isWon() {
-        if (GameController.player1.getScore() == 5) {
+        if (players.get(0).getScore() == 5) {
             GameController.player1.isWinner();
         }
-        else if (GameController.player2.getScore() == 5) {
+        else if (players.get(1).getScore() == 5) {
             GameController.player2.isWinner();
         }
     }
