@@ -42,7 +42,7 @@ public class GameController implements Initializable {
 
     public static Image testBackground;
     public static int ControllerCount;
-    public static Game gameSettings;
+    public static Game game;
     public static Player player1;
     public static Player player2;
     private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/banan3.png")));
@@ -56,7 +56,7 @@ public class GameController implements Initializable {
 
 
     public GameController() {
-        gameSettings = SettingsController.game;
+        game = SettingsController.game;
     }
 
     // GETTERS
@@ -80,21 +80,21 @@ public class GameController implements Initializable {
         setCurrentPlayerTurnText();
     }
 
-        // Score text at bottom
+
     // Creates the text object for the score and styles it
     private void setScoreText() {
         scoreText = new Text(player1.getScore() + " | " + player2.getScore());
         scoreText.setStyle("-fx-text-fill: white; -fx-font-size: 24; -fx-font-family: Fipps");
-        scoreText.setX(gameSettings.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
-        scoreText.setY(gameSettings.getHeight() - 18);
+        scoreText.setX(game.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
+        scoreText.setY(game.getHeight() - 18);
         scoreText.setFill(Color.WHITE);
     }
 
     // Creates the text object for the text displaying the current player and styles it
     private void setCurrentPlayerTurnText() {
-        currentPlayerTurn = new Text("It's " + gameSettings.getCurrentPlayerName() + "'s turn.");
+        currentPlayerTurn = new Text("It's " + game.getCurrentPlayerName() + "'s turn.");
         currentPlayerTurn.setStyle("-fx-text-fill: white;" + "-fx-font-size: 18; -fx-font-family: Fipps");
-        currentPlayerTurn.setX(gameSettings.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
+        currentPlayerTurn.setX(game.getWidth() / 2 - currentPlayerTurn.getLayoutBounds().getWidth());
         currentPlayerTurn.setY(30);
         currentPlayerTurn.setFill(Color.WHITE);
     }
@@ -109,18 +109,18 @@ public class GameController implements Initializable {
             resetFields();
             return; // Stop the program from continuing
         }
-        projectile.setX(gameSettings.getCurrentPlayer().getLocation().getX());
-        projectile.setY(gameSettings.getCurrentPlayer().getLocation().getY());
+        projectile.setX(game.getCurrentPlayer().getLocation().getX());
+        projectile.setY(game.getCurrentPlayer().getLocation().getY());
      //   projectile.setRadius(gameSettings.getAcceptedRange());
         ((AnchorPane) root).getChildren().addAll(projectile);
 
         // TODO : Revamp for 3+ players
-        if (gameSettings.getCurrentTurn() == 1) {
+        if (game.getCurrentTurn() == 1) {
             this.angle = (this.angle * -1) + 180;
         }
 
         currentPlayerTurn.setText("Throwing...");
-        currentPlayerTurn.setX(gameSettings.getWidth() / 2 - (currentPlayerTurn.getLayoutBounds().getWidth() / 2));
+        currentPlayerTurn.setX(game.getWidth() / 2 - (currentPlayerTurn.getLayoutBounds().getWidth() / 2));
         throwButton.setDisable(true);
         angleField.setDisable(true);
         velocityField.setDisable(true);
@@ -135,8 +135,8 @@ public class GameController implements Initializable {
 
     private void setProjectileData() {
         // Calculate and display the projectile position and its trajectory
-        gameSettings.setRoot(root);
-        Projectile p = new Projectile(this.projectile, gameSettings);
+        game.setRoot(root);
+        Projectile p = new Projectile(this.projectile, game);
         p.setRoot(root);
         p.setAngle(getAngle());
         p.setVelocity(getVelocity());
@@ -154,8 +154,8 @@ public class GameController implements Initializable {
 
     public static void updatePlayerTurn() {
         // Get the next player and update turn
-        gameSettings.nextPlayer();
-        currentPlayerTurn.setText("It's " + gameSettings.getCurrentPlayerName() + "'s turn.");
+        game.nextPlayer();
+        currentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
 
         // Update the score text
         scoreText.setText(player1.getScore() + " | " + player2.getScore());
@@ -184,17 +184,25 @@ public class GameController implements Initializable {
     }
 
 
-
     public void background() {
         if(ControllerCount == 0) {
             gameBackground.setImage(background1);
-            gameBackground.setFitWidth(gameSettings.getWidth());
+            gameBackground.setFitWidth(game.getWidth());
         } else {
         gameBackground.setImage(testBackground);
         gameBackground.setPreserveRatio(false);
-        gameBackground.setFitWidth(gameSettings.getWidth());
-
+        gameBackground.setFitWidth(game.getWidth());
+        }
     }
 
-}
+
+//    public void regenerateMap() {
+//        // Generate new buildings
+//        // Place players on top
+//        gameSettings.
+//
+//
+//
+//
+//    }
 }

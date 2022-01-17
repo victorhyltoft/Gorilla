@@ -76,21 +76,19 @@ public class PlayerCreatorController implements Initializable {
         // TODO : Get the instance of the GameController and set the appropriate fields required
 //        GameController gameController = new GameController();
 
-        createBuildings();
+        game.createBuildings();
         createPlayers();
         SetBackground();
 
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        game.setRoot(root);
 
-
-        for (Building building : buildings) {
-            ((AnchorPane) root).getChildren().addAll(building.getRectangle());
+        for (Building building : game.getBuildings()) {
+            ((AnchorPane) root).getChildren().addAll(building.getBuildingShape());
             ((AnchorPane) root).getChildren().addAll(building.getWindows());
         }
 
-
-        //
         ((AnchorPane) root).getChildren().addAll(GameController.scoreText, GameController.currentPlayerTurn, GameController.trajectory);
         // Add players
         ((AnchorPane) root).getChildren().addAll(GameController.player1.getImageView(), GameController.player2.getImageView());
@@ -115,41 +113,17 @@ public class PlayerCreatorController implements Initializable {
      */
     public void createPlayers() {
         // TODO : Clean up
+        game.createPlayers(playerName1.getText(), player1TextureImage.getImage());
+        game.createPlayers(playerName2.getText(), player2TextureImage.getImage());
 
-        double x1 = buildings.get(1).getBuildingRoof().getX()-22;
-        double y1 = buildings.get(1).getBuildingRoof().getY()-52;
-        Point2D location1 = new Point2D(x1, y1);
-
-        double x2 = buildings.get(buildings.size() - 2).getBuildingRoof().getX() - 22;
-        double y2 = buildings.get(buildings.size() - 2).getBuildingRoof().getY() - 52;
-        Point2D location2 = new Point2D(x2, y2);
-
-        Player player1 = new Player(playerName1.getText(), location1, player1TextureImage.getImage());
-        Player player2 = new Player(playerName2.getText(), location2, player2TextureImage.getImage());
-
-
-        game.addPlayer(player1);
-        game.addPlayer(player2);
-
-        GameController.player1 = player1;
-        GameController.player2 = player2;
+        // TODO
+        GameController.player1 = game.getPlayers().get(0);
+        GameController.player2 = game.getPlayers().get(1);
 
 
     }
 
 
-
-    // TODO : TEST
-    public void createBuildings() {
-        double totalBuildingWidth = 0;
-        while (totalBuildingWidth < game.getWidth()) {
-            Building b = new Building(totalBuildingWidth);
-            buildings.add(b);
-            totalBuildingWidth += b.getWidth();
-        }
-        game.setBuildings(buildings);
-
-    }
 
     public void SetBackground() {
         GameController.testBackground = levelTextureImageView.getImage();

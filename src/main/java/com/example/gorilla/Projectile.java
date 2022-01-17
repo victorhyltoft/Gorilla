@@ -1,6 +1,8 @@
 package com.example.gorilla;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.PauseTransition;
+import javafx.animation.Transition;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -9,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.*;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -19,6 +22,9 @@ import java.util.Objects;
  */
 
 public class Projectile extends AnimationTimer {
+    // Root object to be able to render nodes to the view
+    private Parent root;
+
     // Fields for calculation of projectile trajectory
     private double velocity;
     private double angle;
@@ -32,32 +38,37 @@ public class Projectile extends AnimationTimer {
     private double currentX;
     private double currentY;
 
-    private Game gameSettings;
+    // Game field to easily acces the game settings (gravity, height etc.)
+    private final Game game;
+
+    private boolean playerHit;
+
+    // Projectile and its trajectory
     private ImageView projectile;
-    private ImageView explosion = new ImageView();
     private Path trajectory;
-    private Parent root;
+
     private Button player1ThrowButton;
     private TextField angleField;
     private TextField velocityField;
 
+
     private ArrayList<Building> buildings;
 
-    // Crater
+    // Fields for the explosion and crater
+    private ImageView explosion = new ImageView();
     private final double craterRadius = 40;
     private final Circle crater = new Circle(100,100, craterRadius);
 
-
     // Constructor
-    public Projectile(ImageView projectile, Game gameSettings) {
-        this.root = gameSettings.getRoot();
+    public Projectile(ImageView projectile, Game game) {
+        this.root = game.getRoot();
 
+        this.game = game;
+        loadGameSettings(game);
 
         this.projectile = projectile;
-        this.gameSettings = gameSettings;
         this.projectile.setScaleX(1);
         this.projectile.setScaleY(1);
-        setGameSettings(gameSettings);
 
         this.time = 0.0;
 
@@ -77,7 +88,6 @@ public class Projectile extends AnimationTimer {
             checkObstacleCollision();
         }
     }
-
 
 
     private void calculateNextPosition() {
@@ -100,12 +110,12 @@ public class Projectile extends AnimationTimer {
 
     private void checkOutsideGame() {
         // Check if outside the screen
-        if (currentY >= gameSettings.getHeight()) {
+        if (currentY >= game.getHeight()) {
             throwFinished();
         }
 
         // Check if outside either horizontal edge
-        if (currentX >= gameSettings.getWidth() || currentX <= 0) {
+        if (currentX >= game.getWidth() || currentX <= 0) {
             // Remove trajectory
             throwFinished();
         }
@@ -138,12 +148,13 @@ public class Projectile extends AnimationTimer {
             crater.setCenterY(currentY);
 
             // Check if explosion affects any of the players
-            for (Player player : gameSettings.getPlayers()) {
+            for (Player player : game.getPlayers()) {
                 if (crater.intersects(player.getBounds())) {
-                    // Give the other player a point
-                    for (Player p : gameSettings.getPlayers()) {
+                    // Give the other player(s) a point
+                    for (Player p : game.getPlayers()) {
                         if (!p.equals(player)) {
                             p.incrementScore();
+                            playerHit = true;
                         }
                     }
                 }
@@ -178,23 +189,21 @@ public class Projectile extends AnimationTimer {
 
 
     private void checkPlayerCollision() {
-        // Check if we hit an opponent
-        for (Player player : gameSettings.getPlayers()) {
-            // Disable friendly fire (shooting yourself)
-            if (!player.equals(gameSettings.getCurrentPlayer())) {
-                // Check to see if X-coordinate of projectile is within range of opponent
+        // Check if we hit a player
+        for (Player player : game.getPlayers()) {
+            // Disable friendly fire (shooting yourself directly)
+            if (!player.equals(game.getCurrentPlayer())) {
                 if (projectile.intersects(player.getBounds())) {
-                    gameSettings.getCurrentPlayer().incrementScore();
-                    gameSettings.isWon();
+                    game.getCurrentPlayer().incrementScore();
+                    playerHit = true;
                     throwFinished();
+
                 }
             }
         }
     }
 
     private void createExplosion() {
-        // Set the imageview (in a final field)
-        // When throwFinished(), render the explosion
         explosion.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/explosion.gif"))));
         explosion.setScaleX(0.25);
         explosion.setScaleY(0.25);
@@ -202,16 +211,34 @@ public class Projectile extends AnimationTimer {
         explosion.setY(currentY - (explosion.getImage().getHeight() / 2));
         explosion.setVisible(true);
 
+
     }
+
 
     public void throwFinished() {
         // Stop the timer (and thereby the animation)
         stop();
-        createExplosion();
         resetProjectile();
+        // Update the current player turn text label
         GameController.updatePlayerTurn();
         throwFields();
 
+        createExplosion();
+
+        // Let the explosion finish before updating the game
+        PauseTransition PT = new PauseTransition(Duration.millis(1500));
+        PT.setOnFinished(event -> updateGame());
+        PT.play();
+
+
+    }
+
+    public void updateGame() {
+        if (!game.isWon() && playerHit) {
+            // Reset boolean
+            playerHit = false;
+            game.regenerateMap();
+        }
     }
 
     public void resetProjectile() {
@@ -256,10 +283,10 @@ public class Projectile extends AnimationTimer {
         this.angle = angle;
     }
 
-    public void setGameSettings(Game gameSettings) {
-        setGravity(gameSettings.getGravity());
-        setStartPosition(gameSettings.getCurrentPlayer().getLocationCenter());
-        setBuildings(gameSettings.getBuildings());
+    public void loadGameSettings(Game game) {
+        setGravity(game.getGravity());
+        setStartPosition(game.getCurrentPlayer().getLocationCenter());
+        setBuildings(game.getBuildings());
     }
 
     public void setGravity(double gravity) {

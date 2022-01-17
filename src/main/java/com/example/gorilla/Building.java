@@ -9,7 +9,6 @@ import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -18,14 +17,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Building {
     private double width;
     private double height;
-    // TODO : REMOVE VALUES
-
     private final double maxHeight;
     private final double minHeight;
     private final double maxWidth;
     private final double minWidth;
     private final Random random = new Random();
-
 
 
     // Building components
@@ -40,9 +36,9 @@ public class Building {
     private double totalWindowWidth = windowWidthPadding;
     private final double windowHeightPadding = 15;
     private double totalWindowHeight = windowHeightPadding;
-    private Game gameSettings = SettingsController.game;
-    private double sceneHeight = gameSettings.getHeight();
-    private double sceneWidth = gameSettings.getWidth();
+    private Game game = SettingsController.game;
+    private double sceneHeight = game.getHeight();
+    private double sceneWidth = game.getWidth();
 
     // Constructor
     public Building(double xPosition) {

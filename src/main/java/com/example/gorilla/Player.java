@@ -37,6 +37,12 @@ public class Player {
         return location;
     }
 
+    public void setLocation(Point2D location) {
+        this.location = location;
+        this.imageView.setX(location.getX());
+        this.imageView.setY(location.getY());
+    }
+
     public int getScore() {
         return score;
     }
