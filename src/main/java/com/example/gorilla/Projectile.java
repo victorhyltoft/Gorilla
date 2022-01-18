@@ -2,7 +2,6 @@ package com.example.gorilla;
 
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
-import javafx.animation.Transition;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -226,14 +225,8 @@ public class Projectile extends AnimationTimer {
         stop();
         resetProjectile();
         // Update the current player turn text label
-            GameController.updatePlayerTurn();
-        try {
-            if (GameController.player1.getScore() == 3 || GameController.player2.getScore() == 3)
+        GameController.updatePlayerTurn();
 
-            GameController.winner();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         throwFields();
 
         createExplosion();
@@ -254,6 +247,12 @@ public class Projectile extends AnimationTimer {
         else if (isWon) {
             // TODO : Switch scene
             System.out.println("Somebody won the game");
+
+            try {
+                GameController.switchToGameOver();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -1,10 +1,8 @@
 package com.example.gorilla;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
@@ -49,7 +46,7 @@ public class GameController implements Initializable {
     public static Game game;
     public static Player player1;
     public static Player player2;
-    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/banana5.png")));
+    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/banana.png")));
     private Image background1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/blank1.png")));
     private ImageView projectile;
     public static Path trajectory = new Path();
@@ -193,8 +190,17 @@ public class GameController implements Initializable {
         gameBackground.setFitWidth(game.getWidth());
         }
     }
-    public static void winner() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(GameController.class.getResource("win-screen.fxml")));
+    public static void switchToGameOver() throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(GameController.class.getResource("win-screen.fxml"));
+        Parent root = loader.load();
+        Player winner = game.getWinner();
+        WinScreenController controller = loader.getController();
+        controller.WinnerLabel.setText(winner.getName());
+        controller.winnerTexture.setImage(winner.getImageView().getImage());
+
+        game.resetAll();
+
         Stage stage = (Stage) scene.getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -106,15 +106,11 @@ public class PlayerCreatorController implements Initializable {
      * Creates player objects and sets their initial positions
      */
     public void createPlayers() {
-        // TODO : Clean up
         game.createPlayers(playerName1.getText(), player1TextureImage.getImage());
         game.createPlayers(playerName2.getText(), player2TextureImage.getImage());
 
-        // TODO
         GameController.player1 = game.getPlayers().get(0);
         GameController.player2 = game.getPlayers().get(1);
-
-
     }
 
     public void SetBackground() {

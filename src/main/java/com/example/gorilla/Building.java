@@ -105,8 +105,6 @@ public class Building {
         return new Point2D(x,y);
     }
 
-
-
     public double getWidth() {
         return width;
     }
@@ -139,7 +137,6 @@ public class Building {
     public Shape getBuildingShape() {
         return buildingShape;
     }
-
 
     public void setBuildingShape(Shape buildingShape) {
         this.buildingShape = buildingShape;

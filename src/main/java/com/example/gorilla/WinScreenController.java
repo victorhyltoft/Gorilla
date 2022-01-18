@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class WinScreen implements Initializable {
+public class WinScreenController implements Initializable {
 
     @FXML ImageView winnerTexture;
 

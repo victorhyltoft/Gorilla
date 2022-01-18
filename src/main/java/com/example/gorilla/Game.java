@@ -17,6 +17,7 @@ public class Game {
     private ArrayList<Building> buildings = new ArrayList<>();
     private Parent root;
     private final int TARGET_SCORE = 3;
+    private Player winner;
 
     public void nextPlayer() {
         turnCounter = (turnCounter + 1) % players.size();
@@ -94,12 +95,17 @@ public class Game {
         for (Player player : players) {
             if (player.getScore() == TARGET_SCORE) {
                 player.isWinner();
+                winner = player;
+
                 return true;
             }
         }
         return false;
     }
 
+    public Player getWinner() {
+        return winner;
+    }
 
     /**
      * Creates the buildings for the view
@@ -163,6 +169,16 @@ public class Game {
         double x = getBuildings().get(playerIdx == 0 ? 1 : buildings.size() - 2).getBuildingRoof().getX()-xBuffer;
         double y = getBuildings().get(playerIdx == 0 ? 1 : buildings.size() - 2).getBuildingRoof().getY()-yBuffer;
         return new Point2D(x, y);
+
+    }
+
+
+    public void resetAll() {
+        // Remove all buildings
+        getBuildings().clear();
+        players.clear();
+
+
 
     }
 
