@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class WinScreenController implements Initializable {
+public class WinScreenController {
 
     @FXML ImageView winnerTexture;
 
@@ -43,16 +43,5 @@ public class WinScreenController implements Initializable {
         System.exit(0);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(GameController.player1.getScore() == 3) {
-            winnerTexture.setImage(GameController.player1.getImageView().getImage());
-            WinnerLabel.setText(GameController.player1.getName() + " has won");
-
-        } else {
-            winnerTexture.setImage(GameController.player2.getImageView().getImage());
-            WinnerLabel.setText(GameController.player2.getName() + " has won");
-        }
-    }
 
 }

@@ -196,7 +196,7 @@ public class GameController implements Initializable {
         Parent root = loader.load();
         Player winner = game.getWinner();
         WinScreenController controller = loader.getController();
-        controller.WinnerLabel.setText(winner.getName());
+        controller.WinnerLabel.setText(winner.getName() + " has won");
         controller.winnerTexture.setImage(winner.getImageView().getImage());
 
         game.resetAll();
