@@ -21,15 +21,13 @@ import java.util.ResourceBundle;
 public class GameController implements Initializable {
 
 
+    // FXML ANNOTATION
     @FXML
     public Button throwButton;
-    // FXML ANNOTATION
     @FXML
     private TextField angleField;
     @FXML
     private TextField velocityField;
-    @FXML
-    static ImageView textureImageView;
     @FXML
     public ImageView gameBackground;
 
@@ -41,7 +39,7 @@ public class GameController implements Initializable {
     private int angle;
 
     public static Image testBackground;
-    public static int ControllerCount;
+    public static int controllerCount;
     public static Game game;
     public static Player player1;
     public static Player player2;
@@ -49,11 +47,8 @@ public class GameController implements Initializable {
     private Image background1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/blank1.png")));
     private ImageView projectile;
     public static Path trajectory = new Path();
-    public static Pane scoreBackground;
     public static Text scoreText;
     public static Text currentPlayerTurn;
-    public Obstacle obstacle = new Obstacle();
-
 
     public GameController() {
         game = SettingsController.game;
@@ -69,9 +64,6 @@ public class GameController implements Initializable {
     }
 
 
-    /**
-     * This function is ran everytime the "game.fxml" file is loaded (which is only once in PlayerCreatorController)
-     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         background();
@@ -109,12 +101,12 @@ public class GameController implements Initializable {
             resetFields();
             return; // Stop the program from continuing
         }
-        projectile.setX(game.getCurrentPlayer().getLocation().getX());
-        projectile.setY(game.getCurrentPlayer().getLocation().getY());
+//        projectile.setX(game.getCurrentPlayer().getLocation().getX());
+//        projectile.setY(game.getCurrentPlayer().getLocation().getY());
      //   projectile.setRadius(gameSettings.getAcceptedRange());
         ((AnchorPane) root).getChildren().addAll(projectile);
 
-        // TODO : Revamp for 3+ players
+        // Flip the angle if 2nd player's turn
         if (game.getCurrentTurn() == 1) {
             this.angle = (this.angle * -1) + 180;
         }
@@ -125,11 +117,10 @@ public class GameController implements Initializable {
         angleField.setDisable(true);
         velocityField.setDisable(true);
 
-        // Pass the data from the GameController into the Projectile model
+        // Pass the required data from the GameController into the Projectile
         setProjectileData();
+
         resetFields();
-
-
     }
 
 
@@ -185,7 +176,7 @@ public class GameController implements Initializable {
 
 
     public void background() {
-        if(ControllerCount == 0) {
+        if(controllerCount == 0) {
             gameBackground.setImage(background1);
             gameBackground.setFitWidth(game.getWidth());
         } else {
@@ -196,13 +187,4 @@ public class GameController implements Initializable {
     }
 
 
-//    public void regenerateMap() {
-//        // Generate new buildings
-//        // Place players on top
-//        gameSettings.
-//
-//
-//
-//
-//    }
 }

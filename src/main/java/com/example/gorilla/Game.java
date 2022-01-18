@@ -16,8 +16,7 @@ public class Game {
     private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Building> buildings = new ArrayList<>();
     private Parent root;
-    private int[] score;
-    private final int SCORE = 5;
+    private final int TARGET_SCORE = 3;
 
     public void nextPlayer() {
         turnCounter = (turnCounter + 1) % players.size();
@@ -55,10 +54,6 @@ public class Game {
         return gravity;
     }
 
-    public double getAcceptedRange() {
-        return acceptedRange;
-    }
-
     public String getCurrentPlayerName() {
         return players.get(turnCounter).getName();
     }
@@ -69,10 +64,6 @@ public class Game {
 
     public ArrayList<Player> getPlayers() {
         return players;
-    }
-
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
     }
 
     public void addPlayer(Player player) {
@@ -95,10 +86,13 @@ public class Game {
         return root;
     }
 
-
+    /**
+     * Check if any of the players have won by hitting the target score
+     * @return true if a player has won
+     */
     public boolean isWon() {
         for (Player player : players) {
-            if (player.getScore() == SCORE) {
+            if (player.getScore() == TARGET_SCORE) {
                 player.isWinner();
                 return true;
             }
@@ -107,6 +101,9 @@ public class Game {
     }
 
 
+    /**
+     * Creates the buildings for the view
+     */
     public void createBuildings() {
         double totalBuildingWidth = 0;
         while (totalBuildingWidth < getWidth()) {
@@ -118,9 +115,11 @@ public class Game {
 
     }
 
+    /**
+     * Takes care of all the requirements for regenerating the map;
+     * New buildings, updating player position, setting the nodes at the correct layer
+     */
     public void regenerateMap() {
-        System.out.println("Should regenerate map");
-
         // Remove all previous buildings
         for (Building building : getBuildings()) {
             ((AnchorPane) root).getChildren().removeAll(building.getBuildingShape());
@@ -135,20 +134,17 @@ public class Game {
             ((AnchorPane) root).getChildren().addAll(building.getWindows());
 
         }
+        // Make sure the buildings are behind the text and players
         players.get(0).getImageView().toFront();
         players.get(1).getImageView().toFront();
         GameController.scoreText.toFront();
 
-
         // Update the player locations
         players.get(0).setLocation(generatePlayerLocation(0));
         players.get(1).setLocation(generatePlayerLocation(1));
-
-
     }
 
     public void createPlayers(String name, Image image) {
-        System.out.println(image);
         Point2D location = generatePlayerLocation(players.size());
         addPlayer(new Player(name, location, image));
     }
@@ -159,6 +155,7 @@ public class Game {
      * @param playerIdx the idx of the player in the player arraylist
      */
     public Point2D generatePlayerLocation(int playerIdx) {
+        // TODO : Not perfect buffer for other player textures
         int xBuffer = 22;
         int yBuffer = 52;
         // Using a ternary expression to determine where to place to players
@@ -168,5 +165,6 @@ public class Game {
         return new Point2D(x, y);
 
     }
+
 
 }

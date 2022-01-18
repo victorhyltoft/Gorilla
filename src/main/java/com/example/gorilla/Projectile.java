@@ -46,7 +46,10 @@ public class Projectile extends AnimationTimer {
     // Projectile and its trajectory
     private ImageView projectile;
     private Path trajectory;
+    private final double imageCenterX;
+    private final double imageCenterY;
 
+    // Access to manipulating the fields
     private Button player1ThrowButton;
     private TextField angleField;
     private TextField velocityField;
@@ -74,6 +77,9 @@ public class Projectile extends AnimationTimer {
 
         explosion.setVisible(false);
         ((AnchorPane) root).getChildren().add(explosion);
+
+        imageCenterX = projectile.getImage().getWidth() / 2;
+        imageCenterY = projectile.getImage().getHeight() / 2;
     }
 
 
@@ -99,10 +105,9 @@ public class Projectile extends AnimationTimer {
 
     private void updateProjectile() {
         // Update projectile
-        projectile.setX(currentX);
-        projectile.setY(currentY);
-
-        projectile.setRotate(projectile.getRotate() + 2);
+        projectile.setX(currentX - imageCenterX);
+        projectile.setY(currentY - imageCenterY);
+        projectile.setRotate(projectile.getRotate() + 3);
 
         // Update trajectory
         trajectory.getElements().addAll(new LineTo(currentX, currentY));
@@ -203,20 +208,19 @@ public class Projectile extends AnimationTimer {
         }
     }
 
+
     private void createExplosion() {
         explosion.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/explosion.gif"))));
         explosion.setScaleX(0.25);
         explosion.setScaleY(0.25);
         explosion.setX(currentX - explosion.getImage().getWidth() / 2);
-        explosion.setY(currentY - (explosion.getImage().getHeight() / 2));
+        explosion.setY(currentY - explosion.getImage().getHeight() / 2);
         explosion.setVisible(true);
-
-
     }
 
 
     public void throwFinished() {
-        // Stop the timer (and thereby the animation)
+        // Stop the timer (and thereby the animation and calculation)
         stop();
         resetProjectile();
         // Update the current player turn text label
@@ -229,15 +233,18 @@ public class Projectile extends AnimationTimer {
         PauseTransition PT = new PauseTransition(Duration.millis(1500));
         PT.setOnFinished(event -> updateGame());
         PT.play();
-
-
     }
 
     public void updateGame() {
-        if (!game.isWon() && playerHit) {
+        boolean isWon = game.isWon();
+        if (!isWon && playerHit) {
             // Reset boolean
             playerHit = false;
             game.regenerateMap();
+        }
+        else if (isWon) {
+            // TODO : Switch scene
+            System.out.println("Somebody won the game");
         }
     }
 
@@ -247,9 +254,7 @@ public class Projectile extends AnimationTimer {
         ((AnchorPane) root).getChildren().removeAll(projectile);
     }
 
-
     // GETTERS
-
     // Get y-coordinate of the trajectory
     private double getY(double time) {
         return initialY - (yVelocity * time - (gravity / 2) * time * time);
@@ -260,12 +265,7 @@ public class Projectile extends AnimationTimer {
         return initialX + xVelocity * time;
     }
 
-
     // SETTERS
-    public void setProjectile(ImageView projectile) {
-        this.projectile = projectile;
-    }
-
     public void setVelocity(double velocity) {
         this.velocity = velocity;
         this.xVelocity = velocity * Math.cos(Math.toRadians(angle));
@@ -274,8 +274,7 @@ public class Projectile extends AnimationTimer {
     }
 
     public void setTimeInterval() {
-    // TODO : Verify this is the correct time unit
-        // JavaFX renders 60fps. To make the projectile fly "velocity" pixel/sec we need to adjust the time between each render
+        // Sets the time interval between each calculation
         this.timeInterval = (1.0 / (60.0 * velocity)) * velocity;
     }
 
@@ -294,22 +293,17 @@ public class Projectile extends AnimationTimer {
     }
 
     public void setStartPosition(Point2D location) {
-        setInitialX(location.getX());
-        setInitialY(location.getY());
+        this.initialX = location.getX();
+        this.initialY = location.getY();
     }
-
-    public void setInitialX(double initialX) {
-        this.initialX = initialX;
-    }
-
-    public void setInitialY(double initialY) {
-        this.initialY = initialY;
-    }
-
 
     public void setTrajectory(Path trajectory) {
         this.trajectory = trajectory;
         this.trajectory.getElements().addAll(new MoveTo(initialX, initialY));
+    }
+
+    public void setBuildings(ArrayList<Building> buildings) {
+        this.buildings = buildings;
     }
 
     public void setRoot(Parent root) {
@@ -328,7 +322,4 @@ public class Projectile extends AnimationTimer {
         this.velocityField = velocityField;
     }
 
-    public void setBuildings(ArrayList<Building> buildings) {
-        this.buildings = buildings;
-    }
 }

@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,12 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -72,10 +69,6 @@ public class PlayerCreatorController implements Initializable {
      * This function is called from the "player-creater.fxml"
      */
     public void startGame(ActionEvent event) throws IOException {
-        // TODO : REVAMP!!!
-        // TODO : Get the instance of the GameController and set the appropriate fields required
-//        GameController gameController = new GameController();
-
         game.createBuildings();
         createPlayers();
         SetBackground();
@@ -101,6 +94,7 @@ public class PlayerCreatorController implements Initializable {
         GameController.root = root;
 
         Scene scene = new Scene(root, game.getWidth(), game.getHeight());
+
         GameController.scene = scene;
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("application.css")).toExternalForm());
         stage.setScene(scene);
@@ -122,8 +116,6 @@ public class PlayerCreatorController implements Initializable {
 
 
     }
-
-
 
     public void SetBackground() {
         GameController.testBackground = levelTextureImageView.getImage();
@@ -155,12 +147,12 @@ public class PlayerCreatorController implements Initializable {
 
     public void levelRightArrow(ActionEvent event) {
         levelCount = Math.floorMod((levelCount + 1), totalLevelTextures);
-        GameController.ControllerCount = levelCount;
+        GameController.controllerCount = levelCount;
         levelTextureImageView.setImage(levelTexture.get(levelCount));
     }
     public void levelLeftArrow(ActionEvent event) {
         levelCount = Math.floorMod((levelCount - 1), totalLevelTextures);
-        GameController.ControllerCount = levelCount;
+        GameController.controllerCount = levelCount;
         levelTextureImageView.setImage(levelTexture.get(levelCount));
     }
 
@@ -172,12 +164,12 @@ public class PlayerCreatorController implements Initializable {
         images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/bue.jpg"))));
         images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/1636967318329.png"))));
 
-        this.levelTexture = new ArrayList<Image>();
-        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/blankbackground.png")));
-        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/junglebackground.png")));
-        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/mario.jpg")));
-        this.levelTexture.add(new Image(getClass().getResourceAsStream("level-textures/space.jpg")));
-        this.totalTextures = images.size();
-        this.totalLevelTextures = levelTexture.size();
+        levelTexture = new ArrayList<>();
+        levelTexture.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/blankbackground.png"))));
+        levelTexture.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/junglebackground.png"))));
+        levelTexture.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/mario.jpg"))));
+        levelTexture.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/space.jpg"))));
+        totalTextures = images.size();
+        totalLevelTextures = levelTexture.size();
     }
 }
