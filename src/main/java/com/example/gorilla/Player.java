@@ -47,6 +47,10 @@ public class Player {
         return score;
     }
 
+    public void setScore(int newScore) {
+        this.score = newScore;
+    }
+
 
     public void setImage(Image texture) {
         this.image = texture;

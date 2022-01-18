@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -93,6 +94,7 @@ public class Projectile extends AnimationTimer {
             checkOutsideGame();
             checkObstacleCollision();
         }
+
     }
 
 
@@ -224,7 +226,14 @@ public class Projectile extends AnimationTimer {
         stop();
         resetProjectile();
         // Update the current player turn text label
-        GameController.updatePlayerTurn();
+            GameController.updatePlayerTurn();
+        try {
+            if (GameController.player1.getScore() == 3 || GameController.player2.getScore() == 3)
+
+            GameController.winner();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         throwFields();
 
         createExplosion();

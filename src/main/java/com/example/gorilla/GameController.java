@@ -1,7 +1,10 @@
 package com.example.gorilla;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,7 +16,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -35,6 +40,7 @@ public class GameController implements Initializable {
     public static Parent root;
     public static Scene scene;
 
+
     private int velocity;
     private int angle;
 
@@ -43,7 +49,7 @@ public class GameController implements Initializable {
     public static Game game;
     public static Player player1;
     public static Player player2;
-    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/banan3.png")));
+    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/banana5.png")));
     private Image background1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/blank1.png")));
     private ImageView projectile;
     public static Path trajectory = new Path();
@@ -141,19 +147,21 @@ public class GameController implements Initializable {
         angleField.setText("");
         velocityField.setText("");
     }
-
-
-    public static void updatePlayerTurn() {
-        // Get the next player and update turn
-        game.nextPlayer();
-        currentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
-
-        // Update the score text
-        scoreText.setText(player1.getScore() + " | " + player2.getScore());
-        scoreText.toFront();
+    public static void resetScore() {
+        player1.setScore(0);
+        player2.setScore(0);
     }
 
 
+    public static void updatePlayerTurn() {
+            // Get the next player and update turn
+            game.nextPlayer();
+            currentPlayerTurn.setText("It's " + game.getCurrentPlayerName() + "'s turn.");
+
+            // Update the score text
+            scoreText.setText(player1.getScore() + " | " + player2.getScore());
+            scoreText.toFront();
+        }
 
     /**
      * Validates that the angle and velocity text fields both are integers and
@@ -185,6 +193,12 @@ public class GameController implements Initializable {
         gameBackground.setFitWidth(game.getWidth());
         }
     }
-
+    public static void winner() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(GameController.class.getResource("win-screen.fxml")));
+        Stage stage = (Stage) scene.getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }
