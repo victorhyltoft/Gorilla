@@ -1,5 +1,9 @@
-package com.example.gorilla;
+package com.example.gorilla.Controllers;
 
+import com.example.gorilla.Game;
+import com.example.gorilla.Main;
+import com.example.gorilla.Player;
+import com.example.gorilla.Projectile;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,8 +50,8 @@ public class GameController implements Initializable {
     public static Game game;
     public static Player player1;
     public static Player player2;
-    private Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/banana.png")));
-    private Image background1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/blank1.png")));
+    private Image image = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("textures/banana.png")));
+    private Image background1 = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/blank1.png")));
     private ImageView projectile;
     public static Path trajectory = new Path();
     public static Text scoreText;
@@ -191,8 +195,7 @@ public class GameController implements Initializable {
         }
     }
     public static void switchToGameOver() throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(GameController.class.getResource("win-screen.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("views/win-screen.fxml"));
         Parent root = loader.load();
         Player winner = game.getWinner();
         WinScreenController controller = loader.getController();

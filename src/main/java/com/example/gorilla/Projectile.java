@@ -1,5 +1,7 @@
 package com.example.gorilla;
 
+import com.example.gorilla.Controllers.GameController;
+import com.example.gorilla.Controllers.PlayerCreatorController;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
@@ -224,10 +226,9 @@ public class Projectile extends AnimationTimer {
         // Stop the timer (and thereby the animation and calculation)
         stop();
         resetProjectile();
+
         // Update the current player turn text label
         GameController.updatePlayerTurn();
-
-        throwFields();
 
         createExplosion();
 
@@ -243,6 +244,7 @@ public class Projectile extends AnimationTimer {
             // Reset boolean
             playerHit = false;
             game.regenerateMap();
+            throwFields();
         }
         else if (isWon) {
             // TODO : Switch scene

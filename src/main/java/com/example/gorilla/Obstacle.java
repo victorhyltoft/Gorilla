@@ -1,8 +1,8 @@
 package com.example.gorilla;
 
-import javafx.animation.KeyFrame;
+import com.example.gorilla.Controllers.PlayerCreatorController;
+import com.example.gorilla.Controllers.SettingsController;
 import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;

@@ -1,6 +1,7 @@
 package com.example.gorilla;
 
 
+import com.example.gorilla.Controllers.SettingsController;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;

@@ -1,5 +1,7 @@
-package com.example.gorilla;
+package com.example.gorilla.Controllers;
 
+import com.example.gorilla.Game;
+import com.example.gorilla.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +17,7 @@ import java.util.Objects;
 
 public class SettingsController {
 
-    public static Game game = new Game();
+    public static Game game;
     private Stage stage;
     private Scene scene;
 
@@ -29,13 +31,17 @@ public class SettingsController {
     @FXML
     private Label errorText;
 
+    public SettingsController() {
+        game = new Game();
+    }
+
     /**
      * Switches to the screen allowing players to customize their player
      * Here the name of the player and the texture is set
      */
     public void switchToPlayerCreator(ActionEvent event) throws IOException {
         if (validateTextFields()){
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("views/player-creator.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);

@@ -1,5 +1,9 @@
-package com.example.gorilla;
+package com.example.gorilla.Controllers;
 
+import com.example.gorilla.Building;
+import com.example.gorilla.Game;
+import com.example.gorilla.Main;
+import com.example.gorilla.Obstacle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +77,7 @@ public class PlayerCreatorController implements Initializable {
         createPlayers();
         SetBackground();
 
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("game.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("views/game.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         game.setRoot(root);
 
@@ -96,7 +100,7 @@ public class PlayerCreatorController implements Initializable {
         Scene scene = new Scene(root, game.getWidth(), game.getHeight());
 
         GameController.scene = scene;
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("application.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("application.css")).toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -155,16 +159,16 @@ public class PlayerCreatorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         images = new ArrayList<>();
-        images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/Gorilla.png"))));
-        images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/1636748461118.jpg"))));
-        images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/bue.jpg"))));
-        images.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("player-textures/1636967318329.png"))));
+        images.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("player-textures/Gorilla.png"))));
+        images.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("player-textures/1636748461118.jpg"))));
+        images.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("player-textures/bue.jpg"))));
+        images.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("player-textures/1636967318329.png"))));
 
         levelTexture = new ArrayList<>();
-        levelTexture.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/blankbackground.png"))));
-        levelTexture.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/junglebackground.png"))));
-        levelTexture.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/mario.jpg"))));
-        levelTexture.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("level-textures/space.jpg"))));
+        levelTexture.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/blankbackground.png"))));
+        levelTexture.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/junglebackground.png"))));
+        levelTexture.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/mario.jpg"))));
+        levelTexture.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/space.jpg"))));
         totalTextures = images.size();
         totalLevelTextures = levelTexture.size();
     }

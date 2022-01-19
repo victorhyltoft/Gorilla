@@ -1,5 +1,6 @@
 package com.example.gorilla;
 
+import com.example.gorilla.Controllers.GameController;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
@@ -177,6 +178,7 @@ public class Game {
         // Remove all buildings
         getBuildings().clear();
         players.clear();
+
 
 
 
