@@ -1,5 +1,8 @@
-package com.example.gorilla;
+package com.example.gorilla.Controllers;
 
+import com.example.gorilla.Game;
+import com.example.gorilla.Player;
+import com.example.gorilla.Projectile;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;

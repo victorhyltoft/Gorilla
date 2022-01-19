@@ -1,5 +1,6 @@
 package com.example.gorilla;
 
+import com.example.gorilla.Controllers.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
@@ -23,7 +24,8 @@ public class Projectile extends AnimationTimer {
     private double initialY;
     private double xVelocity;
     private double yVelocity;
-    private double timeInterval;
+    double halfG;
+    private double timeInterval = (1.0 / (60.0));
     private double time;
     private Game gameSettings;
     private GameController gameController;
@@ -118,7 +120,7 @@ public class Projectile extends AnimationTimer {
 
     // Get y-coordinate
     private double getY(double time) {
-        return initialY - (yVelocity * time - (gravity / 2) * time * time);
+        return initialY - (yVelocity * time - halfG * time * time);
     }
 
     // Get x-coordinate
@@ -126,27 +128,12 @@ public class Projectile extends AnimationTimer {
         return initialX + xVelocity * time;
     }
 
-    public GameController getGameController() {
-        return gameController;
-    }
-
-
     // SETTERS
-    public void setProjectile(Circle projectile) {
-        this.projectile = projectile;
-    }
 
     public void setVelocity(double velocity) {
         this.velocity = velocity;
         this.xVelocity = velocity * Math.cos(Math.toRadians(angle));
         this.yVelocity = velocity * Math.sin(Math.toRadians(angle));
-        setTimeInterval();
-    }
-
-    public void setTimeInterval() {
-    // TODO : Verify this is the correct time unit
-        // JavaFX renders 60fps. To make the projectile fly "velocity" pixel/sec we need to adjust the time between each render
-        this.timeInterval = (1.0 / (60.0 * velocity)) * velocity;
     }
 
     public void setAngle(double angle) {
@@ -156,32 +143,18 @@ public class Projectile extends AnimationTimer {
 
     public void setGameSettings(Game gameSettings) {
         this.gameSettings = gameSettings;
-
         setGravity(gameSettings.getGravity());
-
     }
 
     public void setGravity(double gravity) {
         this.gravity = gravity;
-    }
-
-    public void setGameController(GameController gameController) {
-        this.gameController = gameController;
+        this.halfG = gravity / 2;
     }
 
     public void setStartPosition(Point2D startPosition) {
-        setInitialX(startPosition.getX());
-        setInitialY(startPosition.getY());
+        this.initialX = startPosition.getX();
+        this.initialY = startPosition.getY();
     }
-
-    public void setInitialX(double initialX) {
-        this.initialX = initialX;
-    }
-
-    public void setInitialY(double initialY) {
-        this.initialY = initialY;
-    }
-
 
     public void setTrajectory(Path trajectory) {
         this.trajectory = trajectory;

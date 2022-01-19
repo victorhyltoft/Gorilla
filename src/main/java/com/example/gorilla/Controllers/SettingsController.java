@@ -1,5 +1,7 @@
-package com.example.gorilla;
+package com.example.gorilla.Controllers;
 
+import com.example.gorilla.Game;
+import com.example.gorilla.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +37,7 @@ public class SettingsController {
      */
     public void switchToPlayerCreator(ActionEvent event) throws IOException {
         if (validateTextFields()){
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("player-creator.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("views/player-creator.fxml")));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
