@@ -285,7 +285,7 @@ public class Projectile extends AnimationTimer {
 
     public void setTimeInterval() {
         // Sets the time interval between each calculation
-        this.timeInterval = (1.0 / (60.0 * velocity)) * velocity;
+        this.timeInterval = (1.0 / 60.0);
     }
 
     public void setAngle(double angle) {
