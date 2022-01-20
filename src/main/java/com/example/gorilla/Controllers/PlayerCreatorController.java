@@ -26,6 +26,9 @@ import java.util.ResourceBundle;
 
 
 public class PlayerCreatorController implements Initializable {
+    /**
+     * @author Viktor Egesby
+     */
 
     @FXML
     public TextField playerName1;
@@ -35,8 +38,6 @@ public class PlayerCreatorController implements Initializable {
     public ImageView player1TextureImage;
     @FXML
     public ImageView player2TextureImage;
-    @FXML
-    public ImageView player3TextureImage;
     @FXML
     public Button player1RightArrowButton;
     @FXML
@@ -48,9 +49,6 @@ public class PlayerCreatorController implements Initializable {
     @FXML
     public ImageView levelTextureImageView;
 
-    public Button textureButtonRight;
-    public Button textureButtonLeft;
-
     public static int count = 0;
     public static int count2 = 0;
     public static int levelCount = 0;
@@ -59,7 +57,6 @@ public class PlayerCreatorController implements Initializable {
     private Stage stage;
     private Scene scene;
     private final Game game = SettingsController.game;
-    public static Image myImage;
     public static Parent root;
     public static ArrayList<Image> images;
     public static ArrayList<Image> levelTexture;

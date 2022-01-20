@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class SettingsController {
+    /**
+     * @author Viktor Egesby
+     */
 
     public static Game game;
     private Stage stage;
