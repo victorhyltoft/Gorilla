@@ -236,10 +236,10 @@ public class Projectile extends AnimationTimer {
         PauseTransition PT = new PauseTransition(Duration.millis(1500));
         PT.setOnFinished(event -> updateGame());
         PT.play();
-        throwFields();
     }
 
     public void updateGame() {
+        throwFields();
         boolean isWon = game.isWon();
         if (!isWon && playerHit) {
             // Reset boolean
