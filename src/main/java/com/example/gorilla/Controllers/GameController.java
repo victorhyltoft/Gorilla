@@ -1,15 +1,14 @@
 package com.example.gorilla.Controllers;
 
-import com.example.gorilla.Game;
-import com.example.gorilla.Player;
-import com.example.gorilla.Projectile;
+import com.example.gorilla.Models.Game;
+import com.example.gorilla.Models.Player;
+import com.example.gorilla.Models.Projectile;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;

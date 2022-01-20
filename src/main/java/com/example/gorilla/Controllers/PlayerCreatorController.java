@@ -1,8 +1,8 @@
 package com.example.gorilla.Controllers;
 
-import com.example.gorilla.Game;
+import com.example.gorilla.Models.Game;
 import com.example.gorilla.Main;
-import com.example.gorilla.Player;
+import com.example.gorilla.Models.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

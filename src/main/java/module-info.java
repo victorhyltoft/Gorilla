@@ -7,4 +7,6 @@ module com.example.gorilla {
     exports com.example.gorilla;
     exports com.example.gorilla.Controllers;
     opens com.example.gorilla.Controllers to javafx.fxml;
+    exports com.example.gorilla.Models;
+    opens com.example.gorilla.Models to javafx.fxml;
 }
