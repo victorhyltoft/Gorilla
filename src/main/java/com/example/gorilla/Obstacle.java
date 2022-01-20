@@ -70,15 +70,12 @@ public class Obstacle {
         transition.setDuration(Duration.seconds(20)); // Duration of the animation is set to 20 seconds.
         transition.setNode(imageView);
         transition.setCycleCount(1);
-        transition.setOnFinished(new EventHandler<ActionEvent>() { // When the animation is finished:
-            @Override
-            public void handle(ActionEvent event) {
-                determinePosition(); //Determines if we start from left or right and what height we start at
-                line = new Line(startPosition.getX(), startPosition.getY(), endPosition.getX(), endPosition.getY()); // Defining a line for the path transition, uses values generated in determinePosition.
-                transition.setPath(line); // Set the path of the transition to the line we just defined.
-                transition.play(); // Lastly we start the animation.
-            }
-
+        // When the animation is finished:
+        transition.setOnFinished(event -> {
+            determinePosition(); //Determines if we start from left or right and what height we start at
+            line = new Line(startPosition.getX(), startPosition.getY(), endPosition.getX(), endPosition.getY()); // Defining a line for the path transition, uses values generated in determinePosition.
+            transition.setPath(line); // Set the path of the transition to the line we just defined.
+            transition.play(); // Lastly we start the animation.
         });
 
         transition.play();
