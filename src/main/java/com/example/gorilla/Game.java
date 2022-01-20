@@ -8,6 +8,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 
+/**
+ * @author Mikkel Allermand & Victor Hyltoft
+ */
 public class Game {
     private double gravity;
     private double height;

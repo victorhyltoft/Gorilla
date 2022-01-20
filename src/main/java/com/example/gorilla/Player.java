@@ -5,6 +5,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * @author Victor Hyltoft & Mikkel Allermand
+ */
 public class Player {
     private String name;
     private Point2D location;

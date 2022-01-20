@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * @author Victor Hyltoft, Mikkel Allermand
+ * @author Victor Hyltoft & Mikkel Allermand
  */
 public class Building {
     private double width;
