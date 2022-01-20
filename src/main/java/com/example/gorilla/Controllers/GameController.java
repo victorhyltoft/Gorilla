@@ -25,7 +25,9 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
-
+    /**
+     * @author Everyone
+     */
 
     // FXML ANNOTATION
     @FXML

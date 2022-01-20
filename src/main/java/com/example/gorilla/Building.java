@@ -110,21 +110,10 @@ public class Building {
         return width;
     }
 
-    public double getHeight() {
-        return height;
-    }
-
     public Rectangle getRectangle() {
         return rectangle;
     }
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
-    }
-
-    public Bounds getRectangleBounds() {
-        return rectangle.getLayoutBounds();
-    }
 
     public Bounds getShapeBounds() {
         // Gets a rectangular bounding box
