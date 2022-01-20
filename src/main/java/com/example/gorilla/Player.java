@@ -21,14 +21,21 @@ public class Player {
         setImage(texture);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
+    /**
+     * Increments the players score, called when projectile hits opponent.
+     */
     public void incrementScore() {
         this.score += 1;
     }
 
+    /**
+     * Sets this players winner field to true when called.
+     */
+    public void isWinner() {
+        winner = true;
+    }
+    // GETTERS
     public String getName() {
         return name;
     }
@@ -37,30 +44,9 @@ public class Player {
         return location;
     }
 
-    public void setLocation(Point2D location) {
-        this.location = location;
-        this.imageView.setX(location.getX());
-        this.imageView.setY(location.getY());
-    }
-
     public int getScore() {
         return score;
     }
-
-    public void setScore(int newScore) {
-        this.score = newScore;
-    }
-
-
-    public void setImage(Image texture) {
-        this.image = texture;
-        this.imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
-        imageView.setFitWidth(50);
-        imageView.setX(location.getX());
-        imageView.setY(location.getY());
-    }
-
 
     public ImageView getImageView() {
         return imageView;
@@ -73,10 +59,30 @@ public class Player {
     public Point2D getLocationCenter() {
         return new Point2D(location.getX()+(imageView.getFitWidth()/2),location.getY()+(imageView.getFitHeight()/2));
     }
-
-    public void isWinner() {
-        winner = true;
+    // SETTERS
+    public void setLocation(Point2D location) {
+        this.location = location;
+        this.imageView.setX(location.getX());
+        this.imageView.setY(location.getY());
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setScore(int newScore) {
+        this.score = newScore;
+    }
+
+    public void setImage(Image texture) {
+        this.image = texture;
+        this.imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(50);
+        imageView.setX(location.getX());
+        imageView.setY(location.getY());
+    }
+
 
 
 }
