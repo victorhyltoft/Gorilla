@@ -29,8 +29,6 @@ public class GameController implements Initializable {
     private TextField angleField;
     @FXML
     private TextField velocityField;
-    @FXML
-    static ImageView textureImageView;
 
     // FIELDS
     public static Parent root;

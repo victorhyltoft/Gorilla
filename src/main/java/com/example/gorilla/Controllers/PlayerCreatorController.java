@@ -10,10 +10,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,18 +19,14 @@ import java.util.Objects;
 
 public class PlayerCreatorController {
 
-
+    // FIELDS
     @FXML
     public TextField playerName1;
     @FXML
     private TextField playerName2;
-    public ImageView textureImageView;
-    public Button textureButtonRight;
-    public Button textureButtonLeft;
 
     private Stage stage;
     private final Game game = SettingsController.game;
-    private Image myImage;
 
     public static Parent root;
 
@@ -72,13 +65,5 @@ public class PlayerCreatorController {
 
         GameController.player1 = player1;
         GameController.player2 = player2;
-
-        System.out.println(GameController.player1.getName() + " " + GameController.player2.getName());
     }
-
-
-    public void displayImage() {
-        GameController.textureImageView.setImage(myImage);
-    }
-
 }

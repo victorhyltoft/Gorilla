@@ -42,18 +42,6 @@
                </font>
             </Label>
             <TextField id="SettingTextField" fx:id="playerName2" layoutX="216.0" layoutY="248.0" maxWidth="170.0" prefWidth="170.0" promptText="Type here" styleClass="MenuTextField" stylesheets="@../application.css" text="Mama" />
-            <Button fx:id="textureButtonLeft" disable="true" layoutX="9.0" layoutY="366.0" mnemonicParsing="false" opacity="0.0" stylesheets="@../application.css" text="&lt;" />
-            <Button fx:id="textureButtonRight" disable="true" layoutX="44.0" layoutY="366.0" mnemonicParsing="false" onAction="#displayImage" opacity="0.0" stylesheets="@../application.css" text="&gt;" />
-              <Label disable="true" layoutX="94.0" layoutY="359.0" opacity="0.0" text="Texture">
-                  <font>
-                      <Font size="24.0" />
-                  </font>
-              </Label>
-            <ImageView fx:id="textureImageView" disable="true" fitHeight="150.0" fitWidth="200.0" layoutX="257.0" layoutY="250.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../textures/Gorilla.png" />
-               </image>
-            </ImageView>
          </children>
       </Pane>
         <Button id="StartGameButton" fx:id="StartGameButton" layoutX="529.0" layoutY="607.0" mnemonicParsing="false" onAction="#startGame" stylesheets="@../application.css" text="Start game" AnchorPane.bottomAnchor="37.0">
