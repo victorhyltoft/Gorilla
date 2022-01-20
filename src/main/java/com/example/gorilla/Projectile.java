@@ -236,6 +236,7 @@ public class Projectile extends AnimationTimer {
         PauseTransition PT = new PauseTransition(Duration.millis(1500));
         PT.setOnFinished(event -> updateGame());
         PT.play();
+        throwFields();
     }
 
     public void updateGame() {
@@ -244,7 +245,6 @@ public class Projectile extends AnimationTimer {
             // Reset boolean
             playerHit = false;
             game.regenerateMap();
-            throwFields();
         }
         else if (isWon) {
             // TODO : Switch scene
