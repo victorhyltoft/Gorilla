@@ -1,10 +1,9 @@
-package com.example.gorilla;
+package com.example.gorilla.Models;
 
 import com.example.gorilla.Controllers.PlayerCreatorController;
 import com.example.gorilla.Controllers.SettingsController;
+import com.example.gorilla.Main;
 import javafx.animation.PathTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -97,13 +96,13 @@ public class Obstacle {
      */
     private void setImage() {
         if (PlayerCreatorController.levelCount == 2) {
-            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/Bullet.png")));
+            image = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("textures/Bullet.png")));
         }
         else if (PlayerCreatorController.levelCount == 3) {
-            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/UnidentifiedFlyingObject.png")));
+            image = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("textures/UnidentifiedFlyingObject.png")));
         }
         else {
-            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/BirdGif.gif")));
+            image = new Image(Objects.requireNonNull(Main.class.getResourceAsStream("textures/BirdGif.gif")));
         }
     }
 

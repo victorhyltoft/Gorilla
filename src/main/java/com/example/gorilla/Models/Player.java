@@ -1,4 +1,4 @@
-package com.example.gorilla;
+package com.example.gorilla.Models;
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;

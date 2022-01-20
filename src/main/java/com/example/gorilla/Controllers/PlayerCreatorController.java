@@ -1,9 +1,9 @@
 package com.example.gorilla.Controllers;
 
-import com.example.gorilla.Building;
-import com.example.gorilla.Game;
+import com.example.gorilla.Models.Building;
+import com.example.gorilla.Models.Game;
 import com.example.gorilla.Main;
-import com.example.gorilla.Obstacle;
+import com.example.gorilla.Models.Obstacle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,10 +25,10 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 
+/**
+ * @author Viktor Egesby
+ */
 public class PlayerCreatorController implements Initializable {
-    /**
-     * @author Viktor Egesby
-     */
 
     @FXML
     public TextField playerName1;
@@ -60,8 +60,6 @@ public class PlayerCreatorController implements Initializable {
     public static Parent root;
     public static ArrayList<Image> images;
     public static ArrayList<Image> levelTexture;
-    // TODO : TEST
-    private final ArrayList<Building> buildings = new ArrayList<>();
     private static Obstacle bird;
 
 
@@ -87,7 +85,6 @@ public class PlayerCreatorController implements Initializable {
         // Add players
         ((AnchorPane) root).getChildren().addAll(GameController.player1.getImageView(), GameController.player2.getImageView());
 
-        // TODO : TEST
         bird = new Obstacle();
         bird.animatePath();
         ((AnchorPane) root).getChildren().addAll(bird.getImageView());

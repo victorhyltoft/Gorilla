@@ -1,6 +1,6 @@
 package com.example.gorilla.Controllers;
 
-import com.example.gorilla.Game;
+import com.example.gorilla.Models.Game;
 import com.example.gorilla.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +15,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * @author Viktor Egesby
+ */
 public class SettingsController {
-    /**
-     * @author Viktor Egesby
-     */
 
     public static Game game;
     private Stage stage;
@@ -35,6 +35,7 @@ public class SettingsController {
     private Label errorText;
 
     public SettingsController() {
+        // Creating a new game object to store the settings for the game
         game = new Game();
     }
 

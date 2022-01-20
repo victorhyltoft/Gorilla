@@ -1,7 +1,8 @@
-package com.example.gorilla;
+package com.example.gorilla.Models;
 
 import com.example.gorilla.Controllers.GameController;
 import com.example.gorilla.Controllers.PlayerCreatorController;
+import com.example.gorilla.Main;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
@@ -24,7 +25,7 @@ import java.util.Objects;
  */
 
 public class Projectile extends AnimationTimer {
-    // Root object to be able to render nodes to the view
+    // Root object to be able to add/delete nodes to the view
     private Parent root;
 
     // Fields for calculation of projectile trajectory
@@ -213,7 +214,7 @@ public class Projectile extends AnimationTimer {
 
 
     private void createExplosion() {
-        explosion.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/explosion.gif"))));
+        explosion.setImage(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("textures/explosion.gif"))));
         explosion.setScaleX(0.25);
         explosion.setScaleY(0.25);
         explosion.setX(currentX - explosion.getImage().getWidth() / 2);
@@ -247,9 +248,6 @@ public class Projectile extends AnimationTimer {
             game.regenerateMap();
         }
         else if (isWon) {
-            // TODO : Switch scene
-            System.out.println("Somebody won the game");
-
             try {
                 GameController.switchToGameOver();
             } catch (IOException e) {

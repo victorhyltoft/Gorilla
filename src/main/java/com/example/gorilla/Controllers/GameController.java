@@ -1,9 +1,9 @@
 package com.example.gorilla.Controllers;
 
-import com.example.gorilla.Game;
+import com.example.gorilla.Models.Game;
 import com.example.gorilla.Main;
-import com.example.gorilla.Player;
-import com.example.gorilla.Projectile;
+import com.example.gorilla.Models.Player;
+import com.example.gorilla.Models.Projectile;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,10 +24,10 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * @author Everyone
+ */
 public class GameController implements Initializable {
-    /**
-     * @author Everyone
-     */
 
     // FXML ANNOTATION
     @FXML

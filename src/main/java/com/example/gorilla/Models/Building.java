@@ -1,4 +1,4 @@
-package com.example.gorilla;
+package com.example.gorilla.Models;
 
 
 import com.example.gorilla.Controllers.SettingsController;

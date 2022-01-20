@@ -1,4 +1,4 @@
-package com.example.gorilla;
+package com.example.gorilla.Models;
 
 import com.example.gorilla.Controllers.GameController;
 import javafx.geometry.Point2D;
@@ -170,9 +170,9 @@ public class Game {
      * @param playerIdx the idx of the player in the player arraylist
      */
     public Point2D generatePlayerLocation(int playerIdx) {
-        // TODO : Not perfect buffer for other player textures
-        int xBuffer = 22;
-        int yBuffer = 52;
+        // Buffer to align player textures with the roof
+        int xBuffer = 20;
+        int yBuffer = 50;
         // Using a ternary expression to determine where to place to players
         // 1st player will be placed on the second building's roof, the 2nd on the second last's roof
         double x = getBuildings().get(playerIdx == 0 ? 1 : buildings.size() - 2).getBuildingRoof().getX()-xBuffer;
