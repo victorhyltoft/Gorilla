@@ -20,28 +20,20 @@ public class Game {
     private final int TARGET_SCORE = 3;
     private Player winner;
 
+    /**
+     * Calculates whose turn it is.
+     */
     public void nextPlayer() {
         turnCounter = (turnCounter + 1) % players.size();
     }
 
+    // GETTERS
+    public Parent getRoot() {
+        return root;
+    }
+
     public int getCurrentTurn() {
         return turnCounter;
-    }
-
-    public void setHeight(int newHeight) {
-        this.height = newHeight;
-    }
-
-    public void setWidth(int newWidth) {
-        this.width = newWidth;
-    }
-
-    public void setGravity(double newGravity) {
-        this.gravity = newGravity;
-    }
-
-    public void setAcceptedRange(double width) {
-        this.acceptedRange = width/50;
     }
 
     public double getHeight() {
@@ -68,14 +60,11 @@ public class Game {
         return players;
     }
 
-    public void addPlayer(Player player) {
-        this.players.add(player);
-    }
 
     public ArrayList<Building> getBuildings() {
         return buildings;
     }
-
+    // SETTERS
     public void setBuildings(ArrayList<Building> buildings) {
         this.buildings = buildings;
     }
@@ -84,8 +73,24 @@ public class Game {
         this.root = root;
     }
 
-    public Parent getRoot() {
-        return root;
+    public void setHeight(int newHeight) {
+        this.height = newHeight;
+    }
+
+    public void setWidth(int newWidth) {
+        this.width = newWidth;
+    }
+
+    public void setGravity(double newGravity) {
+        this.gravity = newGravity;
+    }
+
+    public void setAcceptedRange(double width) {
+        this.acceptedRange = width/50;
+    }
+
+    public void addPlayer(Player player) {
+        this.players.add(player);
     }
 
     /**
