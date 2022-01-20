@@ -101,18 +101,13 @@ public class Obstacle {
     private void setImage() {
         if (PlayerCreatorController.levelCount == 2) {
             image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/Bullet.png")));
-
         }
         else if (PlayerCreatorController.levelCount == 3) {
             image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/UnidentifiedFlyingObject.png")));
-
         }
         else {
             image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("textures/BirdGif.gif")));
-
-
         }
-
     }
 
     public void setHeight() {
