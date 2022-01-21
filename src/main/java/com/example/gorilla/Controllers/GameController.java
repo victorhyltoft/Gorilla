@@ -88,7 +88,8 @@ public class GameController implements Initializable {
         scoreText.setStyle("-fx-text-fill: white; -fx-font-size: 24; -fx-font-family: Fipps");
         scoreText.setX(game.getWidth() / 2 - scoreText.getLayoutBounds().getWidth());
         scoreText.setY(game.getHeight() - 18);
-        scoreText.setFill(Color.WHITE);
+        scoreText.setFill(Color.BLACK);
+
     }
 
     // Creates the text object for the text displaying the current player and styles it
