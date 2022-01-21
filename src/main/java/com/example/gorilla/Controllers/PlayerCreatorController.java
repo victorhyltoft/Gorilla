@@ -161,7 +161,7 @@ public class PlayerCreatorController implements Initializable {
         levelTexture = new ArrayList<>();
         levelTexture.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/blankbackground.png"))));
         levelTexture.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/junglebackground.png"))));
-        levelTexture.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/mario.jpg"))));
+        levelTexture.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/mario-level.png"))));
         levelTexture.add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("level-textures/space.jpg"))));
         totalTextures = images.size();
         totalLevelTextures = levelTexture.size();
