@@ -51,6 +51,14 @@ public class SettingsController {
                 errorText.setText("minimum size is 300");
                 return false;
             }
+            if (Integer.parseInt(widthField.getText()) > 1920){
+                errorText.setText("maximum width is 1920");
+                return false;
+            }
+            if (Integer.parseInt(heightField.getText()) > 1080){
+                errorText.setText("maximum height is 1080");
+                return false;
+            }
             game.setWidth(Integer.parseInt(widthField.getText()));
             game.setHeight(Integer.parseInt(heightField.getText()));
             game.setGravity(Double.parseDouble(gravityField.getText()));
