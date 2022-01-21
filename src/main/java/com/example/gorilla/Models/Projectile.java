@@ -99,9 +99,11 @@ public class Projectile extends AnimationTimer {
         if (checkBuildingCollision()) {
             handleBuildingCollision();
         }
-        checkPlayerCollision();
-        checkOutsideGame();
-        checkObstacleCollision();
+        else {
+            checkPlayerCollision();
+            checkOutsideGame();
+            checkObstacleCollision();
+        }
 
     }
 
