@@ -56,14 +56,25 @@ public class SettingsController {
     }
 
     public boolean validateTextFields() {
+
+        // maximum is 1920 x 1080 pixel
+        // minimum is 800 x 500 pixel
         errorText.setAlignment(Pos.CENTER);
         try {
-            if (Integer.parseInt(widthField.getText()) < 800) {
+            if (Integer.parseInt(widthField.getText()) < 800 ){
                 errorText.setText("minimum width is 800");
+                return false;
+            }
+            if (Integer.parseInt(widthField.getText()) > 1920 ){
+                errorText.setText("maximum width is 1920");
                 return false;
             }
             if (Integer.parseInt(heightField.getText()) < 500) {
                 errorText.setText("minimum height is 500");
+                return false;
+            }
+            if (Integer.parseInt(heightField.getText()) > 1080 ){
+                errorText.setText("maximum height is 1080");
                 return false;
             }
             if (Double.parseDouble(gravityField.getText()) <= 0) {
