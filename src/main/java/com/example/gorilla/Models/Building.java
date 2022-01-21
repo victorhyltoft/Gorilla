@@ -29,7 +29,6 @@ public class Building {
     private Rectangle rectangle;
     private Shape buildingShape;
     private final Color[] colors = new Color[]{Color.web("#00aaaa"), Color.web("#aa0000"), Color.web("#aaaaaa")};
-    private final ArrayList<Shape> craters;
 
     // Window components
     private final ArrayList<Shape> windows = new ArrayList<>();
@@ -37,17 +36,18 @@ public class Building {
     private double totalWindowWidth = windowWidthPadding;
     private final double windowHeightPadding = 15;
     private double totalWindowHeight = windowHeightPadding;
-    private Game game = SettingsController.game;
-    private double sceneHeight = game.getHeight();
-    private double sceneWidth = game.getWidth();
+    private final Game game = SettingsController.game;
+    private final double sceneHeight = game.getHeight();
+    private final double sceneWidth = game.getWidth();
 
     // Constructor
     public Building(double xPosition) {
+        // Set the max and min height for the buildings
         this.maxHeight = sceneHeight*0.60;
         this.minHeight = sceneHeight*0.20;
         this.maxWidth = sceneWidth*0.12;
         this.minWidth = sceneWidth*0.07;
-        this.craters = new ArrayList<>();
+        // Generate the building and its components
         generateSize();
         generateRectangle(xPosition);
         generateColor();
@@ -59,6 +59,9 @@ public class Building {
         this.width = ThreadLocalRandom.current().nextDouble(minWidth,maxWidth);
     }
 
+    /**
+     * Selects a random color defined in the fields
+     */
     private void generateColor() {
         int colorIdx = ThreadLocalRandom.current().nextInt(0, colors.length);
         this.rectangle.setFill(colors[colorIdx]);
@@ -132,12 +135,7 @@ public class Building {
         this.buildingShape = buildingShape;
     }
 
-    public ArrayList<Shape> getCraters() {
-        return craters;
-    }
-
     public void addCrater(Shape crater) {
-        this.craters.add(crater);
         this.buildingShape = Shape.subtract(this.buildingShape, crater);
         this.buildingShape.setFill(getRectangle().getFill());
 

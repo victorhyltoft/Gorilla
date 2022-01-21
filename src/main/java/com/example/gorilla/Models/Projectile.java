@@ -48,6 +48,7 @@ public class Projectile extends AnimationTimer {
 
     // Projectile and its trajectory
     private ImageView projectile;
+    private Rectangle projectileShape;
     private Path trajectory;
     private final double imageCenterX;
     private final double imageCenterY;
@@ -76,10 +77,14 @@ public class Projectile extends AnimationTimer {
         this.projectile.setScaleX(1);
         this.projectile.setScaleY(1);
 
+        this.projectileShape = new Rectangle();
+        this.projectileShape.setHeight(projectile.getImage().getHeight());
+        this.projectileShape.setWidth(projectile.getImage().getWidth());
+
         this.time = 0.0;
 
         explosion.setVisible(false);
-        ((AnchorPane) root).getChildren().add(explosion);
+        ((AnchorPane) root).getChildren().addAll(explosion);
 
         imageCenterX = projectile.getImage().getWidth() / 2;
         imageCenterY = projectile.getImage().getHeight() / 2;
@@ -91,11 +96,12 @@ public class Projectile extends AnimationTimer {
     public void handle(long now) {
         calculateNextPosition();
         updateProjectile();
-        if (!checkBuildingCollision()) {
-            checkPlayerCollision();
-            checkOutsideGame();
-            checkObstacleCollision();
+        if (checkBuildingCollision()) {
+            handleBuildingCollision();
         }
+        checkPlayerCollision();
+        checkOutsideGame();
+        checkObstacleCollision();
 
     }
 
@@ -112,6 +118,11 @@ public class Projectile extends AnimationTimer {
         projectile.setX(currentX - imageCenterX);
         projectile.setY(currentY - imageCenterY);
         projectile.setRotate(projectile.getRotate() + 3);
+
+        projectileShape.setX(currentX - imageCenterX);
+        projectileShape.setY(currentY - imageCenterY);
+        projectileShape.setRotate(projectile.getRotate() + 3);
+
 
         // Update trajectory
         trajectory.getElements().addAll(new LineTo(currentX, currentY));
@@ -138,54 +149,50 @@ public class Projectile extends AnimationTimer {
     private boolean checkBuildingCollision() {
 
         // Iterate over each building
-        for (int i = 0, totalBuildings = buildings.size(); i < totalBuildings; i++) {
-            Building currentBuilding = buildings.get(i);
-            // Check if projectile intersects with a building
-            if (!projectile.intersects(currentBuilding.getShapeBounds())) {
-                continue;
+        for (Building currentBuilding : buildings) {
+            // Check collision with building, more information;
+            // https://stackoverflow.com/questions/15013913/checking-collision-of-shapes-with-javafx
+            Shape buildingIntersect = Shape.intersect(projectileShape, currentBuilding.getBuildingShape());
+            if (buildingIntersect.getBoundsInLocal().getWidth() != -1) {
+                return true;
             }
-
-            // Check if projectile intersects a crater from a previous shot
-            for (Shape crater : currentBuilding.getCraters()) {
-                if (projectile.intersects(crater.getLayoutBounds())) {
-                    return false;
-                }
-            }
-
-            // Create a crater
-            crater.setCenterX(currentX);
-            crater.setCenterY(currentY);
-
-            // Check if explosion affects any of the players
-            for (Player player : game.getPlayers()) {
-                if (crater.intersects(player.getBounds())) {
-                    // Give the other player(s) a point
-                    for (Player p : game.getPlayers()) {
-                        if (!p.equals(player)) {
-                            p.incrementScore();
-                            playerHit = true;
-                        }
-                    }
-                }
-            }
-
-            // Check if any of the buildings are affected by the explosion
-            for (Building building : buildings) {
-                if (crater.intersects(building.getShapeBounds())) {
-                    ((AnchorPane) root).getChildren().removeAll(building.getBuildingShape());
-                    ((AnchorPane) root).getChildren().removeAll(building.getWindows());
-
-                    building.addCrater(crater);
-
-                    ((AnchorPane) root).getChildren().addAll(building.getBuildingShape());
-                    ((AnchorPane) root).getChildren().addAll(building.getWindows());
-                }
-            }
-            throwFinished();
-            return true;
         }
         return false;
     }
+
+    private void handleBuildingCollision() {
+        // Create a crater
+        crater.setCenterX(currentX);
+        crater.setCenterY(currentY);
+
+        // Check if explosion affects any of the players
+        for (Player player : game.getPlayers()) {
+            if (crater.intersects(player.getBounds())) {
+                // Give the other player(s) a point
+                for (Player p : game.getPlayers()) {
+                    if (!p.equals(player)) {
+                        p.incrementScore();
+                        playerHit = true;
+                    }
+                }
+            }
+        }
+
+        // Check if any of the buildings are affected by the explosion
+        for (Building building : buildings) {
+            if (crater.intersects(building.getShapeBounds())) {
+                ((AnchorPane) root).getChildren().removeAll(building.getBuildingShape());
+                ((AnchorPane) root).getChildren().removeAll(building.getWindows());
+
+                building.addCrater(crater);
+
+                ((AnchorPane) root).getChildren().addAll(building.getBuildingShape());
+                ((AnchorPane) root).getChildren().addAll(building.getWindows());
+            }
+        }
+        throwFinished();
+    }
+
 
     private void checkObstacleCollision() {
         if (projectile.intersects(PlayerCreatorController.getObstacle().getImageView().getBoundsInParent())) {
