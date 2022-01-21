@@ -5,11 +5,13 @@ import com.example.gorilla.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -54,11 +56,21 @@ public class SettingsController {
     }
 
     public boolean validateTextFields() {
+        errorText.setAlignment(Pos.CENTER);
         try {
-            if (Integer.parseInt(widthField.getText()) < 300 || Integer.parseInt(heightField.getText()) < 300) {
-                errorText.setText("minimum size is 300");
+            if (Integer.parseInt(widthField.getText()) < 800) {
+                errorText.setText("minimum width is 800");
                 return false;
             }
+            if (Integer.parseInt(heightField.getText()) < 500) {
+                errorText.setText("minimum height is 500");
+                return false;
+            }
+            if (Double.parseDouble(gravityField.getText()) <= 0) {
+                errorText.setText("Invalid gravity");
+                return false;
+            }
+
             game.setWidth(Integer.parseInt(widthField.getText()));
             game.setHeight(Integer.parseInt(heightField.getText()));
             game.setGravity(Double.parseDouble(gravityField.getText()));
